@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mpupgui/widgets/mpup_text.dart';
 
 class MagickaPupButton extends StatelessWidget {
 
@@ -15,7 +16,7 @@ class MagickaPupButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: (){onPressed();},
-      child: Text(text),
+      child: MagickaPupText(text: text),
     );
   }
 }
