@@ -6,7 +6,9 @@ class CompilerMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const FileProcessor();
+    return const Text(
+      "Compiler Menu"
+    );
   }
 }
 
