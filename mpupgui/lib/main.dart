@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mpupgui/screens/screen_init.dart';
-import 'package:mpupgui/screens/screen_main.dart';
+import 'package:mpupgui/menus/screen_init.dart';
+import 'package:mpupgui/menus/screen_main.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
       // home: const ScreenMain(),
       debugShowCheckedModeBanner: false,
       routes: {
-        "/": (context) => const ScreenInit(),
-        "/main": (context) => ScreenMain()
+        "/": (context) => const InitScreen(),
+        "/main": (context) => MainScreen()
       }
     );
   }
