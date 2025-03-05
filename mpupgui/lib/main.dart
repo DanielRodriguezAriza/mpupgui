@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mpupgui/menus/screen_init.dart';
-import 'package:mpupgui/menus/screen_main.dart';
+import 'package:mpupgui/menus/menu_init.dart';
+import 'package:mpupgui/menus/menu_main.dart';
 
 void main() {
   runApp(const MyApp());
