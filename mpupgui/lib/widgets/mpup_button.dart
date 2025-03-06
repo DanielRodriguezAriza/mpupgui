@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 
+import '../data/theme_manager.dart';
+
 class MagickaPupButton extends StatelessWidget {
 
   final String text;
@@ -37,20 +39,20 @@ class MagickaPupButton extends StatelessWidget {
 
   ButtonStyle getElevatedButtonStyle() {
     final styleWithCustomSize = ElevatedButton.styleFrom(
-      // backgroundColor: ThemeManager.getColor(0), // TODO : Implement colors first and then enable this setting...
-      elevation: elevation,
       fixedSize: Size(sizeX, sizeY),
+      elevation: elevation,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(borderRadius)
-      )
+      ),
+      backgroundColor: ThemeManager.getColorImage(1)
     );
 
     final styleWithAutoSize = ElevatedButton.styleFrom(
-      // backgroundColor: ThemeManager.getColor(0), // TODO : Implement colors first and then enable this setting...
       elevation: elevation,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(borderRadius)
-      )
+      ),
+      backgroundColor: ThemeManager.getColorImage(1)
     );
 
     if(autoSize) {
