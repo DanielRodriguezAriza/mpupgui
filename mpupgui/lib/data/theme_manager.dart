@@ -5,6 +5,11 @@ enum Theme {
   light
 }
 
+enum ThemeType {
+  image,
+  text
+}
+
 class ThemeManager {
 
   static Theme currentTheme = Theme.dark;
