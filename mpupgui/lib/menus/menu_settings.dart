@@ -5,6 +5,8 @@ import 'package:mpupgui/widgets/mpup_button.dart';
 import 'package:mpupgui/widgets/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 
+// TODO : Either make this a stateful widget or reload the "scene" / "page" / "menu" so that changes to visual settings are applied to all of the UI, for example theme change.
+
 class SettingsMenu extends StatelessWidget {
   const SettingsMenu({super.key});
 
