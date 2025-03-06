@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mpupgui/data/language_manager.dart';
+import 'package:mpupgui/menus/menu_fproc_compiler.dart';
+import 'package:mpupgui/menus/menu_fproc_decompiler.dart';
+import 'package:mpupgui/menus/menu_settings.dart';
 import 'package:mpupgui/widgets/menu_scaffold.dart';
 import 'package:mpupgui/widgets/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup_file_processor.dart';
@@ -52,7 +55,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget getTabButton(String tabLoc) {
     return Flexible(
       child: Padding(
-        padding: const EdgeInsets.all(0),
+        padding: const EdgeInsets.fromLTRB(0, 0, 3, 0),
         child: MagickaPupButton(sizeX: 150, text: LanguageManager.getString(tabLoc), onPressed: (){setTab(tabLoc);}),
       )
     );
@@ -61,13 +64,13 @@ class _MainScreenState extends State<MainScreen> {
   Widget getTabWindow(String tabLoc) {
     switch(tabLoc) {
       case "loc_decompiler": {
-        return Container();
+        return const DecompilerMenu();
       }
       case "loc_compiler": {
-        return Container();
+        return const CompilerMenu();
       }
       case "loc_settings" : {
-        return Container();
+        return const SettingsMenu();
       }
     }
     return MagickaPupText(text: "The path \"$tabLoc\" does not exist!");
