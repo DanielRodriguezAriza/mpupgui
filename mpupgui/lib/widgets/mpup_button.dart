@@ -12,6 +12,7 @@ class MagickaPupButton extends StatelessWidget {
   final double borderRadius;
   final double elevation;
   final bool autoSize;
+  final int colorIndex;
 
   const MagickaPupButton({
     super.key,
@@ -22,6 +23,7 @@ class MagickaPupButton extends StatelessWidget {
     this.borderRadius = 5,
     this.elevation = 1.4, // Values between 1 and 3 look pretty nice, picking this value for now.
     this.autoSize = false,
+    this.colorIndex = 1,
   });
 
   @override
@@ -44,7 +46,7 @@ class MagickaPupButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(borderRadius)
       ),
-      backgroundColor: ThemeManager.getColorImage(1)
+      backgroundColor: ThemeManager.getColorImage(colorIndex)
     );
 
     final styleWithAutoSize = ElevatedButton.styleFrom(
@@ -52,7 +54,7 @@ class MagickaPupButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(borderRadius)
       ),
-      backgroundColor: ThemeManager.getColorImage(1)
+      backgroundColor: ThemeManager.getColorImage(colorIndex)
     );
 
     if(autoSize) {
