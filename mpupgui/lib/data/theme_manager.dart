@@ -25,10 +25,19 @@ class ThemeManager {
     ]
   };
 
+  static void setTheme(Theme theme) {
+    currentTheme = theme;
+  }
 
-  // TODO : Implement!
+  static Color getColorByTheme(Theme theme, int level) {
+    if(level < 0 || level >= 3) {
+      return Colors.black;
+    }
+    return colorsApp[theme]![level];
+  }
+
   static Color getColor(int level) {
-    return Colors.blue; // For now, always return this color...
+    return getColorByTheme(currentTheme, level);
   }
 
 }
