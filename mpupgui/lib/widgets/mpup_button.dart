@@ -9,6 +9,7 @@ class MagickaPupButton extends StatelessWidget {
   final double sizeY;
   final double borderRadius;
   final double elevation;
+  final bool autoSize;
 
   const MagickaPupButton({
     super.key,
@@ -18,22 +19,45 @@ class MagickaPupButton extends StatelessWidget {
     this.sizeY = 50,
     this.borderRadius = 5,
     this.elevation = 1.4, // Values between 1 and 3 look pretty nice, picking this value for now.
+    this.autoSize = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    return getElevatedButton();
+  }
+
+  Widget getElevatedButton() {
     return ElevatedButton(
       onPressed: (){onPressed();},
-      style: ElevatedButton.styleFrom(
-        // backgroundColor: ThemeManager.getColor(0), // TODO : Implement colors first and then enable this setting...
-        elevation: elevation,
-        fixedSize: Size(sizeX, sizeY),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius)
-        )
-      ),
+      style: getElevatedButtonStyle(),
       child: MagickaPupText(text: text),
     );
+  }
+
+  ButtonStyle getElevatedButtonStyle() {
+    final styleWithCustomSize = ElevatedButton.styleFrom(
+      // backgroundColor: ThemeManager.getColor(0), // TODO : Implement colors first and then enable this setting...
+      elevation: elevation,
+      fixedSize: Size(sizeX, sizeY),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(borderRadius)
+      )
+    );
+
+    final styleWithAutoSize = ElevatedButton.styleFrom(
+      // backgroundColor: ThemeManager.getColor(0), // TODO : Implement colors first and then enable this setting...
+      elevation: elevation,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(borderRadius)
+      )
+    );
+
+    if(autoSize) {
+      return styleWithAutoSize;
+    } else {
+      return styleWithCustomSize;
+    }
   }
 }
 
