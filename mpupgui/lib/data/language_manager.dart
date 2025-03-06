@@ -15,7 +15,10 @@ class LanguageManager {
       "loc_compiler" : "Compiler",
       "loc_decompiler" : "Decompiler",
 
-      "loc_settings" : "Settings"
+      "loc_settings" : "Settings",
+
+      "loc_theme_light" : "Light Theme",
+      "loc_theme_dark" : "Dark Theme",
     },
 
     Language.spanish : {
@@ -27,7 +30,10 @@ class LanguageManager {
       "loc_compiler" : "Compilador",
       "loc_decompiler" : "Descompilador",
 
-      "loc_settings" : "Opciones"
+      "loc_settings" : "Opciones",
+
+      "loc_theme_light" : "Tema Claro",
+      "loc_theme_dark" : "Tema Oscuro",
     }
   };
 
