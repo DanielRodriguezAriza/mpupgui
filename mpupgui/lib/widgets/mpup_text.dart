@@ -9,10 +9,12 @@ import '../data/theme_manager.dart';
 class MagickaPupText extends StatelessWidget {
 
   final String text;
+  final int colorIndex;
 
   const MagickaPupText({
     super.key,
     required this.text,
+    this.colorIndex = 0,
   });
 
   @override
@@ -29,7 +31,7 @@ class MagickaPupText extends StatelessWidget {
 
   TextStyle getStyle() {
     return TextStyle(
-      color: ThemeManager.getColorText(0)
+      color: ThemeManager.getColorText(colorIndex)
     );
   }
 }
