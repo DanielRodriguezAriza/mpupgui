@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mpupgui/data/language_manager.dart';
 import 'package:mpupgui/widgets/menu_scaffold.dart';
+import 'package:mpupgui/widgets/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup_file_processor.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 
@@ -41,18 +42,8 @@ class _MainScreenState extends State<MainScreen> {
         )
       ),
       backgroundColor: ThemeManager.getColorImage(0),
-      body: Padding(
-        padding: EdgeInsets.all(15),
-        child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-              return Container(
-                color: ThemeManager.getColorImage(1),
-                height: constraints.maxHeight,
-                width: constraints.maxWidth,
-                child: MagickaPupText(text: "The tab is : $currentTab"),
-              );
-            }
-        )
+      body: MagickaPupContainer(
+        child: MagickaPupText(text: "The tab is : $currentTab")
       )
     );
   }
