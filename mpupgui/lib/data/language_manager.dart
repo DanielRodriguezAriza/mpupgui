@@ -7,10 +7,27 @@ class LanguageManager {
   static Language currentLanguage = Language.english;
   static const Map<Language, Map<String, String>> locStrings = {
     Language.english : {
-      "loc_language_name" : "English"
+      "loc_language_name" : "English",
+
+      "loc_compile" : "Compile",
+      "loc_decompile" : "Decompile",
+
+      "loc_compiler" : "Compiler",
+      "loc_decompiler" : "Decompiler",
+
+      "loc_settings" : "Settings"
     },
+
     Language.spanish : {
-      "loc_language_name" : "Español"
+      "loc_language_name" : "Español",
+
+      "loc_compile" : "Compilar",
+      "loc_decompile" : "Descompilar",
+
+      "loc_compiler" : "Compilador",
+      "loc_decompiler" : "Descompilador",
+
+      "loc_settings" : "Opciones"
     }
   };
 
