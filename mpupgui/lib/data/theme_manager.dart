@@ -49,8 +49,12 @@ class ThemeManager {
     return currentLength - 1;
   }
 
+  static bool isValidColorIndex(int idx) {
+    return (idx >= getMinValidColorIndex() && idx <= getMaxValidColorIndex());
+  }
+
   static Color getColorByTheme(Theme theme, int level) {
-    if(level < 0 || level >= 3) {
+    if(!isValidColorIndex(level)) {
       return Colors.black;
     }
     return colorsApp[theme]![level];
