@@ -57,6 +57,21 @@ class _MainScreenState extends State<MainScreen> {
       )
     );
   }
+
+  Widget getTabWindow(String tabLoc) {
+    switch(tabLoc) {
+      case "loc_decompiler": {
+        return Container();
+      }
+      case "loc_compiler": {
+        return Container();
+      }
+      case "loc_settings" : {
+        return Container();
+      }
+    }
+    return MagickaPupText(text: "The path \"$tabLoc\" does not exist!");
+  }
 }
 
 /*
