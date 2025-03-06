@@ -1,31 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:mpupgui/widgets/menu_scaffold.dart';
 
+import '../data/menu_manager.dart';
+import '../widgets/mpup_button.dart';
+
 // TODO : Get rid of this maybe? Or make this a "what's new" kind of screen.
 
-class MainScreen extends StatefulWidget {
+class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
-  @override
   Widget build(BuildContext context) {
-    
-    return MenuScaffold(
-        title: "Main Menu",
-        body: Container(
-          color: Colors.blue
+    return Scaffold(
+        appBar: AppBar(
+            title: Text("MagickaPUP GUI"),
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    MenuManager.setMenu(1);
+                  },
+                  icon: Text("Decompile")
+              ),
+              IconButton(
+                  onPressed: () {  },
+                  icon: Text("Compile")
+              ),
+              IconButton(
+                  onPressed: () {  },
+                  icon: Text("Run All")
+              )
+            ]
+        ),
+      body: Container(
+        child: Row(
+          children: [
+            MenuManager.getMenu(),
+            const Text("test"),
+            MagickaPupButton(
+              text: 'Decompiler',
+              onPressed: (){},
+              sizeX: 150
+            ),
+            MagickaPupButton(
+              text: 'Compiler',
+              onPressed: (){},
+              sizeX: 150
+            ),
+            MagickaPupButton(
+              text: 'Settings',
+              onPressed: (){},
+              sizeX: 150
+            )
+          ],
         )
+      ),
     );
-    
-    /*
-    return Container(
-      color : Colors.blue,
-      child: const Text("Main Menu")
-    );
-    */
   }
 }
