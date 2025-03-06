@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mpupgui/widgets/menu_scaffold.dart';
+import 'package:mpupgui/widgets/mpup_file_processor.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 
 import '../data/menu_manager.dart';
@@ -50,7 +51,8 @@ class _MainScreenState extends State<MainScreen> {
               );
             }
         )
-      )
+      ),
+      const MagickaPupFileProcessor()
     ],);
   }
 }
