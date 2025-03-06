@@ -41,22 +41,19 @@ class _MainScreenState extends State<MainScreen> {
         )
       ),
       backgroundColor: ThemeManager.getColorImage(0),
-      body: Column(children: [
-        Padding(
-            padding: const EdgeInsets.all(15),
-            child: LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
-                  return Container(
-                    color: ThemeManager.getColorImage(1),
-                    height: 300,
-                    width: constraints.maxWidth,
-                    child: MagickaPupText(text: "The tab is : $currentTab"),
-                  );
-                }
-            )
-        ),
-        const MagickaPupFileProcessor()
-      ],)
+      body: Padding(
+        padding: EdgeInsets.all(15),
+        child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              return Container(
+                color: ThemeManager.getColorImage(1),
+                height: constraints.maxHeight,
+                width: constraints.maxWidth,
+                child: MagickaPupText(text: "The tab is : $currentTab"),
+              );
+            }
+        )
+      )
     );
   }
 
