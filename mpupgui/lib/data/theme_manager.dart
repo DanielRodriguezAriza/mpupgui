@@ -44,6 +44,15 @@ class ThemeManager {
   }
 
   static bool isValidColorIndex(ThemeType themeType, Theme theme, int idx) {
+    
+    if(!colorsApp.containsKey(themeType)) {
+      return false;
+    }
+
+    if(!colorsApp[themeType]!.containsKey(theme)) {
+      return false;
+    }
+    
     int length = colorsApp[themeType]![theme]!.length;
     if(length <= 0) {
       return false;
@@ -51,6 +60,7 @@ class ThemeManager {
     if(idx < 0 || idx >= length) {
       return false;
     }
+
     return true;
   }
 
