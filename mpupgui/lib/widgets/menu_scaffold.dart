@@ -24,7 +24,7 @@ class MenuScaffold extends StatelessWidget {
     return Scaffold(
       appBar: createAppBar(),
       body: createBody(),
-      backgroundColor: ThemeManager.getColor(0),
+      backgroundColor: ThemeManager.getColorImage(0),
     );
   }
 
