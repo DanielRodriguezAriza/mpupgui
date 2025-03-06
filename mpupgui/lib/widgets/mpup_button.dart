@@ -20,7 +20,7 @@ class MagickaPupButton extends StatelessWidget {
     required this.onPressed,
     this.sizeX = 250,
     this.sizeY = 50,
-    this.borderRadius = 5,
+    this.borderRadius = 3,
     this.elevation = 1.4, // Values between 1 and 3 look pretty nice, picking this value for now.
     this.autoSize = false,
     this.colorIndex = 1,
