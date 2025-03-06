@@ -44,16 +44,6 @@ class _MainScreenState extends State<MainScreen> {
       body: Column(children: [
         Padding(
             padding: const EdgeInsets.all(15),
-            child: Row(
-                children:[
-                  MagickaPupButton(sizeX: 150, text: "Decompiler", onPressed: (){setTab("0");}),
-                  MagickaPupButton(sizeX: 150, text: "Compiler", onPressed: (){setTab("1");}),
-                  MagickaPupButton(sizeX: 150, text: "Settings", onPressed: (){setTab("2");}),
-                ]
-            )
-        ),
-        Padding(
-            padding: const EdgeInsets.all(15),
             child: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
                   return Container(
@@ -72,7 +62,7 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget getTabButton(String tabLoc) {
     return Padding(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(2),
       child: MagickaPupButton(sizeX: 150, text: LanguageManager.getString(tabLoc), onPressed: (){setTab(tabLoc);}),
     );
   }
