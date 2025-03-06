@@ -33,9 +33,9 @@ class _MainScreenState extends State<MainScreen> {
         backgroundColor: ThemeManager.getColorImage(0),
         title: Row(
           children: [
-            MagickaPupButton(sizeX: 150, text: "Decompiler", onPressed: (){setTab(0);}),
-            MagickaPupButton(sizeX: 150, text: "Compiler", onPressed: (){setTab(1);}),
-            MagickaPupButton(sizeX: 150, text: "Settings", onPressed: (){setTab(2);}),
+            getTabButton("Decompiler"),
+            getTabButton("Compiler"),
+            getTabButton("Settings"),
           ],
         )
       ),
@@ -66,6 +66,13 @@ class _MainScreenState extends State<MainScreen> {
         ),
         const MagickaPupFileProcessor()
       ],)
+    );
+  }
+
+  Widget getTabButton(String tabLoc) {
+    return Padding(
+      padding: const EdgeInsets.all(15),
+      child: MagickaPupButton(sizeX: 150, text: "Decompiler", onPressed: (){setTab(0);}),
     );
   }
 }
