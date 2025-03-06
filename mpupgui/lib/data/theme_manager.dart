@@ -29,6 +29,26 @@ class ThemeManager {
     currentTheme = theme;
   }
 
+  static int getMinValidColorIndex() {
+    return 0;
+  }
+
+  static int getMaxValidColorIndex() {
+    if(colorsApp.isEmpty) {
+      return 0;
+    }
+
+    int currentLength = colorsApp.entries.first.value.length;
+
+    for(var map in colorsApp.entries) {
+      if(currentLength > map.value.length) {
+        currentLength = map.value.length;
+      }
+    }
+
+    return currentLength - 1;
+  }
+
   static Color getColorByTheme(Theme theme, int level) {
     if(level < 0 || level >= 3) {
       return Colors.black;
