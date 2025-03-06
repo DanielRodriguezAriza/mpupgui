@@ -34,6 +34,7 @@ class _MainScreenState extends State<MainScreen> {
       appBar: AppBar(
         backgroundColor: ThemeManager.getColorImage(0),
         title: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             getTabButton("loc_decompiler"),
             getTabButton("loc_compiler"),
@@ -49,9 +50,11 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Widget getTabButton(String tabLoc) {
-    return Padding(
-      padding: const EdgeInsets.all(2),
-      child: MagickaPupButton(sizeX: 150, text: LanguageManager.getString(tabLoc), onPressed: (){setTab(tabLoc);}),
+    return Flexible(
+      child: Padding(
+        padding: const EdgeInsets.all(0),
+        child: MagickaPupButton(sizeX: 150, text: LanguageManager.getString(tabLoc), onPressed: (){setTab(tabLoc);}),
+      )
     );
   }
 }
