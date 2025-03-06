@@ -29,6 +29,17 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: ThemeManager.getColorImage(0),
+        title: Row(
+          children: [
+            MagickaPupButton(sizeX: 150, text: "Decompiler", onPressed: (){setTab(0);}),
+            MagickaPupButton(sizeX: 150, text: "Compiler", onPressed: (){setTab(1);}),
+            MagickaPupButton(sizeX: 150, text: "Settings", onPressed: (){setTab(2);}),
+          ],
+        )
+      ),
+      backgroundColor: ThemeManager.getColorImage(0),
       body: Column(children: [
         Padding(
             padding: const EdgeInsets.all(15),
