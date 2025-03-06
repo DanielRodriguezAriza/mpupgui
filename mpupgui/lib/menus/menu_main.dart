@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mpupgui/widgets/menu_scaffold.dart';
+import 'package:mpupgui/widgets/mpup_text.dart';
 
 import '../data/menu_manager.dart';
 import '../data/theme_manager.dart';
@@ -15,6 +16,15 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+
+  int currentTab = 0;
+
+  void setTab(int newTab) {
+    setState(() {
+      currentTab = newTab;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -22,9 +32,9 @@ class _MainScreenState extends State<MainScreen> {
         padding: const EdgeInsets.all(15),
        child: Row(
            children:[
-             MagickaPupButton(sizeX: 150, text: "Decompiler", onPressed: (){}),
-             MagickaPupButton(sizeX: 150, text: "Compiler", onPressed: (){}),
-             MagickaPupButton(sizeX: 150, text: "Settings", onPressed: (){}),
+             MagickaPupButton(sizeX: 150, text: "Decompiler", onPressed: (){setTab(0);}),
+             MagickaPupButton(sizeX: 150, text: "Compiler", onPressed: (){setTab(1);}),
+             MagickaPupButton(sizeX: 150, text: "Settings", onPressed: (){setTab(2);}),
            ]
        )
       ),
@@ -35,7 +45,8 @@ class _MainScreenState extends State<MainScreen> {
               return Container(
                   color: ThemeManager.getColorImage(1),
                   height: 300,
-                  width: constraints.maxWidth
+                  width: constraints.maxWidth,
+                  child: MagickaPupText(text: "The tab is : $currentTab"),
               );
             }
         )
