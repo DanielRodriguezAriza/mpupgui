@@ -28,32 +28,34 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Padding(
-        padding: const EdgeInsets.all(15),
-       child: Row(
-           children:[
-             MagickaPupButton(sizeX: 150, text: "Decompiler", onPressed: (){setTab(0);}),
-             MagickaPupButton(sizeX: 150, text: "Compiler", onPressed: (){setTab(1);}),
-             MagickaPupButton(sizeX: 150, text: "Settings", onPressed: (){setTab(2);}),
-           ]
-       )
-      ),
-      Padding(
-        padding: const EdgeInsets.all(15),
-        child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-              return Container(
-                  color: ThemeManager.getColorImage(1),
-                  height: 300,
-                  width: constraints.maxWidth,
-                  child: MagickaPupText(text: "The tab is : $currentTab"),
-              );
-            }
-        )
-      ),
-      const MagickaPupFileProcessor()
-    ],);
+    return Scaffold(
+      body: Column(children: [
+        Padding(
+            padding: const EdgeInsets.all(15),
+            child: Row(
+                children:[
+                  MagickaPupButton(sizeX: 150, text: "Decompiler", onPressed: (){setTab(0);}),
+                  MagickaPupButton(sizeX: 150, text: "Compiler", onPressed: (){setTab(1);}),
+                  MagickaPupButton(sizeX: 150, text: "Settings", onPressed: (){setTab(2);}),
+                ]
+            )
+        ),
+        Padding(
+            padding: const EdgeInsets.all(15),
+            child: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  return Container(
+                    color: ThemeManager.getColorImage(1),
+                    height: 300,
+                    width: constraints.maxWidth,
+                    child: MagickaPupText(text: "The tab is : $currentTab"),
+                  );
+                }
+            )
+        ),
+        const MagickaPupFileProcessor()
+      ],)
+    );
   }
 }
 
