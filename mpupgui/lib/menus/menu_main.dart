@@ -47,7 +47,8 @@ class _MainScreenState extends State<MainScreen> {
       ),
       backgroundColor: ThemeManager.getColorImage(0),
       body: MagickaPupContainer(
-        child: MagickaPupText(text: "The tab is : $currentTab")
+        // child: MagickaPupText(text: "The tab is : $currentTab")
+        child: getTabWindow(currentTab)
       )
     );
   }
