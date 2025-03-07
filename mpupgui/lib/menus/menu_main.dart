@@ -36,14 +36,18 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ThemeManager.getColorImage(0),
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            getTabButton("loc_decompiler"),
-            getTabButton("loc_compiler"),
-            getTabButton("loc_settings"),
-          ],
-        )
+        title: MagickaPupContainer(
+            paddingParent: 0,
+            sizeY: 40,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                getTabButton("loc_decompiler"),
+                getTabButton("loc_compiler"),
+                getTabButton("loc_settings"),
+              ],
+            )
+        ),
       ),
       backgroundColor: ThemeManager.getColorImage(0),
       body: MagickaPupContainer(
@@ -57,7 +61,7 @@ class _MainScreenState extends State<MainScreen> {
     return Flexible(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 3, 0),
-        child: MagickaPupButton(sizeX: 150, text: LanguageManager.getString(tabLoc), onPressed: (){setTab(tabLoc);}),
+        child: MagickaPupButton(colorIndex: 2, sizeX: 150, text: LanguageManager.getString(tabLoc), onPressed: (){setTab(tabLoc);}),
       )
     );
   }
