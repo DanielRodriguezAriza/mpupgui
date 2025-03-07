@@ -30,10 +30,10 @@ class ThemeManager {
         Color.fromARGB(255, 160, 160, 160),
       ],
       AppTheme.light: [
-        Color.fromARGB(255, 53, 53, 53),
-        Color.fromARGB(255, 73, 73, 73),
-        Color.fromARGB(255, 120, 120, 120),
-        Color.fromARGB(255, 160, 160, 160),
+        Color.fromARGB(255, 100, 100, 100),
+        Color.fromARGB(255, 145, 145, 145),
+        Color.fromARGB(255, 195, 195, 195),
+        Color.fromARGB(255, 200, 200, 200),
       ]
     },
     AppThemeType.text : {
