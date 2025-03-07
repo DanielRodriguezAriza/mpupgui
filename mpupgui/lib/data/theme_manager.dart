@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 enum AppTheme {
   dark,
+  mid,
   light
 }
 
@@ -22,6 +23,12 @@ class ThemeManager {
         Color.fromARGB(255, 54, 54, 54),
         Color.fromARGB(255, 128, 128, 128),
       ],
+      AppTheme.mid: [
+        Color.fromARGB(255, 53, 53, 53),
+        Color.fromARGB(255, 73, 73, 73),
+        Color.fromARGB(255, 120, 120, 120),
+        Color.fromARGB(255, 160, 160, 160),
+      ],
       AppTheme.light: [
         Color.fromARGB(255, 53, 53, 53),
         Color.fromARGB(255, 73, 73, 73),
@@ -32,6 +39,9 @@ class ThemeManager {
     AppThemeType.text : {
       AppTheme.dark: [
         Color.fromARGB(255, 255, 255, 255),
+      ],
+      AppTheme.mid: [
+        Color.fromARGB(255, 0, 0, 0),
       ],
       AppTheme.light: [
         Color.fromARGB(255, 0, 0, 0),
