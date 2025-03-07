@@ -58,9 +58,9 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Widget getTabButton(String tabLoc) {
-    return Flexible(
+    return Expanded(
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 3, 0),
+        padding: const EdgeInsets.all(3),
         child: MagickaPupButton(colorIndex: 2, sizeX: 150, text: LanguageManager.getString(tabLoc), onPressed: (){setTab(tabLoc);}),
       )
     );
