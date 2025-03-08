@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         "/": (context) => const InitScreen(),
-        "/main": (context) => const MainScreen(),
+        "/main": (context) => const MainMenu(),
         "/settings": (context) => const SettingsMenu(),
         "/compiler": (context) => const CompilerMenu(),
         "/decompiler": (context) => const DecompilerMenu(),
