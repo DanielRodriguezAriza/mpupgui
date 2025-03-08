@@ -7,8 +7,8 @@ class MagickaPupButton extends StatelessWidget {
 
   final String text;
   final Function onPressed;
-  final double sizeX;
-  final double sizeY;
+  final double width;
+  final double height;
   final double borderRadius;
   final double elevation;
   final bool autoSize;
@@ -18,8 +18,8 @@ class MagickaPupButton extends StatelessWidget {
     super.key,
     required this.text,
     required this.onPressed,
-    this.sizeX = 250,
-    this.sizeY = 50,
+    this.width = 250,
+    this.height = 50,
     this.borderRadius = 3,
     this.elevation = 1.4, // Values between 1 and 3 look pretty nice, picking this value for now.
     this.autoSize = false,
@@ -41,7 +41,7 @@ class MagickaPupButton extends StatelessWidget {
 
   ButtonStyle getElevatedButtonStyle() {
     final styleWithCustomSize = ElevatedButton.styleFrom(
-      fixedSize: Size(sizeX, sizeY),
+      fixedSize: Size(width, height),
       elevation: elevation,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(borderRadius)

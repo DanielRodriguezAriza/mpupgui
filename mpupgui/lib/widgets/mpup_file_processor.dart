@@ -27,10 +27,10 @@ class MagickaPupFileProcessor extends StatelessWidget {
         ),
         Expanded(
             child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: Container(
+                padding: const EdgeInsets.all(0),
+                child: MagickaPupContainer(
                   width: MediaQuery.of(context).size.width,
-                  color: ThemeManager.getColorImage(2),
+                  colorIndex: 2,
                   child: MagickaPupText(text: "0"),
                 )
             )

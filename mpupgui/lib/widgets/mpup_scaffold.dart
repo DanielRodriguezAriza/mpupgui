@@ -21,7 +21,7 @@ class MagickaPupScaffold extends StatelessWidget {
           backgroundColor: ThemeManager.getColorImage(0),
           title: MagickaPupContainer(
               paddingParent: 0,
-              sizeY: 40,
+              height: 40,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -45,7 +45,7 @@ class MagickaPupScaffold extends StatelessWidget {
           padding: const EdgeInsets.all(3),
           child: MagickaPupButton(
               colorIndex: 2,
-              sizeX: 150,
+              width: 150,
               text: LanguageManager.getString(locString),
               onPressed: (){
                 setTab(context, pathString);

@@ -8,8 +8,8 @@ class MagickaPupContainer extends StatelessWidget {
   final double paddingParent;
   final double paddingChild;
   final double borderRadius;
-  final double sizeX;
-  final double sizeY;
+  final double width;
+  final double height;
 
   const MagickaPupContainer({
     super.key,
@@ -18,15 +18,15 @@ class MagickaPupContainer extends StatelessWidget {
     this.paddingParent = 15,
     this.paddingChild = 0,
     this.borderRadius = 3,
-    this.sizeX = -1,
-    this.sizeY = -1,
+    this.width = -1,
+    this.height = -1,
   });
 
   @override
   Widget build(BuildContext context) {
 
-    final double finalWidth = sizeX < 0 ? MediaQuery.of(context).size.width : sizeX;
-    final double finalHeight = sizeY < 0 ? MediaQuery.of(context).size.height : sizeY;
+    final double finalWidth = width < 0 ? MediaQuery.of(context).size.width : width;
+    final double finalHeight = height < 0 ? MediaQuery.of(context).size.height : height;
 
     return Padding(
         padding: EdgeInsets.all(paddingParent),
