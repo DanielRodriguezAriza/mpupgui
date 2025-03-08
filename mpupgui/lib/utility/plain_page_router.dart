@@ -9,10 +9,7 @@ class PlainPageRouter extends PageRouteBuilder {
   : super(
     pageBuilder: (context, animation, secondaryAnimation) => page,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      return FadeTransition(
-        opacity: animation,
-        child: child,
-      );
+      return child;
     }
   );
 }
