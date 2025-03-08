@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mpupgui/menus/menu_fproc_compiler.dart';
+import 'package:mpupgui/menus/menu_fproc_decompiler.dart';
 import 'package:mpupgui/menus/menu_init.dart';
 import 'package:mpupgui/menus/menu_main.dart';
+import 'package:mpupgui/menus/menu_settings.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +24,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         "/": (context) => const InitScreen(),
-        "/main": (context) => MainScreen()
+        "/main": (context) => const MainScreen(),
+        "/settings": (context) => const SettingsMenu(),
+        "/compiler": (context) => const CompilerMenu(),
+        "/decompiler": (context) => const DecompilerMenu(),
       }
     );
   }
