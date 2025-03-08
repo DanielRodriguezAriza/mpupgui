@@ -72,3 +72,51 @@ class MagickaPupContainer extends StatelessWidget {
   */
 }
 
+/*
+  NOTE : Regular widget usage vs mpup widget usage.
+  In short, using mpup widgets abstracts away multiple implementation details and
+  can make designing the UI a lot easier in the long run. But it is important what
+  Things would look like under normal circumstances...
+
+  // Classic / Base flutter widget way of doing things:
+  // Basically: use Container mixed with Row, Column, Padding, Expanded and Flexible.
+
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(5),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              color: ThemeManager.getColorImage(2),
+              child: Text("0"),
+            )
+          )
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(5),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              color: ThemeManager.getColorImage(2),
+              child: Text("0"),
+            )
+          )
+        ),
+      ],
+    );
+  }
+
+  // MagickaPupGUI way of doing things:
+  const Expanded(
+      child: MagickaPupContainer(
+        colorIndex: 2,
+        child: MagickaPupText(text: "0"),
+      )
+  )
+  etc...
+
+*/
+
