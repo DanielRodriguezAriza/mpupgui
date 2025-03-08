@@ -16,17 +16,25 @@ class MagickaPupFileProcessor extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Expanded(
-          child:Container(
-            width: MediaQuery.of(context).size.width,
-            color: Colors.blue,
-            child: MagickaPupText(text: "0"),
+          child: Padding(
+            padding: const EdgeInsets.all(5),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              color: ThemeManager.getColorImage(2),
+              child: MagickaPupText(text: "0"),
+            )
           )
         ),
         Expanded(
-        child:Container(
-            color: Colors.red,
-            child: MagickaPupText(text: "1")
-        )),
+            child: Padding(
+                padding: const EdgeInsets.all(5),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: ThemeManager.getColorImage(2),
+                  child: MagickaPupText(text: "0"),
+                )
+            )
+        ),
       ],
     );
   }
