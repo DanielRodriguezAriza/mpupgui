@@ -7,6 +7,37 @@ import 'package:mpupgui/widgets/mpup_text.dart';
 
 // TODO : Either make this a stateful widget or reload the "scene" / "page" / "menu" so that changes to visual settings are applied to all of the UI, for example theme change.
 
+class SettingsMenu extends StatefulWidget {
+  const SettingsMenu({super.key});
+
+  @override
+  State<SettingsMenu> createState() => _SettingsMenuState();
+}
+
+class _SettingsMenuState extends State<SettingsMenu> {
+  @override
+  Widget build(BuildContext context) {
+    return MagickaPupContainer(
+      paddingParent: 5,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          MagickaPupButton(text: LanguageManager.getString("loc_theme_light"), onPressed: (){setTheme(AppTheme.light);}, colorIndex: 2),
+          MagickaPupButton(text: LanguageManager.getString("loc_theme_dark"), onPressed: (){setTheme(AppTheme.dark);}, colorIndex: 2),
+        ],
+      ),
+    );
+  }
+
+  void setTheme(AppTheme theme) {
+    setState((){
+      ThemeManager.setTheme(theme);
+    });
+  }
+}
+
+/*
 class SettingsMenu extends StatelessWidget {
   const SettingsMenu({super.key});
 
@@ -25,4 +56,5 @@ class SettingsMenu extends StatelessWidget {
     );
   }
 }
+*/
 
