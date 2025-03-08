@@ -8,7 +8,7 @@ class MenuManager {
     currentMenuIndex = i;
   }
 
-  static void loadMenu(var context, String menuName) {
+  static void loadMenu(BuildContext context, String menuName) {
     Navigator.pushNamedAndRemoveUntil(context, menuName, (_) => false);
   }
 
