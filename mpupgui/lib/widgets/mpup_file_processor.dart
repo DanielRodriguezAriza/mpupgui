@@ -12,27 +12,19 @@ class MagickaPupFileProcessor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(5),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              color: ThemeManager.getColorImage(2),
+            child: MagickaPupContainer(
+              colorIndex: 2,
               child: MagickaPupText(text: "0"),
             )
-          )
         ),
         Expanded(
-            child: Padding(
-                padding: const EdgeInsets.all(0),
-                child: MagickaPupContainer(
-                  width: MediaQuery.of(context).size.width,
-                  colorIndex: 2,
-                  child: MagickaPupText(text: "0"),
-                )
+            child: MagickaPupContainer(
+              colorIndex: 2,
+              child: MagickaPupText(text: "0"),
             )
         ),
       ],
