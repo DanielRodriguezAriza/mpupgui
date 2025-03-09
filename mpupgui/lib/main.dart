@@ -6,7 +6,9 @@ import 'package:mpupgui/menus/menu_main.dart';
 import 'package:mpupgui/menus/menu_settings.dart';
 import 'package:mpupgui/utility/plain_page_router.dart';
 
-void main() {
+// NOTE : Made main into an async method so that process interop
+// doesn't shit its pants in flutter... yay...
+void main() async {
   runApp(const MyApp());
 }
 
