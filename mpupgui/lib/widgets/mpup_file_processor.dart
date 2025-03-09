@@ -104,6 +104,23 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
     });
   }
 
+
+  void startProcess3() {
+    String executable = MagickaPupManager.currentMagickaPupPath;
+    String inputFile = "\"${controller.text}\"";
+    String outputFile = "\"${controller.text}.$processFileExtString\"";
+    List<String> arguments = [
+      processFileCmdString,
+      inputFile,
+      outputFile,
+    ];
+    print("fsa");
+    Process.start(executable, arguments, mode: ProcessStartMode.detachedWithStdio).then((process){
+      process.stdout.pipe(stdout);
+    });
+    print("$executable $processFileCmdString $inputFile $outputFile");
+  }
+
   void startProcess() async {
     // Reset the debug log text back to an empty string
     setDebugLogText("");
