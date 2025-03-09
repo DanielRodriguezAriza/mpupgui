@@ -5,9 +5,11 @@ import 'package:mpupgui/data/settings_manager.dart';
 import 'package:mpupgui/data/theme_manager.dart';
 import 'package:mpupgui/widgets/mpup_button.dart';
 import 'package:mpupgui/widgets/mpup_container.dart';
+import 'package:mpupgui/widgets/mpup_named_container.dart';
 import 'package:mpupgui/widgets/mpup_scaffold.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 import 'package:mpupgui/widgets/mpup_text_field.dart';
+
 
 // TODO : Either make this a stateful widget or reload the "scene" / "page" / "menu" so that changes to visual settings are applied to all of the UI, for example theme change.
 
@@ -40,19 +42,37 @@ class _SettingsMenuState extends State<SettingsMenu> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            MagickaPupButton(
-              text: LanguageManager.getString("loc_theme_light"),
-              colorIndex: 2,
-              onPressed: (){
-                setTheme(AppTheme.light);
-              },
-            ),
-            MagickaPupButton(
-              text: LanguageManager.getString("loc_theme_dark"),
-              colorIndex: 2,
-              onPressed: (){
-                setTheme(AppTheme.dark);
-              }
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 120,
+              child: MagickaPupNamedContainer(
+                  text: "App Themes",
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: MagickaPupButton(
+                          text: LanguageManager.getString("loc_theme_light"),
+                          colorIndex: 3,
+                          onPressed: (){
+                            setTheme(AppTheme.light);
+                          },
+                        )
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: MagickaPupButton(
+                            text: LanguageManager.getString("loc_theme_dark"),
+                            colorIndex: 3,
+                            onPressed: (){
+                              setTheme(AppTheme.dark);
+                            }
+                        )
+                      )
+                    ],
+                  )
+              )
             ),
             MagickaPupTextField(
               controller: controller,
