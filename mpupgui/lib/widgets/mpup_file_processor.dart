@@ -126,11 +126,18 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
     setDebugLogText("");
 
     // Execute the backend mpup process
+    // NOTE : No need to add quotations with \" to the inputFile and outputFile strings.
+    // That is only required when passing arguments to a program through a shell.
+    // In this case, we're starting the process directly, so we pass an array of args,
+    // which means that the string for each arg is the arg itself and there is no risk of
+    // whitespace in the args (for example: paths with spaces) being interpreted as different args.
     String executable = MagickaPupManager.currentMagickaPupPath;
+    String inputFile = controller.text;
+    String outputFile = "${controller.text}.$processFileExtString";
     List<String> arguments = [
       processFileCmdString,
-      controller.text,
-      "${controller.text}.${processFileExtString}",
+      inputFile,
+      outputFile,
     ];
     Process process = await Process.start(
       executable,
@@ -138,7 +145,7 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
     );
 
     // Capture stdout and stderr
-    process.stdout.transform(utf8.decoder).listen((data){
+    process.stdout.transform(systemEncoding.decoder).listen((data){
       addDebugLogText(data);
       print("data : ${data}");
     });
