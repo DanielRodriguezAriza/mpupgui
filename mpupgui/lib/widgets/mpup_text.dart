@@ -11,12 +11,16 @@ class MagickaPupText extends StatelessWidget {
   final String text;
   final int colorIndex;
   final bool isSelectable;
+  final bool isBold;
+  final bool isMonospace;
 
   const MagickaPupText({
     super.key,
     required this.text,
     this.colorIndex = 0,
     this.isSelectable = false,
+    this.isBold = false,
+    this.isMonospace = false,
   });
 
   @override
@@ -39,8 +43,15 @@ class MagickaPupText extends StatelessWidget {
   }
 
   TextStyle getStyle() {
+
+    final Color color = ThemeManager.getColorText(colorIndex);
+    final FontWeight fontWeight = isBold ? FontWeight.bold : FontWeight.normal;
+    final String fontFamily = isMonospace ? "consolas" : "roboto"; // NOTE : The default font that is used by flutter is roboto.
+
     return TextStyle(
-      color: ThemeManager.getColorText(colorIndex)
+      color: color,
+      fontWeight: fontWeight,
+      fontFamily: fontFamily,
     );
   }
 }
