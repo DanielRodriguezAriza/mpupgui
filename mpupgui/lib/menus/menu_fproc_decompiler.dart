@@ -11,7 +11,7 @@ class DecompilerMenu extends StatelessWidget {
         child: MagickaPupFileProcessor(
           processFileLocString: "loc_decompile",
           processFileCmdString: "-u",
-          processFileExtString: ".json",
+          processFileExtString: "json",
         )
     );
   }

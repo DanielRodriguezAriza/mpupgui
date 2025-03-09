@@ -11,7 +11,7 @@ class CompilerMenu extends StatelessWidget {
       child: MagickaPupFileProcessor(
         processFileLocString: "loc_compile",
         processFileCmdString: "-p",
-        processFileExtString: ".xnb",
+        processFileExtString: "xnb",
       )
     );
   }
