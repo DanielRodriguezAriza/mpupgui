@@ -32,7 +32,14 @@ class MagickaPupNamedContainer extends StatelessWidget {
     const double paddingBetweenSegments = 5;
     const double paddingBetweenSegmentsHalf = paddingBetweenSegments / 2;
 
-    return Container( // NOTE : This container is actually useless in this case, but I'm keeping it just in case I need it in the future lol...
+    // NOTE : This container is actually useless in this case, but I'm keeping it just in case I need it in the future lol...
+    // The reason why this is here is that this Container used to be an Expanded. The problem is that
+    // Containers can be located directly as children below Padding widgets / blocks.
+    // Expanded cannot do so, as it goes literally against what the padding does...
+    // expanded tries to expand, while padding tries to add padding. This causes the program to silently error
+    // so it's kinda harmless for the most part, but it is better to actually correctly handle padding...
+    // The correct structure is usually something like this: Row / Column / WhateverParent(child: Expanded(child:ContainerType(child:Padding(child:WhateverIWanted(etc...)))))
+    return Container(
       child: Column(
         children: [
           Padding(
