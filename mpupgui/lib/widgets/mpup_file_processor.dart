@@ -82,14 +82,14 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
           child: MagickaPupButton(
               text: LanguageManager.getString(processFileLocString),
               colorIndex: 2,
-              onPressed: (){
+              onPressed: () async {
                 String executable = MagickaPupManager.currentMagickaPupPath;
                 List<String> arguments = [
                   processFileCmdString,
                   controller.text,
                   "${controller.text}.${processFileExtString}",
                 ];
-                Process.start(
+                Process process = await Process.start(
                   executable,
                   arguments,
                   mode : ProcessStartMode.inheritStdio,
