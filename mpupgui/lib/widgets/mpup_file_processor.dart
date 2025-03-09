@@ -53,7 +53,8 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
                       MagickaPupText(text: "${LanguageManager.getString("loc_input_file_path")}:"),
                       Expanded(
                         child: MagickaPupTextField(
-                          controller: controller
+                          controller: controller,
+                          onEdit: (){}, // TODO : Implement
                         )
                       ),
                     ],
