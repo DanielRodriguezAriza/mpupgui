@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mpupgui/data/language_manager.dart';
+import 'package:mpupgui/widgets/mpup_button.dart';
 import 'package:mpupgui/widgets/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup_text_field.dart';
 
@@ -46,6 +47,15 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
               colorIndex: 2,
               child: MagickaPupText(text: "0"),
             )
+        ),
+        MagickaPupContainer(
+          width: MediaQuery.of(context).size.width,
+          height: 30,
+          child: MagickaPupButton(
+              text: "Press me to compile!",
+              colorIndex: 2,
+              onPressed: (){}
+          )
         ),
       ],
     );
