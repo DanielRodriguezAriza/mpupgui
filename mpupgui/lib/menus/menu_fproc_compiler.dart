@@ -8,7 +8,10 @@ class CompilerMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MagickaPupScaffold(
-      child: MagickaPupFileProcessor()
+      child: MagickaPupFileProcessor(
+        processFileLocString: "loc_compile",
+        processFileCmdString: "-p",
+      )
     );
   }
 }
