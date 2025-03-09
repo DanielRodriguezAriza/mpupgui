@@ -8,13 +8,32 @@ import '../data/theme_manager.dart';
 import 'mpup_text.dart';
 
 class MagickaPupFileProcessor extends StatefulWidget {
-  const MagickaPupFileProcessor({super.key});
+
+  final String processFileLocString;
+  final String processFileCmdString;
+
+  const MagickaPupFileProcessor({
+    super.key,
+    required this.processFileLocString,
+    required this.processFileCmdString,
+  });
 
   @override
-  State<MagickaPupFileProcessor> createState() => _MagickaPupFileProcessorState();
+  State<MagickaPupFileProcessor> createState() => _MagickaPupFileProcessorState(
+    processFileLocString: processFileLocString,
+    processFileCmdString: processFileCmdString
+  );
 }
 
 class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
+
+  final String processFileLocString;
+  final String processFileCmdString;
+
+  _MagickaPupFileProcessorState({
+    required this.processFileLocString,
+    required this.processFileCmdString
+  });
 
   final TextEditingController controller = TextEditingController();
 
@@ -52,7 +71,7 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
           width: MediaQuery.of(context).size.width,
           height: 30,
           child: MagickaPupButton(
-              text: "Press me to compile!",
+              text: LanguageManager.getString(processFileLocString),
               colorIndex: 2,
               onPressed: (){}
           )
