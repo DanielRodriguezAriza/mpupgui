@@ -91,6 +91,7 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
                             child: MagickaPupText(
                               text: debugLogText,
                               isSelectable: true,
+                              isMonospace: true,
                             )
                         )
                     )
