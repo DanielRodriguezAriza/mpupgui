@@ -7,6 +7,7 @@ import 'package:mpupgui/data/language_manager.dart';
 import 'package:mpupgui/data/mpup_manager.dart';
 import 'package:mpupgui/widgets/mpup_button.dart';
 import 'package:mpupgui/widgets/mpup_container.dart';
+import 'package:mpupgui/widgets/mpup_named_container.dart';
 import 'package:mpupgui/widgets/mpup_text_field.dart';
 
 import '../data/theme_manager.dart';
@@ -56,10 +57,11 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Expanded(
-            child: MagickaPupContainer(
+            child: MagickaPupNamedContainer(
+              text: "testing",
               colorIndex: 2,
               child: Padding(
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
