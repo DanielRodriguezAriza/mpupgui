@@ -157,10 +157,12 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
     String executable = MagickaPupManager.currentMagickaPupPath;
     String inputFile = controller.text;
     String outputFile = "${controller.text}.$processFileExtString";
-    List<String> arguments = [
+    List<String> arguments = controller.text.trim().length > 0 ? [
       processFileCmdString,
       inputFile,
       outputFile,
+    ] : [
+      processFileCmdString // Only one argument so that we get automatically the help message for -u and -p
     ];
     Process process = await Process.start(
       executable,
