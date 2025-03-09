@@ -58,7 +58,7 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
       children: [
         Expanded(
             child: MagickaPupNamedContainer(
-              text: "${LanguageManager.getString("loc_input_file_path")}:",
+              text: "   ${LanguageManager.getString("loc_input_file_path")}:",
               colorIndex: 2,
               child: Padding(
                   padding: const EdgeInsets.all(5),
@@ -78,7 +78,7 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
         ),
         Expanded(
             child: MagickaPupNamedContainer(
-                text: "Console",
+                text: "   ${LanguageManager.getString("loc_console")}:",
                 colorIndex: 2,
                 child: Scrollbar(
                     controller: scrollController,
