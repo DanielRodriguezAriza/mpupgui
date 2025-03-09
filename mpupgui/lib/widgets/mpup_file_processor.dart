@@ -141,7 +141,8 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
   }
 
   void startProcess() async {
-    // Reset the debug log text back to an empty string
+    // Reset the debug log text back to an empty string and scroll to the top
+    scrollToTop(); // NOTE : We do this first so as to prevent issues in certain platforms where we could get some px overflows if we don't scroll back first.
     setDebugLogText("");
 
     // Execute the backend mpup process
@@ -167,16 +168,17 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
     // Capture stdout and stderr
     process.stdout.transform(systemEncoding.decoder).listen((data){
       addDebugLogText(data);
-      print("data : ${data}");
+      scrollToBottom(); // Scroll to bottom when a message is received
     });
     process.stderr.transform(systemEncoding.decoder).listen((data){
       addDebugLogText(data);
-      print("data : ${data}");
+      scrollToBottom(); // Scroll to bottom when a message is received
     });
 
     // Wait for the process to finish and exit.
     process.exitCode.then((exitCode){
-      print("Process exited with code : $exitCode");
+      // print("Process exited with code : $exitCode");
+      scrollToBottom(); // Scroll to bottom when the program finishes running
     });
   }
 }
