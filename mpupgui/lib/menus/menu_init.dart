@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mpupgui/data/menu_manager.dart';
+import 'package:mpupgui/data/settings_manager.dart';
 
 // Widget menu class responsible for handling program initialization related
 // logic and operations.
@@ -16,6 +17,7 @@ class _InitScreenState extends State<InitScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_){
+      SettingsManager.loadSettings();
       MenuManager.loadMenu(context, "/main"); // Start by loading the "main" menu.
     });
   }
