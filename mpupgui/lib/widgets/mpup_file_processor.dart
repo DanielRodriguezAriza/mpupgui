@@ -77,7 +77,8 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
             )
         ),
         Expanded(
-            child: MagickaPupContainer(
+            child: MagickaPupNamedContainer(
+                text: "Console",
                 colorIndex: 2,
                 child: Scrollbar(
                     controller: scrollController,
