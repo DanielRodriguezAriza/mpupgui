@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mpupgui/data/theme_manager.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 
 // NOTE : Basically, same as the mpup container class, but it has a card-like
@@ -9,11 +10,13 @@ class MagickaPupNamedContainer extends StatelessWidget {
 
   final String text;
   final Widget child;
+  final int colorIndex;
 
   const MagickaPupNamedContainer({
     super.key,
     required this.text,
     required this.child,
+    this.colorIndex = 2,
   });
 
   @override
@@ -35,7 +38,7 @@ class MagickaPupNamedContainer extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 0, paddingBetweenSegmentsHalf),
             child: Container(
-              color: Colors.red,
+              color: ThemeManager.getColorImage(colorIndex),
               width: MediaQuery.of(context).size.width,
               child: MagickaPupText(text: text),
             ),
@@ -44,7 +47,7 @@ class MagickaPupNamedContainer extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(0, paddingBetweenSegmentsHalf, 0, 0),
                 child: Container(
-                  color: Colors.red,
+                  color: ThemeManager.getColorImage(colorIndex),
                   width: MediaQuery.of(context).size.width,
                   child: Container(child: child),
                 ),
