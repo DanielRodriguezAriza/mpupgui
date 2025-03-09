@@ -67,7 +67,7 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
                       Expanded(
                         child: MagickaPupTextField(
                           controller: controller,
-                          onEdit: (){}, // TODO : Implement
+                          onEdit: (){}, // NOTE : Not really required actually. Maybe should find a way to make this param optional in the widget?
                         )
                       ),
                     ],
@@ -103,15 +103,6 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
               colorIndex: 2,
               onPressed: startProcess,
           )
-        ),
-        MagickaPupContainer(
-            width: MediaQuery.of(context).size.width,
-            height: 30,
-            child: MagickaPupButton(
-              text: "test",
-              colorIndex: 2,
-              onPressed: (){log(debugLogText);},
-            )
         ),
       ],
     );
