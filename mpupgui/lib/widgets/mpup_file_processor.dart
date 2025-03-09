@@ -103,7 +103,7 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
       debugLogText = debugLogText + toAdd;
     });
   }
-  
+
   void startProcess() async {
     // Reset the debug log text back to an empty string
     setDebugLogText("");
@@ -125,6 +125,7 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
     Process process = await Process.start(
       executable,
       arguments,
+      // NOTE : Maybe we need to add the "mode:" process start mode param here in the future for wider platform support?
     );
 
     // Capture stdout and stderr
@@ -137,6 +138,7 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
       print("data : ${data}");
     });
 
+    // Wait for the process to finish and exit.
     process.exitCode.then((exitCode){
       print("Process exited with code : $exitCode");
     });
