@@ -23,6 +23,14 @@ class _SettingsMenuState extends State<SettingsMenu> {
   final TextEditingController controller = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      controller.text = MagickaPupManager.currentMagickaPupPath;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MagickaPupScaffold(
       child: MagickaPupContainer(
