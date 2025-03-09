@@ -25,8 +25,8 @@ class MagickaPupScaffold extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  getTabButton(context, "/compiler", "loc_decompiler"),
-                  getTabButton(context, "/decompiler", "loc_compiler"),
+                  getTabButton(context, "/compiler", "loc_compiler"),
+                  getTabButton(context, "/decompiler", "loc_decompiler"),
                   getTabButton(context, "/settings", "loc_settings"),
                 ],
               )
