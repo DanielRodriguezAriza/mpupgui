@@ -58,14 +58,13 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
       children: [
         Expanded(
             child: MagickaPupNamedContainer(
-              text: "testing",
+              text: "${LanguageManager.getString("loc_input_file_path")}:",
               colorIndex: 2,
               child: Padding(
                   padding: const EdgeInsets.all(5),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      MagickaPupText(text: "${LanguageManager.getString("loc_input_file_path")}:"),
                       Expanded(
                         child: MagickaPupTextField(
                           controller: controller,
