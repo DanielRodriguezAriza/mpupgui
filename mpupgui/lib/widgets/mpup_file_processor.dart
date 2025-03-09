@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:mpupgui/data/language_manager.dart';
+import 'package:mpupgui/data/mpup_manager.dart';
 import 'package:mpupgui/widgets/mpup_button.dart';
 import 'package:mpupgui/widgets/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup_text_field.dart';
@@ -11,17 +14,20 @@ class MagickaPupFileProcessor extends StatefulWidget {
 
   final String processFileLocString;
   final String processFileCmdString;
+  final String processFileExtString;
 
   const MagickaPupFileProcessor({
     super.key,
     required this.processFileLocString,
     required this.processFileCmdString,
+    required this.processFileExtString,
   });
 
   @override
   State<MagickaPupFileProcessor> createState() => _MagickaPupFileProcessorState(
     processFileLocString: processFileLocString,
-    processFileCmdString: processFileCmdString
+    processFileCmdString: processFileCmdString,
+    processFileExtString: processFileExtString,
   );
 }
 
@@ -29,10 +35,12 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
 
   final String processFileLocString;
   final String processFileCmdString;
+  final String processFileExtString; // Extension of the target output files. NOTE : In the future, this will no longer be required, as the CLI mpup will be the one to internally manage the selection of the correct output file name if no user defined or custom output file name is given to the program.
 
   _MagickaPupFileProcessorState({
     required this.processFileLocString,
-    required this.processFileCmdString
+    required this.processFileCmdString,
+    required this.processFileExtString,
   });
 
   final TextEditingController controller = TextEditingController();
@@ -74,7 +82,19 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
           child: MagickaPupButton(
               text: LanguageManager.getString(processFileLocString),
               colorIndex: 2,
-              onPressed: (){}
+              onPressed: (){
+                String executable = MagickaPupManager.currentMagickaPupPath;
+                List<String> arguments = [
+                  processFileCmdString,
+                  controller.text,
+                  "${controller.text}.${processFileExtString}",
+                ];
+                Process.start(
+                  executable,
+                  arguments,
+                  mode : ProcessStartMode.inheritStdio,
+                );
+              }
           )
         ),
       ],
