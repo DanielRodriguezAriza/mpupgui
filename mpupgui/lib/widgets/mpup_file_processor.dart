@@ -86,7 +86,10 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
                         controller: scrollController,
                         child: Padding(
                             padding: const EdgeInsets.all(15),
-                            child: MagickaPupText(text: debugLogText)
+                            child: MagickaPupText(
+                              text: debugLogText,
+                              isSelectable: true,
+                            )
                         )
                     )
                 )
