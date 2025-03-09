@@ -76,20 +76,20 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
             )
         ),
         Expanded(
-            child: Scrollbar(
-              controller: scrollController,
-              scrollbarOrientation: ScrollbarOrientation.right,
-              thumbVisibility: true,
-              child: SingleChildScrollView(
-                controller: scrollController,
-                child: MagickaPupContainer(
-                    colorIndex: 2,
-                    child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: MagickaPupText(text: debugLogText)
+            child: MagickaPupContainer(
+                colorIndex: 2,
+                child: Scrollbar(
+                    controller: scrollController,
+                    scrollbarOrientation: ScrollbarOrientation.right,
+                    thumbVisibility: true,
+                    child: SingleChildScrollView(
+                        controller: scrollController,
+                        child: Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: MagickaPupText(text: debugLogText)
+                        )
                     )
                 )
-              )
             )
         ),
         MagickaPupContainer(
