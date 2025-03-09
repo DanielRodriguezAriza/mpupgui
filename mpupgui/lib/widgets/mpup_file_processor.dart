@@ -74,9 +74,14 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
             )
         ),
         Expanded(
-            child: MagickaPupContainer(
-              colorIndex: 2,
-              child: MagickaPupText(text: debugLogText),
+            child: SingleChildScrollView(
+              child: MagickaPupContainer(
+                colorIndex: 2,
+                child: Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: MagickaPupText(text: debugLogText)
+                )
+              )
             )
         ),
         MagickaPupContainer(
