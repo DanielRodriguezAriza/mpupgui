@@ -26,6 +26,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_){
+      SettingsManager.loadSettings(); // Load settings again. This is done just in case users have modified their settings manually by editing the settings json file.
       controller.text = MagickaPupManager.currentMagickaPupPath;
     });
   }
