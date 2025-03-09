@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -84,39 +85,54 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
           child: MagickaPupButton(
               text: LanguageManager.getString(processFileLocString),
               colorIndex: 2,
-              onPressed: () async {
-                // Reset the debug log text back to an empty string
-                setState(() {
-                  debugLogText = "";
-                });
-
-                // Execute the backend mpup process
-                String executable = MagickaPupManager.currentMagickaPupPath;
-                List<String> arguments = [
-                  processFileCmdString,
-                  controller.text,
-                  "${controller.text}.${processFileExtString}",
-                ];
-                Process process = await Process.start(
-                  executable,
-                  arguments,
-                  mode : ProcessStartMode.normal
-                );
-
-                // Capture stdout and stderr
-                process.stdout.transform(SystemEncoding().decoder).listen((data){
-                  setState(() {
-                    debugLogText += data; // Append the data to the output debug log text that we have up until now.
-                  });
-                  print("data : ${data}");
-                });
-
-                int exitCode = await process.exitCode;
-              }
+              onPressed: startProcess,
           )
         ),
       ],
     );
+  }
+
+  void setDebugLogText(String newValue) {
+    setState(() {
+      debugLogText = newValue;
+    });
+  }
+
+  void addDebugLogText(String toAdd) {
+    setState(() {
+      debugLogText = debugLogText + toAdd;
+    });
+  }
+
+  void startProcess() async {
+    // Reset the debug log text back to an empty string
+    setDebugLogText("");
+
+    // Execute the backend mpup process
+    String executable = MagickaPupManager.currentMagickaPupPath;
+    List<String> arguments = [
+      processFileCmdString,
+      controller.text,
+      "${controller.text}.${processFileExtString}",
+    ];
+    Process process = await Process.start(
+      executable,
+      arguments,
+    );
+
+    // Capture stdout and stderr
+    process.stdout.transform(utf8.decoder).listen((data){
+      addDebugLogText(data);
+      print("data : ${data}");
+    });
+    process.stderr.transform(utf8.decoder).listen((data){
+      addDebugLogText(data);
+      print("data : ${data}");
+    });
+
+    process.exitCode.then((exitCode){
+      print("Process exited with code : $exitCode");
+    });
   }
 }
 
