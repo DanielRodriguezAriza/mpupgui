@@ -32,6 +32,8 @@ class MagickaPupNamedContainer extends StatelessWidget {
     const double paddingBetweenSegments = 5;
     const double paddingBetweenSegmentsHalf = paddingBetweenSegments / 2;
 
+    const double borderRadius = 5;
+
     // NOTE : This container is actually useless in this case, but I'm keeping it just in case I need it in the future lol...
     // The reason why this is here is that this Container used to be an Expanded. The problem is that
     // Containers can be located directly as children below Padding widgets / blocks.
@@ -48,7 +50,7 @@ class MagickaPupNamedContainer extends StatelessWidget {
               decoration: BoxDecoration(
                 color: ThemeManager.getColorImage(colorIndex),
                 borderRadius: const BorderRadiusDirectional.vertical(
-                    top: Radius.circular(5),
+                    top: Radius.circular(borderRadius),
                     bottom: Radius.circular(0)
                 )
               ),
@@ -64,7 +66,13 @@ class MagickaPupNamedContainer extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(0, paddingBetweenSegmentsHalf, 0, 0),
                 child: Container(
-                  color: ThemeManager.getColorImage(colorIndex),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadiusDirectional.vertical(
+                      top: Radius.circular(0),
+                      bottom: Radius.circular(borderRadius),
+                    ),
+                    color: ThemeManager.getColorImage(colorIndex),
+                  ),
                   width: MediaQuery.of(context).size.width,
                   child: Container(child: child),
                 ),
