@@ -10,11 +10,13 @@ class MagickaPupText extends StatelessWidget {
 
   final String text;
   final int colorIndex;
+  final bool isSelectable;
 
   const MagickaPupText({
     super.key,
     required this.text,
     this.colorIndex = 0,
+    this.isSelectable = false,
   });
 
   @override
@@ -23,10 +25,17 @@ class MagickaPupText extends StatelessWidget {
   }
 
   Widget getText() {
-    return Text(
-      text,
-      style: getStyle()
-    );
+    if(isSelectable) {
+      return SelectableText(
+          text,
+          style: getStyle()
+      );
+    } else {
+      return Text(
+        text,
+        style: getStyle()
+      );
+    }
   }
 
   TextStyle getStyle() {
