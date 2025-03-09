@@ -142,7 +142,7 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
       addDebugLogText(data);
       print("data : ${data}");
     });
-    process.stderr.transform(utf8.decoder).listen((data){
+    process.stderr.transform(systemEncoding.decoder).listen((data){
       addDebugLogText(data);
       print("data : ${data}");
     });
