@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mpupgui/widgets/mpup_container.dart';
+import 'package:mpupgui/widgets/mpup_text_field.dart';
 
 import '../data/theme_manager.dart';
 import 'mpup_text.dart';
@@ -30,10 +31,8 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
                     children: [
                       MagickaPupText(text: "Input file path: "),
                       Expanded(
-                        child: TextField(
-                          controller: controller,
-                          keyboardType: TextInputType.text,
-                          textAlign: TextAlign.start
+                        child: MagickaPupTextField(
+                          controller: controller
                         )
                       ),
                     ],
