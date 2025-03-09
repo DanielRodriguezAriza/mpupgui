@@ -13,6 +13,7 @@ class MagickaPupText extends StatelessWidget {
   final bool isSelectable;
   final bool isBold;
   final bool isMonospace;
+  final double fontSize;
 
   const MagickaPupText({
     super.key,
@@ -21,6 +22,7 @@ class MagickaPupText extends StatelessWidget {
     this.isSelectable = false,
     this.isBold = false,
     this.isMonospace = false,
+    this.fontSize = 14, // NOTE : The default for flutter's TextStyle is to use 14 logical pixels.
   });
 
   @override
@@ -52,6 +54,7 @@ class MagickaPupText extends StatelessWidget {
       color: color,
       fontWeight: fontWeight,
       fontFamily: fontFamily,
+      fontSize: fontSize
     );
   }
 }
