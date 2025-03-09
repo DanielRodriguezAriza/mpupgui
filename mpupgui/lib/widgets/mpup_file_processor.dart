@@ -37,6 +37,8 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
   final String processFileCmdString;
   final String processFileExtString; // Extension of the target output files. NOTE : In the future, this will no longer be required, as the CLI mpup will be the one to internally manage the selection of the correct output file name if no user defined or custom output file name is given to the program.
 
+  String debugLogText = "";
+
   _MagickaPupFileProcessorState({
     required this.processFileLocString,
     required this.processFileCmdString,
@@ -73,7 +75,7 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
         Expanded(
             child: MagickaPupContainer(
               colorIndex: 2,
-              child: MagickaPupText(text: "0"),
+              child: MagickaPupText(text: debugLogText),
             )
         ),
         MagickaPupContainer(
@@ -83,6 +85,12 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
               text: LanguageManager.getString(processFileLocString),
               colorIndex: 2,
               onPressed: () async {
+                // Reset the debug log text back to an empty string
+                setState(() {
+                  debugLogText = "";
+                });
+
+                // Execute the backend mpup process
                 String executable = MagickaPupManager.currentMagickaPupPath;
                 List<String> arguments = [
                   processFileCmdString,
@@ -92,8 +100,18 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
                 Process process = await Process.start(
                   executable,
                   arguments,
-                  mode : ProcessStartMode.inheritStdio,
+                  mode : ProcessStartMode.normal
                 );
+
+                // Capture stdout and stderr
+                process.stdout.transform(SystemEncoding().decoder).listen((data){
+                  setState(() {
+                    debugLogText += data; // Append the data to the output debug log text that we have up until now.
+                  });
+                  print("data : ${data}");
+                });
+
+                int exitCode = await process.exitCode;
               }
           )
         ),
