@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -92,6 +93,15 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
               colorIndex: 2,
               onPressed: startProcess,
           )
+        ),
+        MagickaPupContainer(
+            width: MediaQuery.of(context).size.width,
+            height: 30,
+            child: MagickaPupButton(
+              text: "test",
+              colorIndex: 2,
+              onPressed: (){log(debugLogText);},
+            )
         ),
       ],
     );
