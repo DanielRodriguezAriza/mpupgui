@@ -35,7 +35,7 @@ class MagickaPupButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: (){onPressed();},
       style: getElevatedButtonStyle(),
-      child: MagickaPupText(text: text, isBold: true),
+      child: MagickaPupText(text: text, isBold: true, fontSize: 20),
     );
   }
 
