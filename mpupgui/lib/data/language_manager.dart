@@ -21,6 +21,7 @@ class LanguageManager {
       "loc_theme_dark" : "Dark Theme",
 
       "loc_input_file_path" : "Input File Path",
+      "loc_console" : "Console",
     },
 
     Language.spanish : {
@@ -38,6 +39,7 @@ class LanguageManager {
       "loc_theme_dark" : "Tema Oscuro",
 
       "loc_input_file_path" : "Ruta del Archivo de Entrada",
+      "loc_console" : "Consola",
     }
   };
 
