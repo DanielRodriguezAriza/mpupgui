@@ -32,7 +32,7 @@ class MagickaPupNamedContainer extends StatelessWidget {
     const double paddingBetweenSegments = 5;
     const double paddingBetweenSegmentsHalf = paddingBetweenSegments / 2;
 
-    return Expanded(
+    return Container( // NOTE : This container is actually useless in this case, but I'm keeping it just in case I need it in the future lol...
       child: Column(
         children: [
           Padding(
