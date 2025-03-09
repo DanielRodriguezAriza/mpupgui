@@ -120,6 +120,26 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
     });
   }
 
+  void scrollToTop() {
+    setState((){
+      scrollController.animateTo(
+        scrollController.position.minScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    });
+  }
+
+  void scrollToBottom() {
+    setState((){
+      scrollController.animateTo(
+        scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    });
+  }
+
   void startProcess() async {
     // Reset the debug log text back to an empty string
     setDebugLogText("");
