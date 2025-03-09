@@ -46,7 +46,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
               width: MediaQuery.of(context).size.width,
               height: 120,
               child: MagickaPupNamedContainer(
-                  text: "App Themes",
+                  text: "   App Themes",
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -74,11 +74,21 @@ class _SettingsMenuState extends State<SettingsMenu> {
                   )
               )
             ),
-            MagickaPupTextField(
-              controller: controller,
-              onEdit: (){
-                setPath(controller.text);
-              },
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 120,
+              child: MagickaPupNamedContainer(
+                  text: "   Magicka PUP CLI Executable Path",
+                  child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: MagickaPupTextField(
+                      controller: controller,
+                      onEdit: (){
+                        setPath(controller.text);
+                      },
+                    )
+                  )
+              )
             ),
           ],
         ),
