@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mpupgui/data/language_manager.dart';
 import 'package:mpupgui/widgets/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup_text_field.dart';
 
@@ -29,7 +30,7 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      MagickaPupText(text: "Input file path: "),
+                      MagickaPupText(text: "${LanguageManager.getString("loc_input_file_path")}:"),
                       Expanded(
                         child: MagickaPupTextField(
                           controller: controller
