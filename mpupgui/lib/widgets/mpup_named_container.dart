@@ -40,12 +40,15 @@ class MagickaPupNamedContainer extends StatelessWidget {
               child: MagickaPupText(text: text),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, paddingBetweenSegmentsHalf, 0, 0),
-            child: Container(
-              color: Colors.red,
-              width: MediaQuery.of(context).size.width,
-            ),
+          Expanded(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, paddingBetweenSegmentsHalf, 0, 0),
+                child: Container(
+                  color: Colors.red,
+                  width: MediaQuery.of(context).size.width,
+                  child: Container(child: child),
+                ),
+              )
           )
         ],
       )
