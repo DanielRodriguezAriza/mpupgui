@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -143,7 +144,7 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
     });
   }
 
-  void startProcess() async {
+  void startProcessOld() async {
     // Reset the debug log text back to an empty string and scroll to the top
     scrollToTop(); // NOTE : We do this first so as to prevent issues in certain platforms where we could get some px overflows if we don't scroll back first.
     setDebugLogText("");
@@ -186,4 +187,61 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
       scrollToBottom(); // Scroll to bottom when the program finishes running
     });
   }
+
+  void startProcess() async {
+    scrollToTop();
+    setDebugLogText("");
+
+    String executable = MagickaPupManager.currentMagickaPupPath;
+    String inputFile = controller.text;
+    String outputFile = "${controller.text}.$processFileExtString";
+
+    List<String> arguments = controller.text.trim().isNotEmpty ? [
+      processFileCmdString,
+      inputFile,
+      outputFile,
+    ] : [
+      processFileCmdString
+    ];
+
+    Process process = await Process.start(
+      executable,
+      arguments,
+      runInShell: true,
+    );
+
+    StringBuffer buffer = StringBuffer();
+    bool isProcessFinished = false;
+
+    void flushBuffer() {
+      if(buffer.isNotEmpty) {
+        setState(() {
+          debugLogText += buffer.toString();
+        });
+        buffer.clear();
+        scrollToBottom();
+      }
+    }
+
+    Timer.periodic(const Duration(milliseconds: 100), (timer){
+      if(isProcessFinished) {
+        flushBuffer();
+        timer.cancel();
+      } else {
+        flushBuffer();
+      }
+    });
+
+    process.stdout.transform(systemEncoding.decoder).listen((data){
+      buffer.write(data);
+    });
+
+    process.stderr.transform(systemEncoding.decoder).listen((data){
+      buffer.write(data);
+    });
+
+    await process.exitCode;
+    isProcessFinished = true;
+  }
+
 }
