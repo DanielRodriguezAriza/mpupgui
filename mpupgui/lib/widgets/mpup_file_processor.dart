@@ -144,7 +144,7 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
     });
   }
 
-  void startProcessOld() async {
+  void startProcessOld1() async {
     // Reset the debug log text back to an empty string and scroll to the top
     scrollToTop(); // NOTE : We do this first so as to prevent issues in certain platforms where we could get some px overflows if we don't scroll back first.
     setDebugLogText("");
@@ -188,7 +188,7 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
     });
   }
 
-  void startProcess() async {
+  void startProcessOld2() async {
     scrollToTop();
     setDebugLogText("");
 
@@ -242,6 +242,33 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
 
     await process.exitCode;
     isProcessFinished = true;
+  }
+
+  void startProcess() async {
+    String executable = MagickaPupManager.currentMagickaPupPath;
+    String inputFile = controller.text;
+    String outputFile = "${controller.text}.$processFileExtString";
+
+    List<String> arguments = controller.text.trim().isNotEmpty ? [
+      processFileCmdString,
+      inputFile,
+      outputFile,
+    ] : [
+      processFileCmdString
+    ];
+
+    Process process = await Process.start(
+      executable,
+      arguments,
+      runInShell: true,
+    );
+
+    bool isProcessFinished = false;
+
+    await process.exitCode;
+    isProcessFinished = true;
+
+    // TODO : Add a simpler display that doens't choke flutter's stupid slow GUI... something like a dumb progress bar or a "running" status thing or whatever the fuck...
   }
 
 }
