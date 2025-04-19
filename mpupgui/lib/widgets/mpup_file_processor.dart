@@ -187,36 +187,3 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
     });
   }
 }
-
-/*
-class MagickaPupFileProcessor extends StatelessWidget {
-
-  const MagickaPupFileProcessor({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Expanded(
-            child: MagickaPupContainer(
-              colorIndex: 2,
-              child: Padding(
-                padding: EdgeInsets.all(5),
-                child: MagickaPupText(text: "Input file path")
-              ),
-            )
-        ),
-        Expanded(
-            child: MagickaPupContainer(
-              colorIndex: 2,
-              child: MagickaPupText(text: "0"),
-            )
-        ),
-      ],
-    );
-  }
-}
-*/
