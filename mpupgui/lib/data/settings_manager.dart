@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:mpupgui/data/language_manager.dart';
+import 'package:mpupgui/data/mod_manager.dart';
 import 'package:mpupgui/data/mpup_manager.dart';
 import 'package:mpupgui/data/theme_manager.dart';
 import 'package:mpupgui/utility/file_handling.dart';
@@ -16,10 +17,16 @@ class SettingsManager {
       Language language = Language.values.byName(data["Language"]);
       AppTheme theme = AppTheme.values.byName(data["Theme"]);
       String mpupPath = data["MagickaPupPath"];
+      String pathToInstalls = data["pathToInstalls"];
+      String pathToMods = data["pathToMods"];
+      String pathToProfiles = data["pathToProfiles"];
 
       LanguageManager.setLanguage(language);
       ThemeManager.setTheme(theme);
       MagickaPupManager.setMagickaPupPath(mpupPath);
+      ModManager.setPathToInstalls(pathToInstalls);
+      ModManager.setPathToMods(pathToMods);
+      ModManager.setPathToProfiles(pathToProfiles);
 
     } catch(e) {
       print("SettingsManager.loadSettings() has failed : $e");
@@ -32,6 +39,9 @@ class SettingsManager {
         "Language" : LanguageManager.currentLanguage.name,
         "Theme" : ThemeManager.currentTheme.name,
         "MagickaPupPath" : MagickaPupManager.currentMagickaPupPath,
+        "pathToInstalls" : ModManager.getPathToInstalls(),
+        "pathToMods" : ModManager.getPathToMods(),
+        "pathToProfiles" : ModManager.getPathToProfiles()
       };
       var str = jsonEncode(data);
       writeStringToFile(settingsFile, str);
