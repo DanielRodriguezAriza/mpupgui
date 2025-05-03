@@ -22,6 +22,8 @@ class LanguageManager {
 
       "loc_input_file_path" : "Input File Path",
       "loc_console" : "Console",
+
+      "loc_mod_manager" : "Mod Manager",
     },
 
     Language.spanish : {
@@ -40,6 +42,8 @@ class LanguageManager {
 
       "loc_input_file_path" : "Ruta del Archivo de Entrada",
       "loc_console" : "Consola",
+
+      "loc_mod_manager" : "Instalador de Mods",
     }
   };
 
