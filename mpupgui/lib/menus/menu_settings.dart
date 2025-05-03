@@ -90,6 +90,48 @@ class _SettingsMenuState extends State<SettingsMenu> {
                   )
               )
             ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height:120,
+              child:MagickaPupNamedContainer(
+                text: "    Path To Installs",
+                child: Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: MagickaPupTextField(
+                    controller: controller,
+                    onEdit: (){}
+                  )
+                )
+              )
+            ),
+            Container(
+                width: MediaQuery.of(context).size.width,
+                height:120,
+                child:MagickaPupNamedContainer(
+                    text: "    Path To Mods",
+                    child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: MagickaPupTextField(
+                            controller: controller,
+                            onEdit: (){}
+                        )
+                    )
+                )
+            ),
+            Container(
+                width: MediaQuery.of(context).size.width,
+                height:120,
+                child:MagickaPupNamedContainer(
+                    text: "    Path To Profiles",
+                    child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: MagickaPupTextField(
+                            controller: controller,
+                            onEdit: (){}
+                        )
+                    )
+                )
+            )
           ],
         ),
       )
