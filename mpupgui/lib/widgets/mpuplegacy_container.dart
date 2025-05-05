@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mpupgui/data/theme_manager.dart';
 
-class MagickaPupContainer extends StatelessWidget {
+class MagickaPupLegacyContainer extends StatelessWidget {
 
   final Widget child;
   final int colorIndex;
@@ -11,7 +11,7 @@ class MagickaPupContainer extends StatelessWidget {
   final double width;
   final double height;
 
-  const MagickaPupContainer({
+  const MagickaPupLegacyContainer({
     super.key,
     required this.child,
     this.colorIndex = 1,

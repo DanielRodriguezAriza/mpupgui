@@ -4,7 +4,7 @@ import 'package:mpupgui/data/mpup_manager.dart';
 import 'package:mpupgui/data/settings_manager.dart';
 import 'package:mpupgui/data/theme_manager.dart';
 import 'package:mpupgui/widgets/mpup_button.dart';
-import 'package:mpupgui/widgets/mpup_container.dart';
+import 'package:mpupgui/widgets/mpuplegacy_container.dart';
 import 'package:mpupgui/widgets/mpup_named_container.dart';
 import 'package:mpupgui/widgets/mpup_scaffold.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
@@ -36,7 +36,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
   @override
   Widget build(BuildContext context) {
     return MagickaPupScaffold(
-      child: MagickaPupContainer(
+      child: MagickaPupLegacyContainer(
         paddingParent: 5,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -3,7 +3,7 @@ import 'package:mpupgui/data/language_manager.dart';
 import 'package:mpupgui/data/menu_manager.dart';
 import 'package:mpupgui/data/theme_manager.dart';
 import 'package:mpupgui/widgets/mpup_button.dart';
-import 'package:mpupgui/widgets/mpup_container.dart';
+import 'package:mpupgui/widgets/mpuplegacy_container.dart';
 
 class MagickaPupScaffold extends StatelessWidget {
 
@@ -19,7 +19,7 @@ class MagickaPupScaffold extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: ThemeManager.getColorImage(0),
-          title: MagickaPupContainer(
+          title: MagickaPupLegacyContainer(
               paddingParent: 0,
               height: 40,
               child: Row(
@@ -34,7 +34,7 @@ class MagickaPupScaffold extends StatelessWidget {
           ),
         ),
         backgroundColor: ThemeManager.getColorImage(0),
-        body: MagickaPupContainer(
+        body: MagickaPupLegacyContainer(
           child: child
         )
     );

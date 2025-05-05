@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:mpupgui/data/language_manager.dart';
 import 'package:mpupgui/data/mpup_manager.dart';
 import 'package:mpupgui/widgets/mpup_button.dart';
-import 'package:mpupgui/widgets/mpup_container.dart';
+import 'package:mpupgui/widgets/mpuplegacy_container.dart';
 import 'package:mpupgui/widgets/mpup_named_container.dart';
 import 'package:mpupgui/widgets/mpup_text_field.dart';
 
@@ -99,7 +99,7 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
                 )
             )
         ),
-        MagickaPupContainer(
+        MagickaPupLegacyContainer(
           width: MediaQuery.of(context).size.width,
           height: 30,
           child: MagickaPupButton(
