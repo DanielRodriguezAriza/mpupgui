@@ -90,15 +90,57 @@ class TestScreen extends StatelessWidget {
           IntrinsicHeight (
             child: Padding(
               padding: EdgeInsets.all(10),
-              child: Container(
-                  color: Colors.red,
-                  child: Row(
-                    children: [
-                      Expanded(
-                          child: Text("Input Path")
+              child: Column(
+                children: [
+                  Container(
+                    color: Colors.red,
+                    height: 50,
+                    child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Container(
+                          color: Colors.green,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 2,
+                                child: Text("Input Path")
+                              ),
+                              Expanded(
+                                flex: 8,
+                                child: Container(
+                                  color: Colors.blue
+                                )
+                              ),
+                            ],
+                          )
+                      ),
+                    )
+                  ),
+                  Container(
+                      color: Colors.red,
+                      height: 50,
+                      child: Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Container(
+                            color: Colors.green,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    flex: 2,
+                                    child: Text("Output Path")
+                                ),
+                                Expanded(
+                                    flex: 8,
+                                    child: Container(
+                                        color: Colors.blue
+                                    )
+                                ),
+                              ],
+                            )
+                        ),
                       )
-                    ],
                   )
+                ],
               )
             )
           ),
@@ -116,7 +158,7 @@ class TestScreen extends StatelessWidget {
                       )
                   )
               )
-          )
+          ),
         ]
       )
     );
