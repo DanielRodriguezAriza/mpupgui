@@ -110,6 +110,16 @@ class ThemeManager {
     return true;
   }
 
+  // Getter to obtain all of the theme data of an specific theme
+  static AppThemeData getThemeData(AppTheme theme) {
+    return colorsApp[theme]!;
+  }
+
+  // Getter to obtain all of the theme data of the currently enabled theme
+  static AppThemeData getCurrentThemeData() {
+    return colorsApp[currentTheme]!;
+  }
+
   // Style property getters and setters - Color
   static Color getColorInternal(AppTheme theme, AppThemeType themeType, int level) {
     if(!isValidColorIndex(theme, themeType, level)) {
