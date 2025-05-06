@@ -10,6 +10,7 @@ class MagickaPupContainer extends StatelessWidget {
   final double? height;
   final int level;
   final String? text;
+  final Color? color;
 
   const MagickaPupContainer({
     super.key,
@@ -18,20 +19,22 @@ class MagickaPupContainer extends StatelessWidget {
     this.height,
     this.level = 0,
     this.text,
+    this.color,
   });
 
   @override
   Widget build(BuildContext context) {
-    if(text == null) {
-      return MagickaPupContainerSimple(
+    if(text != null || color != null) {
+      return MagickaPupContainerNamed(
+        text: text ?? "",
         width: width,
         height: height,
         level: level,
+        color: color,
         child: child,
       );
     } else {
-      return MagickaPupContainerNamed(
-        text: text!,
+      return MagickaPupContainerSimple(
         width: width,
         height: height,
         level: level,
