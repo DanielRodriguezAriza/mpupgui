@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mpupgui/data/theme_manager.dart';
+import 'package:mpupgui/utility/colors_util.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 
 class MagickaPupContainerNamed extends StatelessWidget {
@@ -9,6 +10,7 @@ class MagickaPupContainerNamed extends StatelessWidget {
   final double? height;
   final int level;
   final String text;
+  final Color? color;
 
   const MagickaPupContainerNamed({
     super.key,
@@ -17,6 +19,7 @@ class MagickaPupContainerNamed extends StatelessWidget {
     this.height,
     this.level = 0,
     required this.text,
+    this.color,
   });
 
   @override
@@ -24,7 +27,9 @@ class MagickaPupContainerNamed extends StatelessWidget {
 
     var themeData = ThemeManager.getCurrentThemeData();
     double numSegments = 3;
-    double paddingBetweenSegments = themeData.padding.inner / numSegments;
+    double paddingBetweenSegments = 0; // themeData.padding.inner / numSegments;
+
+    var topColor = color ?? themeData.colors.image[level]; // If color is null, then set it to the theme color for the selected level.
 
     return Padding(
       padding: EdgeInsets.all(themeData.padding.outer),
@@ -34,10 +39,14 @@ class MagickaPupContainerNamed extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(0, 0, 0, paddingBetweenSegments),
             child: Container(
               decoration: BoxDecoration(
-                color: themeData.colors.image[level],
+                color: topColor,
                 borderRadius: BorderRadiusDirectional.vertical(
                   top: Radius.circular(themeData.borderRadius),
                   bottom: const Radius.circular(0),
+                ),
+                border: Border.all(
+                  color: ColorUtil.darken(topColor, themeData.darkening),
+                  width: 2,
                 ),
               ),
               child: Padding(
@@ -68,6 +77,10 @@ class MagickaPupContainerNamed extends StatelessWidget {
                   borderRadius: BorderRadiusDirectional.vertical(
                     top: const Radius.circular(0),
                     bottom: Radius.circular(themeData.borderRadius),
+                  ),
+                  border: Border.all(
+                    color: ColorUtil.darken(themeData.colors.image[level], themeData.darkening),
+                    width: 2,
                   ),
                 ),
                 width: width,
