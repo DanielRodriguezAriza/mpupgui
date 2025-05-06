@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mpupgui/data/theme_manager.dart';
+import 'package:mpupgui/utility/colors_util.dart';
 
 class MagickaPupContainerSimple extends StatelessWidget {
 
@@ -29,8 +30,12 @@ class MagickaPupContainerSimple extends StatelessWidget {
       padding: EdgeInsets.all(themeData.padding.outer),
       child: Container(
           decoration: BoxDecoration(
-              color: themeData.colors.image[level],
-              borderRadius: BorderRadius.circular(themeData.borderRadius)
+            color: themeData.colors.image[level],
+            borderRadius: BorderRadius.circular(themeData.borderRadius),
+            border: Border.all(
+              color: ColorUtil.darken(themeData.colors.image[level], themeData.darkening),
+              width: 2,
+            )
           ),
           width: width,
           height: height,
