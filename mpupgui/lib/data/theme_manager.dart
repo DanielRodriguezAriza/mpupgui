@@ -11,6 +11,29 @@ enum AppThemeType {
   text
 }
 
+// Struct to hold the data of the colors for image and text fields.
+class AppThemeDataColorsData {
+  final List<Color> image;
+  final List<Color> text;
+
+  const AppThemeDataColorsData({
+    required this.image,
+    required this.text,
+  });
+}
+
+// Struct to hold the data of the different types of border radii that can be
+// found throughout the app.
+class AppThemeDataBorderRadiusData {
+  final double inner;
+  final double outer;
+
+  const AppThemeDataBorderRadiusData({
+    required this.inner,
+    required this.outer,
+  });
+}
+
 // Simple struct to contain the data for a specific theme.
 // This is done like this so that users can define custom themes in the future.
 class AppThemeData {
