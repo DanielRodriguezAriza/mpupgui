@@ -178,11 +178,11 @@ class TestScreen extends StatelessWidget {
               )
             )
           ),
-          const Expanded(
+          Expanded(
             child: MagickaPupContainer(
               level: 2,
               //text: "HELLO",
-              color: Colors.red,
+              color: ThemeManager.getCurrentThemeData().colors.type.int,
               child: Row(
                 children: [],
               ),

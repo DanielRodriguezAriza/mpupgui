@@ -11,14 +11,29 @@ enum AppThemeType {
   text
 }
 
+// Struct to hold the data of the colors for different data types
+class AppThemeDataColorsDataTypes {
+  final Color string;
+  final Color int;
+  final Color float;
+
+  const AppThemeDataColorsDataTypes({
+    this.string = const Color.fromARGB(255, 190, 5, 10), // originally it was 189, 6, 11, but these are the slightly "refined" values
+    this.int = const Color.fromARGB(255, 15, 173, 196),
+    this.float = const Color.fromARGB(255, 86, 179, 30),
+  });
+}
+
 // Struct to hold the data of the colors for image and text fields.
 class AppThemeDataColorsData {
   final List<Color> image;
   final List<Color> text;
+  final AppThemeDataColorsDataTypes type;
 
   const AppThemeDataColorsData({
     required this.image,
     required this.text,
+    this.type = const AppThemeDataColorsDataTypes(),
   });
 }
 
@@ -66,7 +81,7 @@ class ThemeManager {
         ],
         text: [
           Color.fromARGB(255, 255, 255, 255),
-        ]
+        ],
       ),
       padding: AppThemeDataPaddingData(
         inner: 5.0,
@@ -85,7 +100,7 @@ class ThemeManager {
         ],
         text: [
           Color.fromARGB(255, 0, 0, 0),
-        ]
+        ],
       ),
       padding: AppThemeDataPaddingData(
         inner: 5.0,
