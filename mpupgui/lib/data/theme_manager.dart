@@ -24,11 +24,11 @@ class AppThemeDataColorsData {
 
 // Struct to hold the data of the different types of border radii that can be
 // found throughout the app.
-class AppThemeDataBorderRadiusData {
+class AppThemeDataPaddingData {
   final double inner;
   final double outer;
 
-  const AppThemeDataBorderRadiusData({
+  const AppThemeDataPaddingData({
     required this.inner,
     required this.outer,
   });
@@ -40,7 +40,7 @@ class AppThemeData {
 
   final Map<AppThemeType, List<Color>> colors;
   final double borderRadius;
-  final int padding;
+  final AppThemeD
 
   const AppThemeData({
     required this.colors,
