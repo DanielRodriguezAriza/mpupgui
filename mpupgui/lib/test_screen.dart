@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:mpupgui/data/theme_manager.dart';
-import 'package:mpupgui/widgets/mpup_container.dart';
+import 'package:mpupgui/widgets/mpup/mpup_container.dart';
 
 class TestScreen extends StatelessWidget {
   const TestScreen({super.key});
