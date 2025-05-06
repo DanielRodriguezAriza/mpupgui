@@ -139,7 +139,7 @@ class TestScreen extends StatelessWidget {
                             )
                         ),
                       )
-                  )
+                  ),
                 ],
               )
             )
@@ -159,6 +159,16 @@ class TestScreen extends StatelessWidget {
                   )
               )
           ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: Container(
+                width: null, // NOTE : Passing null as parameter for width and height to a Container means handling width and height with the Container's default behaviour (aka, when you don't pass these parameters with custom values...). This is because under the hood, the container just defaults these values to null, and if they are null, then code within the Container widget tells it to stretch out to fit the size of the child (or to fit the size of the parent if an Expanded() is involved as its parent).
+                height: 20,
+                color: Colors.green,
+              ),
+            ),
+          )
         ]
       )
     );
