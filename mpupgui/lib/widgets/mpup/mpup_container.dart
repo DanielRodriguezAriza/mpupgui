@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mpupgui/data/theme_manager.dart';
+import 'package:mpupgui/widgets/mpup/mpup_container_named.dart';
+import 'package:mpupgui/widgets/mpup/mpup_container_simple.dart';
 
 class MagickaPupContainer extends StatelessWidget {
 
@@ -7,32 +9,34 @@ class MagickaPupContainer extends StatelessWidget {
   final double? width;
   final double? height;
   final int level;
+  final String? text;
 
   const MagickaPupContainer({
     super.key,
-
-    // Nullable properties.
-    // No assignment means that it is initialized to null by default. We don't use explicit assignment to null to a
-    // nullable type because it is considered redundant by Flutter standards since that is its default value.
     this.child,
     this.width,
     this.height,
     this.level = 0,
+    this.text,
   });
 
   @override
   Widget build(BuildContext context) {
-
-    var themeData = ThemeManager.getCurrentThemeData();
-
-    return Container(
-      decoration: BoxDecoration(
-        color: themeData.colors[AppThemeType.image]![level],
-        borderRadius: BorderRadius.circular(themeData.borderRadius)
-      ),
-      width: width,
-      height: height,
-      child: child,
-    );
+    if(text == null) {
+      return MagickaPupContainerSimple(
+        width: width,
+        height: height,
+        level: level,
+        child: child,
+      );
+    } else {
+      return MagickaPupContainerNamed(
+        text: text!,
+        width: width,
+        height: height,
+        level: level,
+        child: child,
+      );
+    }
   }
 }
