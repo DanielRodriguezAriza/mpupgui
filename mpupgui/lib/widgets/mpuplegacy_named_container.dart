@@ -6,13 +6,13 @@ import 'package:mpupgui/widgets/mpup_text.dart';
 // layout with a top section where a name for the field / card / container is
 // displayed, and a bottom larger section where the actual container's contents
 // will be located.
-class MagickaPupNamedContainer extends StatelessWidget {
+class MagickaPupLegacyNamedContainer extends StatelessWidget {
 
   final String text;
   final Widget child;
   final int colorIndex;
 
-  const MagickaPupNamedContainer({
+  const MagickaPupLegacyNamedContainer({
     super.key,
     required this.text,
     required this.child,

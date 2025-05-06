@@ -5,7 +5,7 @@ import 'package:mpupgui/data/settings_manager.dart';
 import 'package:mpupgui/data/theme_manager.dart';
 import 'package:mpupgui/widgets/mpup_button.dart';
 import 'package:mpupgui/widgets/mpuplegacy_container.dart';
-import 'package:mpupgui/widgets/mpup_named_container.dart';
+import 'package:mpupgui/widgets/mpuplegacy_named_container.dart';
 import 'package:mpupgui/widgets/mpup_scaffold.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 import 'package:mpupgui/widgets/mpup_text_field.dart';
@@ -45,7 +45,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
             Container(
               width: MediaQuery.of(context).size.width,
               height: 120,
-              child: MagickaPupNamedContainer(
+              child: MagickaPupLegacyNamedContainer(
                   text: "   App Themes",
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -77,7 +77,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
             Container(
               width: MediaQuery.of(context).size.width,
               height: 120,
-              child: MagickaPupNamedContainer(
+              child: MagickaPupLegacyNamedContainer(
                   text: "   Magicka PUP CLI Executable Path",
                   child: Padding(
                     padding: const EdgeInsets.all(5),
@@ -93,7 +93,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
             Container(
               width: MediaQuery.of(context).size.width,
               height:120,
-              child:MagickaPupNamedContainer(
+              child:MagickaPupLegacyNamedContainer(
                 text: "    Path To Installs",
                 child: Padding(
                   padding: const EdgeInsets.all(5),
@@ -107,7 +107,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
             Container(
                 width: MediaQuery.of(context).size.width,
                 height:120,
-                child:MagickaPupNamedContainer(
+                child:MagickaPupLegacyNamedContainer(
                     text: "    Path To Mods",
                     child: Padding(
                         padding: const EdgeInsets.all(5),
@@ -121,7 +121,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
             Container(
                 width: MediaQuery.of(context).size.width,
                 height:120,
-                child:MagickaPupNamedContainer(
+                child:MagickaPupLegacyNamedContainer(
                     text: "    Path To Profiles",
                     child: Padding(
                         padding: const EdgeInsets.all(5),

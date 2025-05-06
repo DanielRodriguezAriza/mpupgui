@@ -16,12 +16,12 @@ enum AppThemeType {
 class AppThemeData {
 
   final Map<AppThemeType, List<Color>> colors;
-  final int edgeRoundness;
+  final double borderRadius;
   final int padding;
 
   const AppThemeData({
     required this.colors,
-    required this.edgeRoundness,
+    required this.borderRadius,
     required this.padding
   });
 }
@@ -43,7 +43,7 @@ class ThemeManager {
           Color.fromARGB(255, 255, 255, 255),
         ],
       },
-      edgeRoundness: 5,
+      borderRadius: 5,
       padding: 5,
     ),
     AppTheme.mid: AppThemeData(
@@ -58,7 +58,7 @@ class ThemeManager {
           Color.fromARGB(255, 0, 0, 0),
         ],
       },
-      edgeRoundness: 5,
+      borderRadius: 5,
       padding: 5,
     ),
     AppTheme.light: AppThemeData(
@@ -73,7 +73,7 @@ class ThemeManager {
           Color.fromARGB(255, 0, 0, 0),
         ],
       },
-      edgeRoundness: 5,
+      borderRadius: 5,
       padding: 5,
     )
   };

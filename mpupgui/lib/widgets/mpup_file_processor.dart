@@ -8,7 +8,7 @@ import 'package:mpupgui/data/language_manager.dart';
 import 'package:mpupgui/data/mpup_manager.dart';
 import 'package:mpupgui/widgets/mpup_button.dart';
 import 'package:mpupgui/widgets/mpuplegacy_container.dart';
-import 'package:mpupgui/widgets/mpup_named_container.dart';
+import 'package:mpupgui/widgets/mpuplegacy_named_container.dart';
 import 'package:mpupgui/widgets/mpup_text_field.dart';
 
 import '../data/theme_manager.dart';
@@ -58,7 +58,7 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Expanded(
-            child: MagickaPupNamedContainer(
+            child: MagickaPupLegacyNamedContainer(
               text: "   ${LanguageManager.getString("loc_input_file_path")}:",
               colorIndex: 2,
               child: Padding(
@@ -78,7 +78,7 @@ class _MagickaPupFileProcessorState extends State<MagickaPupFileProcessor> {
             )
         ),
         Expanded(
-            child: MagickaPupNamedContainer(
+            child: MagickaPupLegacyNamedContainer(
                 text: "   ${LanguageManager.getString("loc_console")}:",
                 colorIndex: 2,
                 child: Scrollbar(
