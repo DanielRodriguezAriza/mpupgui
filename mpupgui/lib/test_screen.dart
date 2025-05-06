@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mpupgui/data/theme_manager.dart';
 import 'package:mpupgui/widgets/mpup/mpup_container.dart';
+import 'package:mpupgui/widgets/mpup/mpup_container_simple.dart';
+import 'package:mpupgui/widgets/mpup_text.dart';
+import 'package:mpupgui/widgets/mpuplegacy_named_container.dart';
 
 class TestScreen extends StatelessWidget {
   const TestScreen({super.key});
@@ -160,13 +163,27 @@ class TestScreen extends StatelessWidget {
                   )
               )
           ),
-          const Expanded(
+          Expanded(
             child: Padding(
               padding: EdgeInsets.all(10),
-              child: MagickaPupContainer(
-                width: null, // NOTE : Passing null as parameter for width and height to a Container means handling width and height with the Container's default behaviour (aka, when you don't pass these parameters with custom values...). This is because under the hood, the container just defaults these values to null, and if they are null, then code within the Container widget tells it to stretch out to fit the size of the child (or to fit the size of the parent if an Expanded() is involved as its parent).
-                height: 20,
-                level: 1,
+              child: Container(
+                color: Colors.red,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text("fsaf")
+                    )
+                  ],
+                ),
+              )
+            )
+          ),
+          const Expanded(
+            child: MagickaPupContainer(
+              level: 2,
+              text: "HELLO",
+              child: Row(
+                children: [],
               ),
             ),
           )
