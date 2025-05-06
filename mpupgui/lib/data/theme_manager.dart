@@ -38,14 +38,14 @@ class AppThemeDataPaddingData {
 // This is done like this so that users can define custom themes in the future.
 class AppThemeData {
 
-  final Map<AppThemeType, List<Color>> colors;
   final double borderRadius;
-  final AppThemeD
+  final AppThemeDataColorsData colors;
+  final AppThemeDataPaddingData padding;
 
   const AppThemeData({
     required this.colors,
+    required this.padding,
     required this.borderRadius,
-    required this.padding
   });
 }
 
@@ -55,49 +55,58 @@ class ThemeManager {
   static AppTheme currentTheme = AppTheme.dark;
   static const Map<AppTheme, AppThemeData> colorsApp = {
     AppTheme.dark: AppThemeData(
-      colors: {
-        AppThemeType.image: [
+      colors: AppThemeDataColorsData(
+        image: [
           Color.fromARGB(255, 23, 23, 23),
           Color.fromARGB(255, 43, 43, 43),
           Color.fromARGB(255, 54, 54, 54),
           Color.fromARGB(255, 128, 128, 128),
         ],
-        AppThemeType.text: [
+        text: [
           Color.fromARGB(255, 255, 255, 255),
-        ],
-      },
+        ]
+      ),
+      padding: AppThemeDataPaddingData(
+        inner: 5.0,
+        outer: 5.0,
+      ),
       borderRadius: 5,
-      padding: 5,
     ),
     AppTheme.mid: AppThemeData(
-      colors: {
-        AppThemeType.image: [
+      colors: AppThemeDataColorsData(
+        image: [
           Color.fromARGB(255, 53, 53, 53),
           Color.fromARGB(255, 73, 73, 73),
           Color.fromARGB(255, 120, 120, 120),
           Color.fromARGB(255, 160, 160, 160),
         ],
-        AppThemeType.text: [
+        text: [
           Color.fromARGB(255, 0, 0, 0),
-        ],
-      },
+        ]
+      ),
+      padding: AppThemeDataPaddingData(
+        inner: 5.0,
+        outer: 5.0,
+      ),
       borderRadius: 5,
-      padding: 5,
     ),
     AppTheme.light: AppThemeData(
-      colors: {
-        AppThemeType.image: [
+      colors: AppThemeDataColorsData(
+        image: [
           Color.fromARGB(255, 100, 100, 100),
           Color.fromARGB(255, 145, 145, 145),
           Color.fromARGB(255, 195, 195, 195),
           Color.fromARGB(255, 200, 200, 200),
         ],
-        AppThemeType.text: [
+        text: [
           Color.fromARGB(255, 0, 0, 0),
-        ],
-      },
+        ]
+      ),
+      padding: AppThemeDataPaddingData(
+        inner: 5.0,
+        outer: 5.0
+      ),
       borderRadius: 5,
-      padding: 5,
     )
   };
 
@@ -118,18 +127,26 @@ class ThemeManager {
       return false;
     }
 
-    if(!colorsApp[appTheme]!.colors.containsKey(themeType)) {
-      return false;
+    // Get the list of colors based on the type of color we are checking for
+    List<Color> arr;
+    switch(themeType) {
+      case AppThemeType.image: arr = colorsApp[appTheme]!.colors.image;
+      case AppThemeType.text: arr = colorsApp[appTheme]!.colors.text;
+      default: arr = colorsApp[appTheme]!.colors.image;
     }
-    
-    int length = colorsApp[appTheme]!.colors[themeType]!.length;
+
+    // Get the array length and check if it has at least 1 single color element within it
+    int length = arr.length;
     if(length <= 0) {
       return false;
     }
+
+    // If the index is not valid, then we return false
     if(idx < 0 || idx >= length) {
       return false;
     }
 
+    // return true in the case that the color index is actually valid
     return true;
   }
 
@@ -144,11 +161,17 @@ class ThemeManager {
   }
 
   // Style property getters and setters - Color
+  // NOTE : These functions are deprecated and only exist so that we can compile the program, because there's still legacy code
+  // that relies on it.
+  // Nowadays, what we should do instead is get the theme data and then access the .colors.image or .colors.text properties, etc...
   static Color getColorInternal(AppTheme theme, AppThemeType themeType, int level) {
     if(!isValidColorIndex(theme, themeType, level)) {
       return Colors.black;
     }
-    return colorsApp[theme]!.colors[themeType]![level];
+    switch(themeType) {
+      case AppThemeType.image: return colorsApp[theme]!.colors.image[level];
+      case AppThemeType.text: return colorsApp[theme]!.colors.text[level];
+    }
   }
 
   static Color getColor(AppThemeType themeType, int level) {
@@ -162,10 +185,4 @@ class ThemeManager {
   static Color getColorText(int level) {
     return getColor(AppThemeType.text, level);
   }
-
-  // Style property getters and setters - Other
-  static int getPadding() {
-    return colorsApp[currentTheme]!.padding;
-  }
-
 }
