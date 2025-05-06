@@ -181,7 +181,8 @@ class TestScreen extends StatelessWidget {
           const Expanded(
             child: MagickaPupContainer(
               level: 2,
-              text: "HELLO",
+              //text: "HELLO",
+              color: Colors.red,
               child: Row(
                 children: [],
               ),
