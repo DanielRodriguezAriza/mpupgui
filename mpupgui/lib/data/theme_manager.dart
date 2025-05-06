@@ -41,11 +41,13 @@ class AppThemeData {
   final double borderRadius;
   final AppThemeDataColorsData colors;
   final AppThemeDataPaddingData padding;
+  final int darkening;
 
   const AppThemeData({
     required this.colors,
     required this.padding,
     required this.borderRadius,
+    required this.darkening,
   });
 }
 
@@ -71,6 +73,7 @@ class ThemeManager {
         outer: 5.0,
       ),
       borderRadius: 5,
+      darkening: 30,
     ),
     AppTheme.mid: AppThemeData(
       colors: AppThemeDataColorsData(
@@ -89,6 +92,7 @@ class ThemeManager {
         outer: 5.0,
       ),
       borderRadius: 5,
+      darkening: 5,
     ),
     AppTheme.light: AppThemeData(
       colors: AppThemeDataColorsData(
@@ -107,6 +111,7 @@ class ThemeManager {
         outer: 5.0
       ),
       borderRadius: 5,
+      darkening: 5,
     )
   };
 
