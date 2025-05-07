@@ -30,6 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # Custom dependencies added to mpup
+  file_picker: ^6.1.1 # Used for file picker interface on major platforms. Allows opening file explorer to pick files.
 
 
   # The following adds the Cupertino Icons font to your application.
