@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:mpupgui/menus/menu_fproc_compiler.dart';
 import 'package:mpupgui/menus/menu_fproc_decompiler.dart';
@@ -7,10 +9,26 @@ import 'package:mpupgui/menus/menu_mm.dart';
 import 'package:mpupgui/menus/menu_settings.dart';
 import 'package:mpupgui/test_screen.dart';
 import 'package:mpupgui/utility/plain_page_router.dart';
+import 'package:window_size/window_size.dart';
+
+bool isPlatformDesktop() {
+  return Platform.isWindows || Platform.isLinux || Platform.isMacOS;
+}
 
 // NOTE : Made main into an async method so that process interop
 // doesn't shit its pants in flutter... yay...
 void main() async {
+  // Ensure that flutter bindings are initialized
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Perform desktop platform specific operations
+  if(isPlatformDesktop()) {
+    setWindowTitle("MagickaPUP GUI");
+    setWindowMinSize(const Size(800, 600)); // Limit the window min size so that it cannot go below 800x600.
+    // setWindowMaxSize(const Size(800, 600)); // We could limit the max size, but for now we don't really care about that, so any resolution is supported.
+  }
+
+  // Run the main app
   runApp(const MyApp());
 }
 
