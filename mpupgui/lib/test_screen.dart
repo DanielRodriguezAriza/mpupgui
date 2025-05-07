@@ -10,12 +10,19 @@ import 'package:mpupgui/widgets/mpuplegacy_named_container.dart';
 import 'package:file_picker/file_picker.dart';
 
 void pickFile() async {
-  FilePickerResult? result = await FilePicker.platform.pickFiles();
+  FilePickerResult? result = await FilePicker.platform.pickFiles(
+    allowMultiple: true,
+    type: FileType.custom,
+    allowedExtensions: ["pdf", "txt", "json"],
+  );
   if(result != null) {
-    PlatformFile file = result.files.first;
-    print("The chosen file name is : \"${file.name}\".");
+    int idx = 0;
+    for(var file in result.files) {
+      print("File [$idx] = \"${file.name}\" (${file.path})");
+      ++idx;
+    }
   } else {
-    print("cancelled, no file selected.");
+    print("File Pick Operation Cancelled. No file was selected.");
   }
 }
 
