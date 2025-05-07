@@ -7,6 +7,18 @@ import 'package:mpupgui/widgets/mpup/mpup_container_simple.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 import 'package:mpupgui/widgets/mpuplegacy_named_container.dart';
 
+import 'package:file_picker/file_picker.dart';
+
+void pickFile() async {
+  FilePickerResult? result = await FilePicker.platform.pickFiles();
+  if(result != null) {
+    PlatformFile file = result.files.first;
+    print("The chosen file name is : \"${file.name}\".");
+  } else {
+    print("cancelled, no file selected.");
+  }
+}
+
 class TestScreen extends StatelessWidget {
   const TestScreen({super.key});
 
@@ -184,7 +196,12 @@ class TestScreen extends StatelessWidget {
               //text: "HELLO",
               color: ThemeManager.getCurrentThemeData().colors.type.int,
               child: Row(
-                children: [],
+                children: [
+                  ElevatedButton(
+                    onPressed: pickFile,
+                    child: Text("Button")
+                  )
+                ],
               ),
             ),
           )
