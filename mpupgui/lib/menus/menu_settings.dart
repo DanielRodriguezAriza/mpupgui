@@ -3,7 +3,7 @@ import 'package:mpupgui/data/language_manager.dart';
 import 'package:mpupgui/data/mpup_manager.dart';
 import 'package:mpupgui/data/settings_manager.dart';
 import 'package:mpupgui/data/theme_manager.dart';
-import 'package:mpupgui/widgets/mpup_button.dart';
+import 'package:mpupgui/widgets/mpuplegacy_button.dart';
 import 'package:mpupgui/widgets/mpuplegacy_container.dart';
 import 'package:mpupgui/widgets/mpuplegacy_named_container.dart';
 import 'package:mpupgui/widgets/mpup_scaffold.dart';
@@ -52,7 +52,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(5),
-                        child: MagickaPupButton(
+                        child: MagickaPupLegacyButton(
                           text: LanguageManager.getString("loc_theme_light"),
                           colorIndex: 3,
                           onPressed: (){
@@ -62,7 +62,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(5),
-                        child: MagickaPupButton(
+                        child: MagickaPupLegacyButton(
                             text: LanguageManager.getString("loc_theme_dark"),
                             colorIndex: 3,
                             onPressed: (){

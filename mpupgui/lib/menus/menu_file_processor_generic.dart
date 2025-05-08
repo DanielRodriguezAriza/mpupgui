@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
-import 'package:mpupgui/widgets/mpup_button.dart';
+import 'package:mpupgui/widgets/mpuplegacy_button.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 
 // Generic class for file processors.
@@ -42,7 +42,7 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
                     Expanded(
                       child: MagickaPupContainer(
                         level: 2,
-                        child: MagickaPupButton(
+                        child: MagickaPupLegacyButton(
                           text: "Compile",
                           onPressed: onProcessFilesPressed,
                         ),

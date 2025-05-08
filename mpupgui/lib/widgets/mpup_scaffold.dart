@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mpupgui/data/language_manager.dart';
 import 'package:mpupgui/data/menu_manager.dart';
 import 'package:mpupgui/data/theme_manager.dart';
-import 'package:mpupgui/widgets/mpup_button.dart';
+import 'package:mpupgui/widgets/mpuplegacy_button.dart';
 import 'package:mpupgui/widgets/mpuplegacy_container.dart';
 
 class MagickaPupScaffold extends StatelessWidget {
@@ -44,7 +44,7 @@ class MagickaPupScaffold extends StatelessWidget {
     return Expanded(
         child: Padding(
           padding: const EdgeInsets.all(3),
-          child: MagickaPupButton(
+          child: MagickaPupLegacyButton(
               colorIndex: 2,
               width: 150,
               text: LanguageManager.getString(locString),

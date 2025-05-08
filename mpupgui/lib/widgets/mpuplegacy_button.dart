@@ -3,7 +3,7 @@ import 'package:mpupgui/widgets/mpup_text.dart';
 
 import '../data/theme_manager.dart';
 
-class MagickaPupButton extends StatelessWidget {
+class MagickaPupLegacyButton extends StatelessWidget {
 
   final String text;
   final Function onPressed;
@@ -14,7 +14,7 @@ class MagickaPupButton extends StatelessWidget {
   final bool autoSize;
   final int colorIndex;
 
-  const MagickaPupButton({
+  const MagickaPupLegacyButton({
     super.key,
     required this.text,
     required this.onPressed,

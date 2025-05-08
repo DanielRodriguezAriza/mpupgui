@@ -8,7 +8,7 @@ import 'package:mpupgui/menus/menu_selector_tabs.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container_simple.dart';
-import 'package:mpupgui/widgets/mpup_button.dart';
+import 'package:mpupgui/widgets/mpuplegacy_button.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 import 'package:mpupgui/widgets/mpuplegacy_named_container.dart';
 
@@ -264,7 +264,7 @@ class TestScreen extends StatelessWidget {
                     MagickaPupText(
                       text: "Pick Files",
                     ),
-                    MagickaPupButton(
+                    MagickaPupLegacyButton(
                       text: "Explore",
                       onPressed: pickDirectory,
                     ),
