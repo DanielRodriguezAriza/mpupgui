@@ -37,8 +37,8 @@ class MagickaPupContainerSimple extends StatelessWidget {
               width: 2,
             )
           ),
-          width: width,
-          height: height,
+          width: width ?? MediaQuery.of(context).size.width,
+          height: height ?? MediaQuery.of(context).size.height,
           child: Padding(
             padding: EdgeInsets.all(themeData.padding.inner),
             child: child,

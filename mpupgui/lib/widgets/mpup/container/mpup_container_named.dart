@@ -38,6 +38,8 @@ class MagickaPupContainerNamed extends StatelessWidget {
           Padding(
             padding: EdgeInsets.fromLTRB(0, 0, 0, paddingBetweenSegments),
             child: Container(
+              // width: width ?? MediaQuery.of(context).size.width,
+              // height: height ?? MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
                 color: topColor,
                 borderRadius: BorderRadiusDirectional.vertical(
@@ -83,8 +85,8 @@ class MagickaPupContainerNamed extends StatelessWidget {
                     width: 2,
                   ),
                 ),
-                width: width,
-                height: height,
+                width: width ?? MediaQuery.of(context).size.width,
+                height: height ?? MediaQuery.of(context).size.height,
                 child: Padding(
                   padding: EdgeInsets.all(themeData.padding.inner),
                   child: child,

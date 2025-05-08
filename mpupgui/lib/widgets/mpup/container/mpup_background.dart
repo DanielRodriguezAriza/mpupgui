@@ -20,8 +20,8 @@ class MagickaPupBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: ThemeManager.getCurrentThemeData().colors.image[level],
-      width: width,
-      height: height,
+      width: width ?? MediaQuery.of(context).size.width,
+      height: height ?? MediaQuery.of(context).size.height,
       child: child,
     );
   }
