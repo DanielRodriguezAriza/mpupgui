@@ -6,7 +6,17 @@
 // to some wrapper widget component so that we can make this into a dart lib or something, but for now this is ok since
 // the only consumer of this dart code is this flutter app, so yeah.
 
+class mpup_FileDataInput {
+
+}
+
+class mpup_FileDataOutput {
+
+}
+
 abstract final class MagickaPupManager {
+
+  // MagickaPUP program related data
   static String currentMagickaPupPath = "";
 
   static void setMagickaPupPath(String path) {
@@ -15,5 +25,17 @@ abstract final class MagickaPupManager {
 
   static String getMagickaPupPath() {
     return currentMagickaPupPath;
+  }
+
+  // File related stuff
+  static List<mpup_FileDataInput> filesInputData = [];
+  static List<mpup_FileDataOutput> filesOutputData = [];
+
+  static void clearInputFiles() {
+    filesInputData.clear();
+  }
+
+  static void clearOutputFiles() {
+    filesOutputData.clear();
   }
 }
