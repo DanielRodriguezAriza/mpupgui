@@ -4,6 +4,16 @@ import 'package:mpupgui/menus/menu_settings.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup_button.dart';
 
+class MenuData {
+  final String name;
+  final Widget widget;
+
+  const MenuData({
+    required this.name,
+    required this.widget,
+  });
+}
+
 class MagickaPupMenuSelectorTabsMenu extends StatefulWidget {
   const MagickaPupMenuSelectorTabsMenu({super.key});
 
@@ -13,10 +23,18 @@ class MagickaPupMenuSelectorTabsMenu extends StatefulWidget {
 
 class _MagickaPupMenuSelectorTabsMenuState extends State<MagickaPupMenuSelectorTabsMenu> {
 
-  int menuIndex = 0;
+  int currentMenuIndex = 0;
 
-  final SettingsMenu settingsMenu = const SettingsMenu();
-  final MagickaPupFileProcessorMenuGeneric compilerMenu = const MagickaPupFileProcessorMenuGeneric();
+  final List<MenuData> menuDataCache = const [
+    MenuData(
+      name: "Settings",
+      widget: SettingsMenu(),
+    ),
+    MenuData(
+      name: "Compiler",
+      widget: MagickaPupFileProcessorMenuGeneric(),
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -31,17 +49,16 @@ class _MagickaPupMenuSelectorTabsMenuState extends State<MagickaPupMenuSelectorT
             Expanded(
               child: MagickaPupBackground(
                 level: 1,
-                child: getButtons(),
+                child: Row(
+                  children: getButtonWidgets(),
+                ),
               ),
             ),
             Expanded(
               flex: 9,
               child: IndexedStack(
-                index: menuIndex,
-                children: [
-                  settingsMenu,
-                  compilerMenu,
-                ],
+                index: currentMenuIndex,
+                children: getMenuWidgets(),
               ),
             ),
           ],
@@ -50,25 +67,32 @@ class _MagickaPupMenuSelectorTabsMenuState extends State<MagickaPupMenuSelectorT
     );
   }
 
-  Widget getButtons() {
-    List<Widget> generatedButtons = [
-      getButton("menu A", 0),
-      getButton("menu B", 1),
-    ];
-    return Row(
-      children: generatedButtons,
-    );
+  List<Widget> getMenuWidgets() {
+    List<Widget> generatedMenuWidgets = [];
+    for(var menu in menuDataCache) {
+      generatedMenuWidgets.add(menu.widget);
+    }
+    return generatedMenuWidgets;
   }
 
-  Widget getButton(String text, int index, [int flex = 1]) {
+  List<Widget> getButtonWidgets() {
+    List<Widget> generatedButtons = [];
+    int idx = 0;
+    for(var menu in menuDataCache) {
+      generatedButtons.add(getButtonWidget(idx, menu));
+      ++idx;
+    }
+    return generatedButtons;
+  }
+
+  Widget getButtonWidget(int index, MenuData menuData) {
     return Expanded(
-      flex: flex,
       child: MagickaPupButton(
-        text: text,
+        text: menuData.name,
         colorIndex: 2,
         onPressed: (){
           setState(() {
-            menuIndex = index;
+            currentMenuIndex = index;
             // print("changing menu to $index");
           });
         },
