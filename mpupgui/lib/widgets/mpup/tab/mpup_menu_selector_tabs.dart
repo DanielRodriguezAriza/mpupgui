@@ -88,7 +88,7 @@ class _MagickaPupTabSelectorState extends State<MagickaPupTabSelector> {
             currentTabIndex = index;
           });
         },
-        level: 2,
+        level: currentTabIndex == index ? 3 : 2,
         child: MagickaPupText(
           text: tabData.name,
           isBold: true,
