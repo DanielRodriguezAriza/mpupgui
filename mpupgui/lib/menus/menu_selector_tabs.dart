@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mpupgui/menus/menu_file_processor_generic.dart';
 import 'package:mpupgui/menus/menu_settings.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
+import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
+import 'package:mpupgui/widgets/mpup_text.dart';
 import 'package:mpupgui/widgets/mpuplegacy_button.dart';
 
 class MenuData {
@@ -87,15 +89,18 @@ class _MagickaPupMenuSelectorTabsMenuState extends State<MagickaPupMenuSelectorT
 
   Widget getButtonWidget(int index, MenuData menuData) {
     return Expanded(
-      child: MagickaPupLegacyButton(
-        text: menuData.name,
-        colorIndex: 2,
+      child: MagickaPupButton(
         onPressed: (){
           setState(() {
             currentMenuIndex = index;
-            // print("changing menu to $index");
           });
         },
+        level: 2,
+        child: MagickaPupText(
+          text: menuData.name,
+          isBold: true,
+          fontSize: 20,
+        ),
       ),
     );
   }
