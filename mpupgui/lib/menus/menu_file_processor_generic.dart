@@ -36,6 +36,7 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
                       flex: 7,
                       child: MagickaPupContainer(
                         level: 2,
+                        child: TextField(),
                       ),
                     ),
                     Expanded(
