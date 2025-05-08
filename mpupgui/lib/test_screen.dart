@@ -12,6 +12,8 @@ import 'package:mpupgui/widgets/mpuplegacy_named_container.dart';
 
 import 'package:file_picker/file_picker.dart';
 
+import 'package:file_selector/file_selector.dart';
+
 void pickFile() async {
   FilePickerResult? result = await FilePicker.platform.pickFiles(
     allowMultiple: true,
@@ -45,7 +47,7 @@ void pickFiles(List<String> allowedExtensions, Function? processFile) async {
 }
 
 void pickDirectory() async {
-  String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
+  String? selectedDirectory = await getDirectoryPath();
   if(selectedDirectory != null) {
     print("directory that was selected is $selectedDirectory");
   }
