@@ -307,6 +307,10 @@ class TestScreen extends StatelessWidget {
     return const MagickaPupTabSelector(
       tabs: [
         TabData(
+          name: "Mod Manager",
+          widget: MagickaPupBackground(),
+        ),
+        TabData(
           name: "Compiler",
           widget: MagickaPupFileProcessorMenuGeneric(),
         ),
