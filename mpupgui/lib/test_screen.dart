@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mpupgui/data/mpup_manager.dart';
 import 'package:mpupgui/data/theme_manager.dart';
 import 'package:mpupgui/menus/menu_file_processor_generic.dart';
+import 'package:mpupgui/menus/menu_settings.dart';
 import 'package:mpupgui/widgets/mpup/tab/mpup_menu_selector_tabs.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
@@ -303,7 +304,22 @@ class TestScreen extends StatelessWidget {
 
   Widget getMenuWidget() {
     // return const MagickaPupFileProcessorMenuGeneric();
-    return const MagickaPupTabSelector();
+    return const MagickaPupTabSelector(
+      tabs: [
+        TabData(
+          name: "Compiler",
+          widget: MagickaPupFileProcessorMenuGeneric(),
+        ),
+        TabData(
+          name: "Decompiler",
+          widget: MagickaPupFileProcessorMenuGeneric(),
+        ),
+        TabData(
+          name: "Settings",
+          widget: SettingsMenu(),
+        ),
+      ]
+    );
   }
 
 }
