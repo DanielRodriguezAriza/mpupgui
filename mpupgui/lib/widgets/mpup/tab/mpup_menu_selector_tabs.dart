@@ -5,18 +5,23 @@ import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 
-class MenuData {
+class TabData {
   final String name;
   final Widget widget;
 
-  const MenuData({
+  const TabData({
     required this.name,
     required this.widget,
   });
 }
 
 class MagickaPupTabSelector extends StatefulWidget {
-  const MagickaPupTabSelector({super.key});
+  final List<TabData> tabs;
+
+  const MagickaPupTabSelector({
+    super.key,
+    required this.tabs,
+  });
 
   @override
   State<MagickaPupTabSelector> createState() => _MagickaPupTabSelectorState();
@@ -24,18 +29,7 @@ class MagickaPupTabSelector extends StatefulWidget {
 
 class _MagickaPupTabSelectorState extends State<MagickaPupTabSelector> {
 
-  int currentMenuIndex = 0;
-
-  final List<MenuData> menuDataCache = const [
-    MenuData(
-      name: "Settings",
-      widget: SettingsMenu(),
-    ),
-    MenuData(
-      name: "Compiler",
-      widget: MagickaPupFileProcessorMenuGeneric(),
-    ),
-  ];
+  int currentTabIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -51,15 +45,15 @@ class _MagickaPupTabSelectorState extends State<MagickaPupTabSelector> {
               child: MagickaPupBackground(
                 level: 1,
                 child: Row(
-                  children: getButtonWidgets(),
+                  children: getButtonsWidgets(),
                 ),
               ),
             ),
             Expanded(
               flex: 9,
               child: IndexedStack(
-                index: currentMenuIndex,
-                children: getMenuWidgets(),
+                index: currentTabIndex,
+                children: getTabsWidgets(),
               ),
             ),
           ],
@@ -68,35 +62,35 @@ class _MagickaPupTabSelectorState extends State<MagickaPupTabSelector> {
     );
   }
 
-  List<Widget> getMenuWidgets() {
-    List<Widget> generatedMenuWidgets = [];
-    for(var menu in menuDataCache) {
-      generatedMenuWidgets.add(menu.widget);
+  List<Widget> getTabsWidgets() {
+    List<Widget> tabsWidgets = [];
+    for(var tab in widget.tabs) {
+      tabsWidgets.add(tab.widget);
     }
-    return generatedMenuWidgets;
+    return tabsWidgets;
   }
 
-  List<Widget> getButtonWidgets() {
-    List<Widget> generatedButtons = [];
+  List<Widget> getButtonsWidgets() {
+    List<Widget> buttonsWidgets = [];
     int idx = 0;
-    for(var menu in menuDataCache) {
-      generatedButtons.add(getButtonWidget(idx, menu));
+    for(var tab in widget.tabs) {
+      buttonsWidgets.add(getButtonWidget(idx, tab));
       ++idx;
     }
-    return generatedButtons;
+    return buttonsWidgets;
   }
 
-  Widget getButtonWidget(int index, MenuData menuData) {
+  Widget getButtonWidget(int index, TabData tabData) {
     return Expanded(
       child: MagickaPupButton(
         onPressed: (){
           setState(() {
-            currentMenuIndex = index;
+            currentTabIndex = index;
           });
         },
         level: 2,
         child: MagickaPupText(
-          text: menuData.name,
+          text: tabData.name,
           isBold: true,
           fontSize: 20,
         ),
