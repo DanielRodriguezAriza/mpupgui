@@ -24,6 +24,11 @@ class MagickaPupContainerNamed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return getWidget(context);
+  }
+
+  /*
+  Widget getWidgetOld(BuildContext context) {
 
     var themeData = ThemeManager.getCurrentThemeData();
     double numSegments = 3;
@@ -63,16 +68,81 @@ class MagickaPupContainerNamed extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
+          /*Padding(
             padding: EdgeInsets.fromLTRB(0, paddingBetweenSegments, 0, paddingBetweenSegments),
             child: Container(
               color: Colors.orange,
               height: paddingBetweenSegments * 3.0,
             ),
+          ),*/
+          Expanded(
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(0, paddingBetweenSegments, 0, 0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: themeData.colors.image[level],
+                    borderRadius: BorderRadiusDirectional.vertical(
+                      top: const Radius.circular(0),
+                      bottom: Radius.circular(themeData.borderRadius),
+                    ),
+                    border: Border.all(
+                      color: ColorUtil.darken(themeData.colors.image[level], themeData.darkening),
+                      width: 2,
+                    ),
+                  ),
+                  width: width ?? MediaQuery.of(context).size.width,
+                  height: height ?? MediaQuery.of(context).size.height,
+                  child: Padding(
+                    padding: EdgeInsets.all(themeData.padding.inner),
+                    child: child,
+                  ),
+                ),
+              )
+          ),
+        ],
+      ),
+    );
+  }
+  */
+
+  Widget getWidget(BuildContext context) {
+
+    var themeData = ThemeManager.getCurrentThemeData();
+    double numSegments = 3;
+    double paddingBetweenSegments = 0; // themeData.padding.inner / numSegments;
+
+    var topColor = color ?? ColorUtil.darken(themeData.colors.image[level]); // If color is null, then set it to the theme color for the selected level.
+
+    return Padding(
+      padding: EdgeInsets.all(themeData.padding.outer),
+      child: Column(
+        children: [
+          Container(
+            // width: width ?? MediaQuery.of(context).size.width,
+            // height: height ?? MediaQuery.of(context).size.height,
+            decoration: BoxDecoration(
+              color: topColor,
+              borderRadius: BorderRadiusDirectional.vertical(
+                top: Radius.circular(themeData.borderRadius),
+                bottom: const Radius.circular(0),
+              ),
+              border: Border.all(
+                color: ColorUtil.darken(topColor, themeData.darkening),
+                width: 2,
+              ),
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(themeData.padding.inner),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: MagickaPupText(text: text),
+                  )
+                ],
+              ),
+            ),
           ),
           Expanded(
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(0, paddingBetweenSegments, 0, 0),
               child: Container(
                 decoration: BoxDecoration(
                   color: themeData.colors.image[level],
@@ -92,10 +162,10 @@ class MagickaPupContainerNamed extends StatelessWidget {
                   child: child,
                 ),
               ),
-            )
           ),
         ],
       ),
     );
   }
+
 }
