@@ -23,18 +23,29 @@ class MagickaPupButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return getButtonWidget(context);
+    return getWidget(context);
   }
 
-  Widget getButtonWidget(BuildContext context) {
+  Widget getWidget(BuildContext context) {
+    var themeData = ThemeManager.getCurrentThemeData();
+    return Padding(
+      padding: EdgeInsets.all(themeData.padding.outer),
+      child: getButtonWidget(context, themeData),
+    );
+  }
+
+  Widget getButtonWidget(BuildContext context, AppThemeData themeData) {
 
     Function buttonFunction = onPressed ?? (){print("Button was pressed!");};
     Widget buttonChild = child ?? const MagickaPupText(text:"Button", isBold: true, fontSize: 20);
 
     return ElevatedButton(
       onPressed: (){buttonFunction();},
-      style: getButtonStyle(context),
-      child: buttonChild,
+      style: getButtonStyle(context, themeData),
+      child: Padding(
+        padding: EdgeInsets.all(themeData.padding.inner),
+        child: buttonChild,
+      ),
     );
   }
 
@@ -44,10 +55,8 @@ class MagickaPupButton extends StatelessWidget {
     return Size(width ?? defaultWidth, height ?? defaultHeight);
   }
 
-  ButtonStyle getButtonStyle(BuildContext context) {
-    var themeData = ThemeManager.getCurrentThemeData();
+  ButtonStyle getButtonStyle(BuildContext context, AppThemeData themeData) {
     var fixedSize = getFixedSize(context);
-
     return ElevatedButton.styleFrom(
       fixedSize: fixedSize,
       elevation: elevation,
