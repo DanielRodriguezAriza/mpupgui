@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:mpupgui/data/theme_manager.dart';
-import 'package:mpupgui/widgets/mpup/mpup_background.dart';
-import 'package:mpupgui/widgets/mpup/mpup_container.dart';
-import 'package:mpupgui/widgets/mpup/mpup_container_simple.dart';
+import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
+import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
+import 'package:mpupgui/widgets/mpup/container/mpup_container_simple.dart';
 import 'package:mpupgui/widgets/mpup_button.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 import 'package:mpupgui/widgets/mpuplegacy_named_container.dart';

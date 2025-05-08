@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mpupgui/data/theme_manager.dart';
-import 'package:mpupgui/widgets/mpup/mpup_container_named.dart';
-import 'package:mpupgui/widgets/mpup/mpup_container_simple.dart';
+import 'package:mpupgui/widgets/mpup/container/mpup_container_named.dart';
+import 'package:mpupgui/widgets/mpup/container/mpup_container_simple.dart';
 
 class MagickaPupContainer extends StatelessWidget {
 
