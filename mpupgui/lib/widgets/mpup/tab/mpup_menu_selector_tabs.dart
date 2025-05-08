@@ -4,7 +4,6 @@ import 'package:mpupgui/menus/menu_settings.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
-import 'package:mpupgui/widgets/mpuplegacy_button.dart';
 
 class MenuData {
   final String name;
@@ -16,14 +15,14 @@ class MenuData {
   });
 }
 
-class MagickaPupMenuSelectorTabsMenu extends StatefulWidget {
-  const MagickaPupMenuSelectorTabsMenu({super.key});
+class MagickaPupTabSelector extends StatefulWidget {
+  const MagickaPupTabSelector({super.key});
 
   @override
-  State<MagickaPupMenuSelectorTabsMenu> createState() => _MagickaPupMenuSelectorTabsMenuState();
+  State<MagickaPupTabSelector> createState() => _MagickaPupTabSelectorState();
 }
 
-class _MagickaPupMenuSelectorTabsMenuState extends State<MagickaPupMenuSelectorTabsMenu> {
+class _MagickaPupTabSelectorState extends State<MagickaPupTabSelector> {
 
   int currentMenuIndex = 0;
 
