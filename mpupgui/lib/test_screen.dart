@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:mpupgui/data/mpup_manager.dart';
 import 'package:mpupgui/data/theme_manager.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
@@ -26,6 +27,32 @@ void pickFile() async {
   } else {
     print("File Pick Operation Cancelled. No file was selected.");
   }
+}
+
+// TODO : Make Function processFile not nullable.
+void pickFiles(List<String> allowedExtensions, Function? processFile) async {
+  FilePickerResult? result = await FilePicker.platform.pickFiles(
+    allowMultiple: true,
+    type: FileType.custom,
+    allowedExtensions: allowedExtensions,
+  );
+
+  if(result != null) {
+    for(var file in result.files) {
+      // processFile(file); // TODO : Implement
+    }
+  }
+}
+
+void pickDirectory() async {
+  String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
+  if(selectedDirectory != null) {
+    print("directory that was selected is $selectedDirectory");
+  }
+}
+
+void pickFilesDecompile() async {
+  pickFiles(["xnb"], null);
 }
 
 class TestScreen extends StatelessWidget {
@@ -235,7 +262,11 @@ class TestScreen extends StatelessWidget {
                     ),
                     MagickaPupButton(
                       text: "Explore",
-                      onPressed: (){},
+                      onPressed: pickDirectory,
+                    ),
+                    ElevatedButton(
+                      onPressed: pickFile,
+                      child: Text("Pick dir"),
                     ),
                     Column(
                       children: [
