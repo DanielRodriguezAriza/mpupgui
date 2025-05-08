@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:mpupgui/data/theme_manager.dart';
+import 'package:mpupgui/widgets/mpup/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup/mpup_container_simple.dart';
+import 'package:mpupgui/widgets/mpup_button.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 import 'package:mpupgui/widgets/mpuplegacy_named_container.dart';
 
@@ -34,7 +36,7 @@ class TestScreen extends StatelessWidget {
     return getMenuWidget();
   }
 
-  Widget getWidgetOld() {
+  Widget getMenuWidgetOld1() {
     return Scaffold(
         body: Container(
             color: Colors.green,
@@ -106,7 +108,7 @@ class TestScreen extends StatelessWidget {
     );
   }
 
-  Widget getMenuWidget() {
+  Widget getMenuWidgetOld2() {
     return Scaffold(
       body: Column(
         children: [
@@ -214,6 +216,53 @@ class TestScreen extends StatelessWidget {
           )
         ]
       )
+    );
+  }
+
+  Widget getMenuWidget() {
+    return Scaffold(
+      body: MagickaPupBackground(
+        child: Column(
+          children: [
+            Expanded(
+              child: MagickaPupContainer(
+                text: "Select Files",
+                level: 1,
+                child: Row(
+                  children: [
+                    MagickaPupText(
+                      text: "Pick Files",
+                    ),
+                    MagickaPupButton(
+                      text: "Explore",
+                      onPressed: (){},
+                    ),
+                    Column(
+                      children: [
+                        MagickaPupContainer()
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: MagickaPupContainer(
+                text: "Selected Files",
+                level: 1,
+                child: Row(),
+              ),
+            ),
+            Expanded(
+              child: MagickaPupContainer(
+                text: "Processed Files",
+                child: Row(),
+                level: 1,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
