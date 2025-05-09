@@ -33,3 +33,33 @@ Future<List<String>?> pickFiles(bool allowMultiple, [List<String>? extensions]) 
   }
   return null;
 }
+
+// NOTE : There's probably plenty of edge cases here, but this is good enough for now.
+// The input paths should not be fucked up, right...? lol!
+String joinPath(String pathA, String pathB) {
+
+  if(pathA.isEmpty) {
+    return pathB;
+  }
+
+  if(pathB.isEmpty) {
+    return pathA;
+  }
+
+  var cA = pathA[pathA.length - 1];
+  var cB = pathB[0];
+
+  bool hasSeparatorA = cA == '/' || cA == '\\';
+  bool hasSeparatorB = cB == '/' || cB == '\\';
+
+  if(!hasSeparatorA && !hasSeparatorB) {
+    return "$pathA/$pathB";
+  }
+
+  if(hasSeparatorA && hasSeparatorB) {
+    var nB = pathB.substring(1, pathB.length - 1);
+    return "$pathA/$nB";
+  }
+
+  return "$pathA$pathB";
+}
