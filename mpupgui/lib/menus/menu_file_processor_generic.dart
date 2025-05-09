@@ -1,6 +1,8 @@
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
+import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
 import 'package:mpupgui/widgets/mpup_text_field.dart';
 import 'package:mpupgui/widgets/mpuplegacy_button.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
@@ -19,6 +21,11 @@ class MagickaPupFileProcessorMenuGeneric extends StatefulWidget {
 
 class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProcessorMenuGeneric> {
   void onProcessFilesPressed() async {}
+
+  void pickDir() async {
+    String? directory = await getDirectoryPath();
+    // TODO : Implement
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +46,8 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
                         level: 2,
                         child: Column(
                           children: [
-                            getPathWidgets("Input  Path"),
-                            getPathWidgets("Output Path"),
+                            getPathWidgets("Input  Path", pickDir),
+                            getPathWidgets("Output Path", pickDir),
                           ],
                         ),
                       ),
@@ -87,7 +94,7 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
     );
   }
 
-  Widget getPathWidgets(String text) {
+  Widget getPathWidgets(String text, Function processFileFunction) {
     return Expanded(
       child: Row(
         children: [
@@ -103,7 +110,18 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
             ),
           ),
           const Expanded(
+            flex: 9,
             child: MagickaPupTextField(),
+          ),
+          MagickaPupButton(
+            width: 60,
+            height: 10,
+            onPressed: () async {
+              processFileFunction();
+            },
+            child: MagickaPupText(
+              text: "...",
+            )
           ),
         ],
       ),
