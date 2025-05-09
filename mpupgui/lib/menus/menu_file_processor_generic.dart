@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mpupgui/data/theme_manager.dart';
 import 'package:mpupgui/utility/file_handling.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
@@ -241,6 +242,15 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
                         )
                       ],
                     ),
+                    Expanded(
+                      child: MagickaPupContainer(
+                        level: 0,
+                        text: "Selected Paths",
+                        child: Column(
+                          children: getSelectedPathsWidgets(),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -261,5 +271,34 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
           ),
         ),
       );
+  }
+
+  List<Widget> getSelectedPathsWidgets() {
+    List<Widget> ans = [];
+    var themeData = ThemeManager.getCurrentThemeData();
+    int index = 0;
+    for(var path in inputPaths) {
+      ans.add(getPathWidget(index, path, themeData));
+      ++index;
+    }
+    return ans;
+  }
+
+  Widget getPathWidget(int index, String path, AppThemeData themeData) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Stack(
+        children: [
+          Container(
+            color: themeData.colors.image[index % 2 == 0 ? 1 : 2],
+            height: 22,
+          ),
+          MagickaPupText(
+            text: path,
+            isSelectable: true,
+          ),
+        ],
+      ),
+    );
   }
 }
