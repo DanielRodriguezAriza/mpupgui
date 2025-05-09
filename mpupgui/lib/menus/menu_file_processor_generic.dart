@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:mpupgui/data/mpup_manager.dart';
 import 'package:mpupgui/data/theme_manager.dart';
 import 'package:mpupgui/utility/file_handling.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
@@ -6,6 +9,24 @@ import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
 import 'package:mpupgui/widgets/mpup_text_field.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
+
+class RunningPupProcessData {
+  late int _status;
+  late String _path;
+
+  RunningPupProcessData(String inputPath) {
+    _status = 0;
+    _path = inputPath;
+  }
+
+  void runProcess(String compileArg) async {
+    String executable = MagickaPupManager.currentMagickaPupPath;
+    List<String> arguments = ["-d", "0", compileArg, _path];
+    var process = await Process.start(executable, arguments);
+    var status = await process.exitCode;
+    _status = status == 0 ? 1 : 2;
+  }
+}
 
 // Generic class for file processors.
 // Encapsulates logic and layout that can be used by both the compiler and the
@@ -263,14 +284,14 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
                     Expanded(
                       child: MagickaPupContainer(
                         level: 0,
-                        text: "Selected Paths",
+                        text: "Running Processes",
                         child: Scrollbar(
                           thumbVisibility: true,
                           trackVisibility: true,
                           controller: scrollControllerCompiled,
                           child: ListView(
                             controller: scrollControllerCompiled,
-                            children: getSelectedPathsWidgets(),
+                            children: getRunningProcessesWidgets(),
                           ),
                         ),
                       ),
@@ -324,5 +345,11 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
         ],
       ),
     );
+  }
+
+  List<Widget> getRunningProcessesWidgets() {
+    List<Widget> ans = [];
+    for(var process in )
+    return ans;
   }
 }
