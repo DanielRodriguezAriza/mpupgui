@@ -8,11 +8,17 @@ class MagickaPupTextField extends StatelessWidget {
   final VoidCallback? onEdit;
   final double fontSize;
 
+  final double maxHeight;
+  final double maxWidth;
+
   const MagickaPupTextField({
     super.key,
     this.controller,
     this.onEdit,
     this.fontSize = 14,
+
+    this.maxHeight = 20,
+    this.maxWidth = double.infinity,
   });
 
   @override
@@ -26,17 +32,23 @@ class MagickaPupTextField extends StatelessWidget {
       onEditingComplete: onEdit,
       controller: controller,
       keyboardType: TextInputType.text,
-      textAlign: TextAlign.left,
-      textAlignVertical: TextAlignVertical.top,
+      // textAlign: TextAlign.left,
+      // textAlignVertical: TextAlignVertical.top,
       style: TextStyle(
         color: themeData.colors.text[0],
         fontSize: fontSize,
       ),
       decoration: InputDecoration(
+        contentPadding: EdgeInsets.fromLTRB(themeData.padding.inner, 0, themeData.padding.inner, 0),
         filled: true,
         fillColor: themeData.colors.image[0],
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(themeData.borderRadius),
+        ),
+        // isCollapsed: true,
+        constraints: BoxConstraints(
+          maxHeight: maxHeight,
+          maxWidth: maxWidth,
         ),
       ),
     );
