@@ -1,5 +1,3 @@
-import 'package:file_picker/file_picker.dart';
-import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:mpupgui/utility/file_handling.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
