@@ -22,9 +22,24 @@ class MagickaPupFileProcessorMenuGeneric extends StatefulWidget {
 class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProcessorMenuGeneric> {
   void onProcessFilesPressed() async {}
 
-  void pickDir() async {
+  TextEditingController inputDirController = TextEditingController();
+  TextEditingController outputDirController = TextEditingController();
+
+  Future<void> pickDir(TextEditingController controller) async {
     String? directory = await getDirectoryPath();
-    // TODO : Implement
+    if(directory != null) {
+      setState(() {
+        controller.text = directory;
+      });
+    }
+  }
+
+  void pickInputDir() async {
+    await pickDir(inputDirController);
+  }
+
+  void pickOutputDir() async {
+    await pickDir(outputDirController);
   }
 
   @override
@@ -46,8 +61,8 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
                         level: 2,
                         child: Column(
                           children: [
-                            getPathWidgets("Input  Path", pickDir),
-                            getPathWidgets("Output Path", pickDir),
+                            getPathWidgets("Input  Path", inputDirController, pickInputDir),
+                            getPathWidgets("Output Path", outputDirController, pickOutputDir),
                           ],
                         ),
                       ),
@@ -94,7 +109,7 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
     );
   }
 
-  Widget getPathWidgets(String text, Function processFileFunction) {
+  Widget getPathWidgets(String text, TextEditingController controller, Function processFileFunction) {
     return Expanded(
       child: Row(
         children: [
@@ -109,9 +124,11 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
               ),
             ),
           ),
-          const Expanded(
+          Expanded(
             flex: 9,
-            child: MagickaPupTextField(),
+            child: MagickaPupTextField(
+              controller: controller,
+            ),
           ),
           MagickaPupButton(
             width: 60,
