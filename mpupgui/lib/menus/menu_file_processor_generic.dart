@@ -22,8 +22,7 @@ class MagickaPupFileProcessorMenuGeneric extends StatefulWidget {
 class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProcessorMenuGeneric> {
   void onProcessFilesPressed() async {}
 
-  TextEditingController inputDirController = TextEditingController();
-  TextEditingController outputDirController = TextEditingController();
+  
 
   void pickInputDir() async {
     String? dir = await pickDir();
