@@ -26,28 +26,33 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
   TextEditingController inputDirController = TextEditingController();
   TextEditingController outputDirController = TextEditingController();
 
-  Future<void> pickDir(TextEditingController controller) async {
+  Future<String?> pickDir() async {
     String? directory = await getDirectoryPath();
-    if(directory != null) {
-      setState(() {
-        controller.text = directory;
-      });
-    }
+    return directory;
   }
 
-  Future<void> pickFiles() async {
+  Future<List<String>?> pickFiles() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if(result != null) {
-      // TODO : Implement
+      List<String> ans = [];
+      for(var file in result.files) {
+        ans.add(file.path!);
+      }
+      return ans;
     }
+    return null;
   }
 
   void pickInputDir() async {
-    await pickDir(inputDirController);
+    await pickDir();
   }
 
   void pickOutputDir() async {
-    await pickDir(outputDirController);
+    await pickDir();
+  }
+
+  void pickInputFiles() async {
+
   }
 
   @override
