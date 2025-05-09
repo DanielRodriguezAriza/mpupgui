@@ -25,6 +25,11 @@ class MagickaPupFileProcessorMenuGeneric extends StatefulWidget {
 
 class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProcessorMenuGeneric> {
 
+  List<String> inputPaths = [];
+  String outputPath = "";
+
+  List<String> compiledPaths = [];
+
   void onProcessFilesPressed() async {
     // TODO : Implement
   }
@@ -32,21 +37,31 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
   void pickInputDir() async {
     String? dir = await pickDir();
     if(dir != null) {
-      // TODO : Implement
+      setState(() {
+        inputPaths.add(dir);
+      });
     }
   }
 
   void pickOutputDir() async {
     String? dir = await pickDir();
     if(dir != null) {
-      // TODO : Implement
+      setState(() {
+        outputPath = dir;
+      });
     }
   }
 
   void pickInputFiles() async {
     List<String>? files = await pickFiles(true, widget.extensions);
     if(files != null) {
-      // TODO : Implement
+      setState(() {
+        // I'm sure there's something like  an .extend() or .append() call to
+        // join the list directly, but I could not find it on the docs :(
+        for(var file in files) {
+          inputPaths.add(file);
+        }
+      });
     }
   }
 
