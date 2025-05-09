@@ -6,11 +6,13 @@ class MagickaPupTextField extends StatelessWidget {
 
   final TextEditingController? controller;
   final VoidCallback? onEdit;
+  final double fontSize;
 
   const MagickaPupTextField({
     super.key,
     this.controller,
     this.onEdit,
+    this.fontSize = 14,
   });
 
   @override
@@ -24,9 +26,11 @@ class MagickaPupTextField extends StatelessWidget {
       onEditingComplete: onEdit,
       controller: controller,
       keyboardType: TextInputType.text,
-      textAlign: TextAlign.start,
+      textAlign: TextAlign.left,
+      textAlignVertical: TextAlignVertical.top,
       style: TextStyle(
         color: themeData.colors.text[0],
+        fontSize: fontSize,
       ),
       decoration: InputDecoration(
         filled: true,
