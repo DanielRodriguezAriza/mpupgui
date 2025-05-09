@@ -11,8 +11,12 @@ import 'package:mpupgui/widgets/mpup_text.dart';
 // Encapsulates logic and layout that can be used by both the compiler and the
 // decompiler menus.
 class MagickaPupFileProcessorMenuGeneric extends StatefulWidget {
+
+  final List<String>? extensions;
+
   const MagickaPupFileProcessorMenuGeneric({
-    super.key
+    super.key,
+    this.extensions,
   });
 
   @override
@@ -20,9 +24,10 @@ class MagickaPupFileProcessorMenuGeneric extends StatefulWidget {
 }
 
 class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProcessorMenuGeneric> {
-  void onProcessFilesPressed() async {}
 
-
+  void onProcessFilesPressed() async {
+    // TODO : Implement
+  }
 
   void pickInputDir() async {
     String? dir = await pickDir();
@@ -39,7 +44,7 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
   }
 
   void pickInputFiles() async {
-    List<String>? files = await pickFiles(true, null);
+    List<String>? files = await pickFiles(true, widget.extensions);
     if(files != null) {
       // TODO : Implement
     }
