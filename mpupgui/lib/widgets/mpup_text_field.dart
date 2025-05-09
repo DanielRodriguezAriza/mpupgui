@@ -3,19 +3,19 @@ import 'package:mpupgui/data/theme_manager.dart';
 
 class MagickaPupTextField extends StatelessWidget {
 
-  final TextEditingController controller;
-  final Function onEdit;
+  final TextEditingController? controller;
+  final VoidCallback? onEdit;
 
   const MagickaPupTextField({
     super.key,
-    required this.controller,
-    required this.onEdit,
+    this.controller,
+    this.onEdit,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      onEditingComplete: (){onEdit();},
+      onEditingComplete: onEdit,
       controller: controller,
       keyboardType: TextInputType.text,
       textAlign: TextAlign.start,
