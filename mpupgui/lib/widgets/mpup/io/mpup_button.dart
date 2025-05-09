@@ -42,10 +42,11 @@ class MagickaPupButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: (){buttonFunction();},
       style: getButtonStyle(context, themeData),
-      child: Padding(
+      /*child: Padding(
         padding: EdgeInsets.all(themeData.padding.inner),
         child: buttonChild,
-      ),
+      ),*/
+      child: buttonChild,
     );
   }
 
