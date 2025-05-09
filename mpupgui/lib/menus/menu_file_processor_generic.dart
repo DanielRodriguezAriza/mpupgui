@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
+import 'package:mpupgui/widgets/mpup_text_field.dart';
 import 'package:mpupgui/widgets/mpuplegacy_button.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 
@@ -36,7 +37,24 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
                       flex: 7,
                       child: MagickaPupContainer(
                         level: 2,
-                        child: TextField(),
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: MagickaPupContainer(
+                                text: "Input Path",
+                                level: 1,
+                                child: MagickaPupTextField(),
+                              ),
+                            ),
+                            Expanded(
+                              child: MagickaPupContainer(
+                                text: "Output Path",
+                                level: 1,
+                                child: MagickaPupTextField(),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     Expanded(
