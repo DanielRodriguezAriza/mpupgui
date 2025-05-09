@@ -17,8 +17,8 @@ class _InitScreenState extends State<InitScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_){
-      SettingsManager.loadSettings();
-      MenuManager.loadMenu(context, "/main"); // Start by loading the "main" menu.
+      // SettingsManager.loadSettings();
+      // MenuManager.loadMenu(context, "/main"); // Start by loading the "main" menu.
     });
   }
 
