@@ -1,6 +1,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
+import 'package:mpupgui/utility/file_handling.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
@@ -26,33 +27,25 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
   TextEditingController inputDirController = TextEditingController();
   TextEditingController outputDirController = TextEditingController();
 
-  Future<String?> pickDir() async {
-    String? directory = await getDirectoryPath();
-    return directory;
-  }
-
-  Future<List<String>?> pickFiles() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
-    if(result != null) {
-      List<String> ans = [];
-      for(var file in result.files) {
-        ans.add(file.path!);
-      }
-      return ans;
-    }
-    return null;
-  }
-
   void pickInputDir() async {
-    await pickDir();
+    String? dir = await pickDir();
+    if(dir != null) {
+      // TODO : Implement
+    }
   }
 
   void pickOutputDir() async {
-    await pickDir();
+    String? dir = await pickDir();
+    if(dir != null) {
+      // TODO : Implement
+    }
   }
 
   void pickInputFiles() async {
-
+    List<String>? files = await pickFiles(true, null);
+    if(files != null) {
+      // TODO : Implement
+    }
   }
 
   @override
@@ -192,7 +185,7 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
                 level: 2,
                 child: Row(
                   children: [
-                    getActionButton("Explore Files", pickFiles),
+                    getActionButton("Explore Files", pickInputFiles),
                     getActionButton("Explore Directory", pickInputDir),
                     getActionButton("Explore Directory", pickOutputDir),
                     getActionButton("Compile", pickInputDir),
