@@ -12,10 +12,12 @@ import 'package:mpupgui/widgets/mpup_text.dart';
 class MagickaPupFileProcessorMenuGeneric extends StatefulWidget {
 
   final List<String>? extensions;
+  final String executionArgument;
 
   const MagickaPupFileProcessorMenuGeneric({
     super.key,
     this.extensions,
+    this.executionArgument = "-u",
   });
 
   @override
@@ -28,7 +30,7 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
   List<String> compiledPaths = [];
   TextEditingController outputPathController = TextEditingController();
 
-  void onProcessFilesPressed() async {
+  void processFiles() async {
     // TODO : Implement
   }
 
@@ -206,7 +208,7 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
                     getActionButton("Explore Files", pickInputFiles),
                     getActionButton("Explore Directory", pickInputDir),
                     getActionButton("Explore Directory", pickOutputDir),
-                    getActionButton("Compile", pickInputDir),
+                    getActionButton("Compile", processFiles),
                   ],
                 ),
               ),
