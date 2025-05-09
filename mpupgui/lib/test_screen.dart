@@ -312,11 +312,15 @@ class TestScreen extends StatelessWidget {
         ),
         TabData(
           name: "Compiler",
-          widget: MagickaPupFileProcessorMenuGeneric(),
+          widget: MagickaPupFileProcessorMenuGeneric(
+            extensions: ["json", "png"], // NOTE : The compiler can try to compile any type of asset. We could leave it at that for now, but in the future maybe it would make sense to limit it to formats that mpup actually understands? but with this, it becomes far more trivial to maintain these 2 programs as separate, since updates to compiler support should not affect functionality of the gui. We'll see what I do in the end idk. Anyway, for now, I'm adding json and png and then we'll add more stuff or we'll get rid of this shit idk...
+          ),
         ),
         TabData(
           name: "Decompiler",
-          widget: MagickaPupFileProcessorMenuGeneric(),
+          widget: MagickaPupFileProcessorMenuGeneric(
+            extensions: ["xnb"],
+          ),
         ),
         TabData(
           name: "Settings",
