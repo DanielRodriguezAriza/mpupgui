@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:mpupgui/data/settings_manager.dart';
 import 'package:mpupgui/menus/menu_fproc_compiler.dart';
 import 'package:mpupgui/menus/menu_fproc_decompiler.dart';
 import 'package:mpupgui/menus/menu_init.dart';
@@ -27,6 +28,9 @@ void main() async {
     setWindowMinSize(const Size(800, 600)); // Limit the window min size so that it cannot go below 800x600.
     // setWindowMaxSize(const Size(800, 600)); // We could limit the max size, but for now we don't really care about that, so any resolution is supported.
   }
+
+  // Initialize app data
+  SettingsManager.loadSettings();
 
   // Run the main app
   runApp(const MyApp());
