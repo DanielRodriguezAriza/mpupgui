@@ -11,20 +11,12 @@ import 'package:mpupgui/widgets/mpup_text_field.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 
 class RunningPupProcessData {
-  late int _status;
-  late String _path;
+  late int status;
+  late String path;
 
   RunningPupProcessData(String inputPath) {
-    _status = 0;
-    _path = inputPath;
-  }
-
-  void runProcess(String compileArg) async {
-    String executable = MagickaPupManager.currentMagickaPupPath;
-    List<String> arguments = ["-d", "0", compileArg, _path];
-    var process = await Process.start(executable, arguments);
-    var status = await process.exitCode;
-    _status = status == 0 ? 1 : 2;
+    status = 0;
+    path = inputPath;
   }
 }
 
@@ -49,14 +41,40 @@ class MagickaPupFileProcessorMenuGeneric extends StatefulWidget {
 class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProcessorMenuGeneric> {
 
   List<String> inputPaths = [];
-  List<String> compiledPaths = [];
+  List<RunningPupProcessData> runningProcesses = [];
   TextEditingController outputPathController = TextEditingController();
 
   ScrollController scrollControllerSelected = ScrollController();
   ScrollController scrollControllerCompiled = ScrollController();
 
-  void processFiles() async {
-    // TODO : Implement
+  void startRunningProcesses() async {
+    setState(() {
+      for(var path in inputPaths) {
+        var process = RunningPupProcessData(path);
+        runningProcesses.add(process);
+      }
+      inputPaths.clear();
+    });
+
+    for(var p in runningProcesses) {
+      runProcess(p);
+    }
+  }
+
+  void runProcess(RunningPupProcessData p) async {
+
+    String executable = MagickaPupManager.currentMagickaPupPath;
+    List<String> arguments = ["-d", "0", widget.executionArgument, p.path];
+
+    var process = await Process.start(executable, arguments);
+    setState(() {
+      p.status = 1;
+    });
+
+    var status = await process.exitCode;
+    setState(() {
+      p.status = status == 0 ? 2 : 3;
+    });
   }
 
   void pickInputDir() async {
@@ -233,7 +251,7 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
                     getActionButton("Explore Files", pickInputFiles),
                     getActionButton("Explore Directory", pickInputDir),
                     getActionButton("Explore Directory", pickOutputDir),
-                    getActionButton("Compile", processFiles),
+                    getActionButton("Compile", startRunningProcesses),
                   ],
                 ),
               ),
