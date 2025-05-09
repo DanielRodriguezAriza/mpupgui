@@ -30,7 +30,9 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
   List<String> inputPaths = [];
   List<String> compiledPaths = [];
   TextEditingController outputPathController = TextEditingController();
-  ScrollController scrollController = ScrollController();
+
+  ScrollController scrollControllerSelected = ScrollController();
+  ScrollController scrollControllerCompiled = ScrollController();
 
   void processFiles() async {
     // TODO : Implement
@@ -250,9 +252,24 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
                         child: Scrollbar(
                           thumbVisibility: true,
                           trackVisibility: true,
-                          controller: scrollController,
+                          controller: scrollControllerSelected,
                           child: ListView(
-                            controller: scrollController,
+                            controller: scrollControllerSelected,
+                            children: getSelectedPathsWidgets(),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: MagickaPupContainer(
+                        level: 0,
+                        text: "Selected Paths",
+                        child: Scrollbar(
+                          thumbVisibility: true,
+                          trackVisibility: true,
+                          controller: scrollControllerCompiled,
+                          child: ListView(
+                            controller: scrollControllerCompiled,
                             children: getSelectedPathsWidgets(),
                           ),
                         ),
