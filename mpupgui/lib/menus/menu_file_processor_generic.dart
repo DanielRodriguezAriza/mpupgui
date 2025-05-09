@@ -39,20 +39,8 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
                         level: 2,
                         child: Column(
                           children: [
-                            Expanded(
-                              child: MagickaPupContainer(
-                                text: "Input Path",
-                                level: 1,
-                                child: MagickaPupTextField(),
-                              ),
-                            ),
-                            Expanded(
-                              child: MagickaPupContainer(
-                                text: "Output Path",
-                                level: 1,
-                                child: MagickaPupTextField(),
-                              ),
-                            ),
+                            getPathWidgets("Input  Path"),
+                            getPathWidgets("Output Path"),
                           ],
                         ),
                       ),
@@ -95,6 +83,29 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget getPathWidgets(String text) {
+    return Expanded(
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: IntrinsicWidth(
+              child: MagickaPupText(
+                text: text,
+                fontSize: 14,
+                isBold: true,
+                isMonospace: true,
+              ),
+            ),
+          ),
+          const Expanded(
+            child: MagickaPupTextField(),
+          ),
+        ],
       ),
     );
   }
