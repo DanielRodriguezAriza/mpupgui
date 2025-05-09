@@ -44,6 +44,10 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
 
   @override
   Widget build(BuildContext context) {
+    return getWidget(context);
+  }
+
+  Widget getWidgetOld(BuildContext context) {
     return Scaffold(
       body: MagickaPupBackground(
         child: Column(
@@ -52,7 +56,7 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
               flex: 3,
               child: MagickaPupContainer(
                 level: 1,
-                text: "Compiler - Paths",
+                text: "Paths",
                 child: Row(
                   children: [
                     Expanded(
@@ -80,7 +84,7 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
                 ),
               ),
             ),
-            Expanded(
+            /*Expanded(
               flex: 7,
               child: MagickaPupContainer(
                 level: 1,
@@ -102,13 +106,31 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
                   ],
                 ),
               ),
+            ),*/
+            Expanded(
+              flex: 7,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: MagickaPupContainer(
+                      text: "Selected",
+                      level: 1,
+                    ),
+                  ),
+                  Expanded(
+                    child: MagickaPupContainer(
+                      text: "Finished",
+                      level: 1,
+                    ),
+                  )
+                ],
+              ),
             ),
           ],
         ),
       ),
     );
   }
-
   Widget getPathWidgets(String text, TextEditingController controller, Function processFileFunction) {
     return Expanded(
       child: Row(
@@ -143,5 +165,49 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
         ],
       ),
     );
+  }
+
+  Widget getWidget(BuildContext context) {
+    return Scaffold(
+      body: MagickaPupBackground(
+        child: Column(
+          children: [
+            IntrinsicHeight(
+              child: MagickaPupContainer(
+                height: 140,
+                text: "Actions",
+                level: 2,
+                child: Row(
+                  children: [
+                    getActionButton("Explore Files", pickInputDir),
+                    getActionButton("Explore Directory", pickInputDir),
+                    getActionButton("Explore Directory", pickOutputDir),
+                    getActionButton("Compile", pickInputDir),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: MagickaPupContainer(
+                text: "Files",
+                level: 2,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget getActionButton(String actionText, VoidCallback function) {
+    return Expanded(
+        child: MagickaPupButton(
+          height: 10,
+          onPressed: function,
+          child: MagickaPupText(
+              text: actionText,
+          ),
+        ),
+      );
   }
 }
