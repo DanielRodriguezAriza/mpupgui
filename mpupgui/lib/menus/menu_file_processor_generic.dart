@@ -185,7 +185,7 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
           children: [
             IntrinsicHeight(
               child: MagickaPupContainer(
-                height: 140,
+                height: 60,
                 text: "Actions",
                 level: 2,
                 child: Row(
