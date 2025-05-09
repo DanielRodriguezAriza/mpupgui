@@ -10,14 +10,33 @@ import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
 import 'package:mpupgui/widgets/mpup_text_field.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 
-class RunningPupProcessData {
-  late int status;
-  late String path;
+class MagickaPupPathData {
+  final String name;
+  final String path;
 
-  RunningPupProcessData(String inputPath) {
-    status = 0;
-    path = inputPath;
-  }
+  const MagickaPupPathData({
+    required this.name,
+    required this.path,
+  });
+}
+
+enum MagickaPupProcessState {
+  waiting,
+  running,
+  success,
+  failure,
+}
+
+class MagickaPupProcessData {
+  MagickaPupProcessState status;
+  final String name;
+  final String path;
+
+  MagickaPupProcessData({
+    required this.name,
+    required this.path,
+    this.status = MagickaPupProcessState.waiting,
+  });
 }
 
 // Generic class for file processors.
@@ -40,40 +59,58 @@ class MagickaPupFileProcessorMenuGeneric extends StatefulWidget {
 
 class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProcessorMenuGeneric> {
 
-  List<String> inputPaths = [];
-  List<RunningPupProcessData> runningProcesses = [];
+  List<MagickaPupPathData> inputPaths = [];
+  List<MagickaPupProcessData> runningProcesses = [];
+
   TextEditingController outputPathController = TextEditingController();
 
   ScrollController scrollControllerSelected = ScrollController();
   ScrollController scrollControllerCompiled = ScrollController();
 
-  void startRunningProcesses() async {
+  void commitProcesses() {
     setState(() {
       for(var path in inputPaths) {
-        var process = RunningPupProcessData(path);
+        var process = MagickaPupProcessData(
+          name: path.name,
+          path: path.path,
+        );
         runningProcesses.add(process);
       }
       inputPaths.clear();
     });
+  }
 
+  void runProcesses() {
     for(var p in runningProcesses) {
       runProcess(p);
     }
   }
 
-  void runProcess(RunningPupProcessData p) async {
+  void startRunningProcesses() {
+    commitProcesses();
+    runProcesses();
+  }
+
+  void runProcess(MagickaPupProcessData processData) async {
 
     String executable = MagickaPupManager.currentMagickaPupPath;
-    List<String> arguments = ["-d", "0", widget.executionArgument, p.path];
+
+    String opStr = widget.executionArgument;
+    String inputPath = processData.path;
+    String outputPath = pathJoin(outputPathController.text, processData.name);
+    List<String> arguments = [
+      "-d", "0", // Debug logging disabled
+      opStr, inputPath, outputPath,
+    ];
 
     var process = await Process.start(executable, arguments);
     setState(() {
-      p.status = 1;
+      processData.status = MagickaPupProcessState.running;
     });
 
     var status = await process.exitCode;
     setState(() {
-      p.status = status == 0 ? 2 : 3;
+      processData.status = status == 0 ? MagickaPupProcessState.success : MagickaPupProcessState.failure;
     });
   }
 
@@ -81,7 +118,11 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
     String? dir = await pickDir();
     if(dir != null) {
       setState(() {
-        inputPaths.add(dir);
+        var data = MagickaPupPathData(
+          name: pathName(dir),
+          path: dir,
+        );
+        inputPaths.add(data);
       });
     }
   }
@@ -102,7 +143,11 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
         // I'm sure there's something like  an .extend() or .append() call to
         // join the list directly, but I could not find it on the docs :(
         for(var file in files) {
-          inputPaths.add(file);
+          var data = MagickaPupPathData(
+            name: pathName(file),
+            path: file
+          );
+          inputPaths.add(data);
         }
       });
     }
@@ -340,14 +385,14 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
     List<Widget> ans = [];
     var themeData = ThemeManager.getCurrentThemeData();
     int index = 0;
-    for(var path in inputPaths) {
-      ans.add(getPathWidget(index, path, themeData));
+    for(var pathData in inputPaths) {
+      ans.add(getPathWidget(index, pathData, themeData));
       ++index;
     }
     return ans;
   }
 
-  Widget getPathWidget(int index, String path, AppThemeData themeData) {
+  Widget getPathWidget(int index, MagickaPupPathData pathData, AppThemeData themeData) {
     return Align(
       alignment: Alignment.centerLeft,
       child: Stack(
@@ -357,7 +402,7 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
             height: 22,
           ),
           MagickaPupText(
-            text: path,
+            text: pathData.path,
             isSelectable: true,
           ),
         ],
@@ -367,7 +412,18 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
 
   List<Widget> getRunningProcessesWidgets() {
     List<Widget> ans = [];
-    for(var process in )
+    var themeData = ThemeManager.getCurrentThemeData();
+    int index = 0;
+    for(var processData in runningProcesses) {
+      ans.add(getRunningProcessWidget(index, processData, themeData));
+      ++index;
+    }
     return ans;
+  }
+
+  Widget getRunningProcessWidget(int index, MagickaPupProcessData processData, AppThemeData themeData) {
+    return MagickaPupText(
+      text: "STATUS: ${processData.status} | PATH: ${processData.path}",
+    );
   }
 }
