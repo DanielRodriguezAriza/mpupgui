@@ -22,7 +22,7 @@ class MagickaPupFileProcessorMenuGeneric extends StatefulWidget {
 class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProcessorMenuGeneric> {
   void onProcessFilesPressed() async {}
 
-  
+
 
   void pickInputDir() async {
     String? dir = await pickDir();
@@ -50,6 +50,8 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
     return getWidget(context);
   }
 
+  // OLD DEPRECATED CODE. TODO : Remove!
+  /*
   Widget getWidgetOld(BuildContext context) {
     return Scaffold(
       body: MagickaPupBackground(
@@ -169,6 +171,7 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
       ),
     );
   }
+  */
 
   Widget getWidget(BuildContext context) {
     return Scaffold(
