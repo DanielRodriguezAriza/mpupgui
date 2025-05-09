@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:file_selector/file_selector.dart';
 
+import 'package:path/path.dart' as dart_path;
+
 void writeStringToFile(String fileName, String contents) {
   File file = File(fileName);
   file.writeAsStringSync(contents);
@@ -34,32 +36,16 @@ Future<List<String>?> pickFiles(bool allowMultiple, [List<String>? extensions]) 
   return null;
 }
 
-// NOTE : There's probably plenty of edge cases here, but this is good enough for now.
-// The input paths should not be fucked up, right...? lol!
-String joinPath(String pathA, String pathB) {
+String pathJoin(String pathA, String pathB) {
+  return dart_path.join(pathA, pathB);
+}
 
-  if(pathA.isEmpty) {
-    return pathB;
-  }
+String pathName(String path) {
+  // NOTE : Trailing separators are already ignored by the library anyway,
+  // so no need to worry about that.
+  return dart_path.basenameWithoutExtension(path);
+}
 
-  if(pathB.isEmpty) {
-    return pathA;
-  }
-
-  var cA = pathA[pathA.length - 1];
-  var cB = pathB[0];
-
-  bool hasSeparatorA = cA == '/' || cA == '\\';
-  bool hasSeparatorB = cB == '/' || cB == '\\';
-
-  if(!hasSeparatorA && !hasSeparatorB) {
-    return "$pathA/$pathB";
-  }
-
-  if(hasSeparatorA && hasSeparatorB) {
-    var nB = pathB.substring(1, pathB.length - 1);
-    return "$pathA/$nB";
-  }
-
-  return "$pathA$pathB";
+String pathExtension(String path) {
+  return dart_path.extension(path);
 }
