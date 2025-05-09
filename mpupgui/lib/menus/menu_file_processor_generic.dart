@@ -26,9 +26,8 @@ class MagickaPupFileProcessorMenuGeneric extends StatefulWidget {
 class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProcessorMenuGeneric> {
 
   List<String> inputPaths = [];
-  String outputPath = "";
-
   List<String> compiledPaths = [];
+  TextEditingController outputPathController = TextEditingController();
 
   void onProcessFilesPressed() async {
     // TODO : Implement
@@ -47,7 +46,7 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
     String? dir = await pickDir();
     if(dir != null) {
       setState(() {
-        outputPath = dir;
+        outputPathController.text = dir;
       });
     }
   }
@@ -235,6 +234,7 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
                             alignment: Alignment.center,
                             child: MagickaPupTextField(
                               maxHeight: 25,
+                              controller: outputPathController,
                             ),
                           ),
                         )
