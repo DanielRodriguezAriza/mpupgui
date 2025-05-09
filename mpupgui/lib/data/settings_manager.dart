@@ -9,23 +9,45 @@ class SettingsManager {
 
   static const String settingsFile = "./mpupgui_settings.json";
 
+  static T? loadValue<T>(var dict, String path) {
+    try {
+      T ans = dict[path];
+      return ans;
+    } catch(e) {
+      print("SettingsManager.loadValue() has failed : $e");
+      return null;
+    }
+  }
+
   static void loadSettings() {
     try {
       var str = readStringFromFile(settingsFile);
       var data = jsonDecode(str);
 
-      Language language = Language.values.byName(data["Language"]);
-      AppTheme theme = AppTheme.values.byName(data["Theme"]);
-      String mpupPath = data["MagickaPupPath"];
-      String pathToInstalls = data["pathToInstalls"];
-      String pathToMods = data["pathToMods"];
-      String pathToProfiles = data["pathToProfiles"];
-
+      // Load Language
+      String languageStr = loadValue(data, "Language") ?? "english";
+      Language language = Language.values.byName(languageStr);
       LanguageManager.setLanguage(language);
+
+      // Load App Theme
+      String themeStr = loadValue(data, "Theme") ?? "dark";
+      AppTheme theme = AppTheme.values.byName(themeStr);
       ThemeManager.setTheme(theme);
+
+      // Load MagickaPup Path
+      String mpupPath = loadValue(data, "MagickaPupPath") ?? "./MagickaPUP.exe";
       MagickaPupManager.setMagickaPupPath(mpupPath);
+
+      // Load path to installs
+      String pathToInstalls = loadValue(data, "pathToInstalls") ?? "./installs";
       ModManager.setPathToInstalls(pathToInstalls);
+
+      // Load path to mods
+      String pathToMods = loadValue(data, "pathToMods") ?? "./mods";
       ModManager.setPathToMods(pathToMods);
+
+      // Load path to profiles
+      String pathToProfiles = loadValue(data, "pathToProfiles") ?? "./profiles";
       ModManager.setPathToProfiles(pathToProfiles);
 
     } catch(e) {
