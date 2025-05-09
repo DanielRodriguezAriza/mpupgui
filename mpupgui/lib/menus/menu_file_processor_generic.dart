@@ -217,6 +217,31 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
               child: MagickaPupContainer(
                 text: "Files",
                 level: 2,
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            child: MagickaPupText(
+                              text: "Output Path",
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: MagickaPupTextField(
+                              maxHeight: 25,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
