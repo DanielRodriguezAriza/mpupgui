@@ -103,10 +103,25 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
       opStr, inputPath, outputPath,
     ];
 
-    var process = await Process.start(executable, arguments);
+    // NOTE : Set the state BEFORE actually starting the process.
+    // We do this because if we did a setState() call after Process.start(),
+    // we could potentially waste more time than it takes for awaiting the exit code of the program
+    // which would cause the await exitCode to never be notified.
     setState(() {
       processData.status = MagickaPupProcessState.running;
     });
+
+    var process = await Process.start(
+      executable,
+      arguments,
+      runInShell: true,
+    );
+
+    // Drain the pipes to prevent any issues.
+    // If they fill up (specially stderr when printing a large stack trace), the subprocess will "freeze" and never notify
+    // the await on process.exitCode...
+    process.stdout.drain();
+    process.stderr.drain();
 
     var status = await process.exitCode;
     setState(() {
