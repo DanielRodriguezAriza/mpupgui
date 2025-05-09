@@ -14,13 +14,14 @@ class MagickaPupTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var themeData = ThemeManager.getCurrentThemeData();
     return TextField(
       onEditingComplete: onEdit,
       controller: controller,
       keyboardType: TextInputType.text,
       textAlign: TextAlign.start,
       style: TextStyle(
-        color: ThemeManager.getColorText(0),
+        color: themeData.colors.text[0],
       ),
     );
   }
