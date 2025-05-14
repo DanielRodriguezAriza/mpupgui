@@ -4,6 +4,9 @@ import 'package:mpupgui/data/mod_manager.dart';
 import 'package:mpupgui/data/mpup_manager.dart';
 import 'package:mpupgui/data/settings_manager.dart';
 import 'package:mpupgui/data/theme_manager.dart';
+import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
+import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
+import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
 import 'package:mpupgui/widgets/mpuplegacy_button.dart';
 import 'package:mpupgui/widgets/mpuplegacy_container.dart';
 import 'package:mpupgui/widgets/mpuplegacy_named_container.dart';
@@ -48,114 +51,173 @@ class _SettingsMenuState extends State<SettingsMenu> {
 
   @override
   Widget build(BuildContext context) {
+    return getWidget(context);
+  }
+
+  Widget getWidgetOld(BuildContext context) {
     return MagickaPupScaffold(
-      child: MagickaPupLegacyContainer(
-        paddingParent: 5,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 120,
-              child: MagickaPupLegacyNamedContainer(
-                  text: "   App Themes",
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: MagickaPupLegacyButton(
-                          text: LanguageManager.getString("loc_theme_light"),
-                          colorIndex: 3,
-                          onPressed: (){
-                            setTheme(AppTheme.light);
-                          },
-                        )
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: MagickaPupLegacyButton(
-                            text: LanguageManager.getString("loc_theme_dark"),
-                            colorIndex: 3,
-                            onPressed: (){
-                              setTheme(AppTheme.dark);
-                            }
-                        )
+        child: MagickaPupLegacyContainer(
+          paddingParent: 5,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 120,
+                  child: MagickaPupLegacyNamedContainer(
+                      text: "   App Themes",
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: MagickaPupLegacyButton(
+                                text: LanguageManager.getString("loc_theme_light"),
+                                colorIndex: 3,
+                                onPressed: (){
+                                  setTheme(AppTheme.light);
+                                },
+                              )
+                          ),
+                          Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: MagickaPupLegacyButton(
+                                  text: LanguageManager.getString("loc_theme_dark"),
+                                  colorIndex: 3,
+                                  onPressed: (){
+                                    setTheme(AppTheme.dark);
+                                  }
+                              )
+                          )
+                        ],
                       )
-                    ],
                   )
-              )
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 120,
-              child: MagickaPupLegacyNamedContainer(
-                  text: "   Magicka PUP CLI Executable Path",
-                  child: Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: MagickaPupTextField(
-                      controller: textControllerMagickaPup,
-                      onEdit: (){
-                        setPathMagickaPup(textControllerMagickaPup.text);
-                      },
-                    )
-                  )
-              )
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height:120,
-              child:MagickaPupLegacyNamedContainer(
-                text: "    Path To Installs",
-                child: Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: MagickaPupTextField(
-                    controller: textControllerInstalls,
-                    onEdit: (){
-                      setPathInstalls(textControllerInstalls.text);
-                    }
-                  )
-                )
-              )
-            ),
-            Container(
-                width: MediaQuery.of(context).size.width,
-                height:120,
-                child:MagickaPupLegacyNamedContainer(
-                    text: "    Path To Mods",
-                    child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: MagickaPupTextField(
-                            controller: textControllerMods,
+              ),
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 120,
+                  child: MagickaPupLegacyNamedContainer(
+                      text: "   Magicka PUP CLI Executable Path",
+                      child: Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: MagickaPupTextField(
+                            controller: textControllerMagickaPup,
                             onEdit: (){
-                              setPathMods(textControllerMods.text);
-                            }
-                        )
-                    )
-                )
-            ),
-            Container(
-                width: MediaQuery.of(context).size.width,
-                height:120,
-                child:MagickaPupLegacyNamedContainer(
-                    text: "    Path To Profiles",
-                    child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: MagickaPupTextField(
-                            controller: textControllerProfiles,
-                            onEdit: (){
-                              setPathProfiles(textControllerProfiles.text);
-                            }
-                        )
-                    )
-                )
-            )
-          ],
-        ),
-      )
+                              setPathMagickaPup(textControllerMagickaPup.text);
+                            },
+                          )
+                      )
+                  )
+              ),
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  height:120,
+                  child:MagickaPupLegacyNamedContainer(
+                      text: "    Path To Installs",
+                      child: Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: MagickaPupTextField(
+                              controller: textControllerInstalls,
+                              onEdit: (){
+                                setPathInstalls(textControllerInstalls.text);
+                              }
+                          )
+                      )
+                  )
+              ),
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  height:120,
+                  child:MagickaPupLegacyNamedContainer(
+                      text: "    Path To Mods",
+                      child: Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: MagickaPupTextField(
+                              controller: textControllerMods,
+                              onEdit: (){
+                                setPathMods(textControllerMods.text);
+                              }
+                          )
+                      )
+                  )
+              ),
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  height:120,
+                  child:MagickaPupLegacyNamedContainer(
+                      text: "    Path To Profiles",
+                      child: Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: MagickaPupTextField(
+                              controller: textControllerProfiles,
+                              onEdit: (){
+                                setPathProfiles(textControllerProfiles.text);
+                              }
+                          )
+                      )
+                  )
+              )
+            ],
+          ),
+        )
     );
   }
+
+  Widget getWidget(BuildContext context) {
+    return Scaffold(
+      body: MagickaPupBackground(
+        level: 0,
+        child: Column(
+          children: [
+            IntrinsicHeight(
+              child: MagickaPupContainer(
+                text: "Theme",
+                level: 2,
+                height: 60,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: MagickaPupButton(
+                        onPressed: (){
+                          setTheme(AppTheme.dark);
+                        },
+                        child: MagickaPupText(
+                          text: "Dark Theme",
+                          isBold: true,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: MagickaPupButton(
+                        onPressed: (){
+                          setTheme(AppTheme.light);
+                        },
+                        child: MagickaPupText(
+                          text: "Light Theme",
+                          isBold: true,
+                          fontSize: 20,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: MagickaPupContainer(
+                text: "Paths",
+                level: 2,
+                child: getPathsWidgets(),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
 
   void setTheme(AppTheme theme) {
     setState((){
