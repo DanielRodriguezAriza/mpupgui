@@ -221,7 +221,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
   Widget getPathsWidgets() {
     return Column(
       children: [
-        getPathWidget("MagickaPup", setPathMagickaPup, textControllerMagickaPup),
+        getPathWidget("Magicka PUP", setPathMagickaPup, textControllerMagickaPup),
         getPathWidget("Installs", setPathInstalls, textControllerInstalls),
         getPathWidget("Mods", setPathMods, textControllerMods),
         getPathWidget("Profiles", setPathProfiles, textControllerProfiles),
@@ -230,22 +230,32 @@ class _SettingsMenuState extends State<SettingsMenu> {
   }
 
   Widget getPathWidget(String text, Function action, TextEditingController controller) {
-    return Row(
-      children: [
-        Expanded(
-          child: MagickaPupText(
-            text: text,
-          ),
+    return Padding(
+      padding: const EdgeInsets.all(0),
+      child: MagickaPupContainer(
+        height: 40,
+        level: 1,
+        child: Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: MagickaPupText(
+                  text: text,
+                ),
+              ),
+              Expanded(
+                flex: 9,
+                child: MagickaPupTextField(
+                  maxHeight: 30,
+                  controller: controller,
+                  onEdit: (){
+                    action(controller.text);
+                  },
+                ),
+              ),
+            ]
         ),
-        Expanded(
-          child: MagickaPupTextField(
-            controller: controller,
-            onEdit: (){
-              action(controller.text);
-            },
-          ),
-        ),
-      ]
+      ),
     );
   }
 
