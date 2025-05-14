@@ -218,6 +218,16 @@ class _SettingsMenuState extends State<SettingsMenu> {
     );
   }
 
+  Widget getPathsWidgets() {
+    return Column(
+      children: [
+        getPathWidget("MagickaPup", setPathMagickaPup),
+        getPathWidget("Installs", setPathInstalls),
+        getPathWidget("Mods", setPathMods),
+        getPathWidget("Profiles", setPathProfiles),
+      ];
+    );
+  }
 
   void setTheme(AppTheme theme) {
     setState((){
