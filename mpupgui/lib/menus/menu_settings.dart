@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mpupgui/data/language_manager.dart';
+import 'package:mpupgui/data/mod_manager.dart';
 import 'package:mpupgui/data/mpup_manager.dart';
 import 'package:mpupgui/data/settings_manager.dart';
 import 'package:mpupgui/data/theme_manager.dart';
@@ -22,15 +23,27 @@ class SettingsMenu extends StatefulWidget {
 
 class _SettingsMenuState extends State<SettingsMenu> {
 
-  final TextEditingController controller = TextEditingController();
+  final TextEditingController textControllerMagickaPup = TextEditingController();
+  final TextEditingController textControllerInstalls = TextEditingController();
+  final TextEditingController textControllerMods = TextEditingController();
+  final TextEditingController textControllerProfiles = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_){
-      SettingsManager.loadSettings(); // Load settings again. This is done just in case users have modified their settings manually by editing the settings json file.
-      controller.text = MagickaPupManager.currentMagickaPupPath;
+      loadSettings();
     });
+  }
+
+  void loadSettings() {
+    // NOTE : We load the settings again every time we enter the scene.
+    // This is done just in case users have modified their settings manually by editing the settings json file.
+    SettingsManager.loadSettings();
+    textControllerMagickaPup.text = MagickaPupManager.getMagickaPupPath();
+    textControllerInstalls.text = ModManager.getPathToInstalls();
+    textControllerMods.text = ModManager.getPathToMods();
+    textControllerProfiles.text = ModManager.getPathToProfiles();
   }
 
   @override
@@ -82,9 +95,9 @@ class _SettingsMenuState extends State<SettingsMenu> {
                   child: Padding(
                     padding: const EdgeInsets.all(5),
                     child: MagickaPupTextField(
-                      controller: controller,
+                      controller: textControllerMagickaPup,
                       onEdit: (){
-                        setPath(controller.text);
+                        setPathMagickaPup(textControllerMagickaPup.text);
                       },
                     )
                   )
@@ -98,8 +111,10 @@ class _SettingsMenuState extends State<SettingsMenu> {
                 child: Padding(
                   padding: const EdgeInsets.all(5),
                   child: MagickaPupTextField(
-                    controller: controller,
-                    onEdit: (){}
+                    controller: textControllerInstalls,
+                    onEdit: (){
+                      setPathInstalls(textControllerInstalls.text);
+                    }
                   )
                 )
               )
@@ -112,8 +127,10 @@ class _SettingsMenuState extends State<SettingsMenu> {
                     child: Padding(
                         padding: const EdgeInsets.all(5),
                         child: MagickaPupTextField(
-                            controller: controller,
-                            onEdit: (){}
+                            controller: textControllerMods,
+                            onEdit: (){
+                              setPathMods(textControllerMods.text);
+                            }
                         )
                     )
                 )
@@ -126,8 +143,10 @@ class _SettingsMenuState extends State<SettingsMenu> {
                     child: Padding(
                         padding: const EdgeInsets.all(5),
                         child: MagickaPupTextField(
-                            controller: controller,
-                            onEdit: (){}
+                            controller: textControllerProfiles,
+                            onEdit: (){
+                              setPathProfiles(textControllerProfiles.text);
+                            }
                         )
                     )
                 )
@@ -145,9 +164,30 @@ class _SettingsMenuState extends State<SettingsMenu> {
     });
   }
 
-  void setPath(String path) {
-    setState((){
+  void setPathMagickaPup(String path) {
+    setState(() {
       MagickaPupManager.setMagickaPupPath(path);
+      SettingsManager.saveSettings();
+    });
+  }
+
+  void setPathInstalls(String path) {
+    setState(() {
+      ModManager.setPathToInstalls(path);
+      SettingsManager.saveSettings();
+    });
+  }
+
+  void setPathMods(String path) {
+    setState(() {
+      ModManager.setPathToMods(path);
+      SettingsManager.saveSettings();
+    });
+  }
+
+  void setPathProfiles(String path) {
+    setState(() {
+      ModManager.setPathToProfiles(path);
       SettingsManager.saveSettings();
     });
   }
