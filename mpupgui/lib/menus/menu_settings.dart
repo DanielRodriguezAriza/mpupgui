@@ -221,11 +221,31 @@ class _SettingsMenuState extends State<SettingsMenu> {
   Widget getPathsWidgets() {
     return Column(
       children: [
-        getPathWidget("MagickaPup", setPathMagickaPup),
-        getPathWidget("Installs", setPathInstalls),
-        getPathWidget("Mods", setPathMods),
-        getPathWidget("Profiles", setPathProfiles),
-      ];
+        getPathWidget("MagickaPup", setPathMagickaPup, textControllerMagickaPup),
+        getPathWidget("Installs", setPathInstalls, textControllerInstalls),
+        getPathWidget("Mods", setPathMods, textControllerMods),
+        getPathWidget("Profiles", setPathProfiles, textControllerProfiles),
+      ]
+    );
+  }
+
+  Widget getPathWidget(String text, Function action, TextEditingController controller) {
+    return Row(
+      children: [
+        Expanded(
+          child: MagickaPupText(
+            text: text,
+          ),
+        ),
+        Expanded(
+          child: MagickaPupTextField(
+            controller: controller,
+            onEdit: (){
+              action(controller.text);
+            },
+          ),
+        ),
+      ]
     );
   }
 
