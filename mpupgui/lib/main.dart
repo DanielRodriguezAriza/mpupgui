@@ -25,7 +25,8 @@ void main() async {
   // Perform desktop platform specific operations
   if(isPlatformDesktop()) {
     setWindowTitle("MagickaPUP GUI");
-    setWindowMinSize(const Size(800, 600)); // Limit the window min size so that it cannot go below 800x600.
+    // NOTE : The 1200 x 825 size limit was picked based on the limit that github desktop has. I eyeballed it more or less to look the same. Not sure why they picked this resolution as the min limit, but I do think it does look pretty nice for a tool GUI, so yeah, maybe it's just a rule of cool thing, idk :P
+    setWindowMinSize(const Size(1200, 825)); // Limit the window min size so that it cannot go below Width x Height.
     // setWindowMaxSize(const Size(800, 600)); // We could limit the max size, but for now we don't really care about that, so any resolution is supported.
   }
 
