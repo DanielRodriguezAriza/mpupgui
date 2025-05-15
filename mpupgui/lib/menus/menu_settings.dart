@@ -244,7 +244,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
                 ),
               ),
               Expanded(
-                flex: 9,
+                flex: 8,
                 child: MagickaPupTextField(
                   maxHeight: 30,
                   controller: controller,
@@ -253,6 +253,16 @@ class _SettingsMenuState extends State<SettingsMenu> {
                   },
                 ),
               ),
+              MagickaPupButton(
+                useAutoPadding: false,
+                height: 1000,
+                width: 20,
+                onPressed: (){},
+                child: const MagickaPupText(
+                  text: "...",
+                  fontSize: 10,
+                ),
+              )
             ]
         ),
       ),
