@@ -6,7 +6,7 @@ import 'package:mpupgui/menus/menu_fproc_compiler.dart';
 import 'package:mpupgui/menus/menu_fproc_decompiler.dart';
 import 'package:mpupgui/menus/menu_init.dart';
 import 'package:mpupgui/menus/menu_main.dart';
-import 'package:mpupgui/menus/menu_mm.dart';
+import 'package:mpupgui/menus/mod_manager/menu_mm.dart';
 import 'package:mpupgui/menus/menu_settings.dart';
 import 'package:mpupgui/test_screen.dart';
 import 'package:mpupgui/utility/plain_page_router.dart';
