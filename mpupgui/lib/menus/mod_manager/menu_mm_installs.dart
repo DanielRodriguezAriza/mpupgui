@@ -106,7 +106,19 @@ class _ModManagerMenuInstallsState extends State<ModManagerMenuInstalls> {
 
   List<Widget> getInstallsWidgets() {
     List<Widget> ans = [];
-
+    for(var install in installs) {
+      ans.add(getInstallWidget(install));
+    }
     return ans;
+  }
+
+  Widget getInstallWidget(String install) {
+    return MagickaPupContainer(
+      height: 40,
+      width: 40,
+      child: MagickaPupText(
+        text: install,
+      ),
+    );
   }
 }
