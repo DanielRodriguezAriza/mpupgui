@@ -114,7 +114,7 @@ class _ModManagerMenuInstallsState extends State<ModManagerMenuInstalls> {
 
   Widget getInstallWidget(String install) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: SizedBox(
         width: 80,
         height: 80,
@@ -133,19 +133,16 @@ class _ModManagerMenuInstallsState extends State<ModManagerMenuInstalls> {
                   ),
                 ),
               ),
-              Container(
-                // flex: 1,
-                child: SizedBox(
-                  width: 50,
-                  height: 50,
-                  child: MagickaPupButton(
-                    level: 0,
-                    useAutoPadding: false,
-                    onPressed: (){},
-                    child: const MagickaPupText(
-                      text: "...",
-                      fontSize: 10,
-                    ),
+              SizedBox(
+                width: 50,
+                height: 50,
+                child: MagickaPupButton(
+                  level: 0,
+                  useAutoPadding: false,
+                  onPressed: (){},
+                  child: const MagickaPupText(
+                    text: "...",
+                    fontSize: 10,
                   ),
                 ),
               ),
