@@ -4,6 +4,7 @@ import 'package:mpupgui/data/mod_manager.dart';
 import 'package:mpupgui/data/mpup_manager.dart';
 import 'package:mpupgui/data/settings_manager.dart';
 import 'package:mpupgui/data/theme_manager.dart';
+import 'package:mpupgui/utility/file_handling.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
@@ -257,7 +258,13 @@ class _SettingsMenuState extends State<SettingsMenu> {
                 useAutoPadding: false,
                 height: 1000,
                 width: 20,
-                onPressed: (){},
+                onPressed: () async {
+                  String? str = await pickDir();
+                  if(str != null) {
+                    controller.text = str;
+                    action(controller.text);
+                  }
+                },
                 child: const MagickaPupText(
                   text: "...",
                   fontSize: 10,
