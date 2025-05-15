@@ -2,11 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
+import 'package:mpupgui/widgets/mpup/utility/mpup_scroller.dart';
 import 'package:mpupgui/widgets/mpup_scaffold.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 
-class ModManagerMenuInstalls extends StatelessWidget {
+class ModManagerMenuInstalls extends StatefulWidget {
   const ModManagerMenuInstalls({super.key});
+
+  @override
+  State<ModManagerMenuInstalls> createState() => _ModManagerMenuInstallsState();
+}
+
+class _ModManagerMenuInstallsState extends State<ModManagerMenuInstalls> {
+
+  ScrollController controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +55,180 @@ class ModManagerMenuInstalls extends StatelessWidget {
               child: MagickaPupContainer(
                 text: "Installs",
                 level: 2,
-                child: Placeholder(),
+                child: MagickaPupScroller(
+                  controller: controller,
+                  children: [
+                    Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),Container(
+                      color: Colors.red,
+                      height: 20,
+                    ),Container(
+                      color: Colors.green,
+                      height: 20,
+                    ),
+                  ]
+                ),
               ),
             ),
           ],
