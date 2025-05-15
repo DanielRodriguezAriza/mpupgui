@@ -5,6 +5,7 @@ import 'package:mpupgui/data/mpup_manager.dart';
 import 'package:mpupgui/data/theme_manager.dart';
 import 'package:mpupgui/menus/menu_file_processor_generic.dart';
 import 'package:mpupgui/menus/menu_settings.dart';
+import 'package:mpupgui/menus/mod_manager/menu_mm_installs.dart';
 import 'package:mpupgui/widgets/mpup/tab/mpup_tab_selector.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
@@ -307,8 +308,16 @@ class TestScreen extends StatelessWidget {
     return const MagickaPupTabSelector(
       tabs: [
         TabData(
-          name: "Mod Manager",
-          widget: MagickaPupBackground(),
+          name: "Installs",
+          widget: ModManagerMenuInstalls(),
+        ),
+        TabData(
+          name: "Mods",
+          widget: ModManagerMenuInstalls(),
+        ),
+        TabData(
+          name: "Profiles",
+          widget: ModManagerMenuInstalls(),
         ),
         TabData(
           name: "Compiler",
