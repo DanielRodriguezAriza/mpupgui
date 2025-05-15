@@ -11,6 +11,8 @@ class MagickaPupButton extends StatelessWidget {
   final double? elevation;
   final int level;
 
+  final bool useAutoPadding;
+
   const MagickaPupButton({
     super.key,
     this.child,
@@ -19,6 +21,7 @@ class MagickaPupButton extends StatelessWidget {
     this.height,
     this.elevation,
     this.level = 0,
+    this.useAutoPadding = true,
   });
 
   @override
@@ -29,7 +32,7 @@ class MagickaPupButton extends StatelessWidget {
   Widget getWidget(BuildContext context) {
     var themeData = ThemeManager.getCurrentThemeData();
     return Padding(
-      padding: EdgeInsets.all(themeData.padding.outer),
+      padding: EdgeInsets.all(useAutoPadding ? themeData.padding.outer : 0),
       child: getButtonWidget(context, themeData),
     );
   }
