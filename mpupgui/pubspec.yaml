@@ -34,6 +34,7 @@ dependencies:
   file_picker: ^10.1.5 # Used for file picker interface on major platforms. Allows opening file explorer to pick files.
   window_size: ^0.1.0 # Used to limit the size of the window to a min and max dimensions.
   file_selector: ^1.0.3
+  watcher: ^1.0.0 # Filesystem watcher, to watch for events like changes on the FS under a specific path (new files, new dirs, etc...)
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
