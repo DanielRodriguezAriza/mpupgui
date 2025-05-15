@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:mpupgui/data/mod_manager.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
 import 'package:mpupgui/widgets/mpup/utility/mpup_scroller.dart';
 import 'package:mpupgui/widgets/mpup_scaffold.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
+import 'package:watcher/watcher.dart';
 
 class ModManagerMenuInstalls extends StatefulWidget {
   const ModManagerMenuInstalls({super.key});
@@ -15,7 +19,24 @@ class ModManagerMenuInstalls extends StatefulWidget {
 
 class _ModManagerMenuInstallsState extends State<ModManagerMenuInstalls> {
 
-  ScrollController controller = ScrollController();
+  final ScrollController controller = ScrollController();
+  List<String> installs = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadInstalls();
+  }
+
+  void loadInstalls() {
+    var dir = Directory(ModManager.pathToInstalls);
+    if(dir.existsSync()) {
+      var entries = dir.listSync();
+      for (var entry in entries) {
+        print("entry: ${entry.path}");
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
