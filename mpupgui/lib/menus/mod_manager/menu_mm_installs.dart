@@ -19,6 +19,10 @@ class _ModManagerMenuInstallsState extends State<ModManagerMenuInstalls> {
 
   @override
   Widget build(BuildContext context) {
+    return getWidget(context);
+  }
+
+  Widget getWidget(BuildContext context) {
     return Scaffold(
       body: MagickaPupBackground(
         level: 0,
@@ -30,24 +34,7 @@ class _ModManagerMenuInstallsState extends State<ModManagerMenuInstalls> {
                 text: "Actions",
                 level: 2,
                 child: Row(
-                  children: [
-                    Expanded(
-                      child: MagickaPupButton(
-                        onPressed: (){},
-                        child: MagickaPupText(
-                          text: "Add new Install",
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: MagickaPupButton(
-                        onPressed: (){},
-                        child: MagickaPupText(
-                          text: "Open Installs Directory",
-                        ),
-                      ),
-                    ),
-                  ],
+                  children: getActionButtonWidgets(),
                 ),
               ),
             ),
@@ -57,177 +44,7 @@ class _ModManagerMenuInstallsState extends State<ModManagerMenuInstalls> {
                 level: 2,
                 child: MagickaPupScroller(
                   controller: controller,
-                  children: [
-                    Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),Container(
-                      color: Colors.red,
-                      height: 20,
-                    ),Container(
-                      color: Colors.green,
-                      height: 20,
-                    ),
-                  ]
+                  children: getInstallsWidgets(),
                 ),
               ),
             ),
@@ -235,5 +52,34 @@ class _ModManagerMenuInstallsState extends State<ModManagerMenuInstalls> {
         ),
       ),
     );
+  }
+
+  Widget getActionButtonWidget(String text, Function? action) {
+    return Expanded(
+      child: MagickaPupButton(
+        onPressed: (){
+          if(action != null) {
+            action();
+          }
+        },
+        child: MagickaPupText(
+          text: text,
+        ),
+      ),
+    );
+  }
+
+  List<Widget> getActionButtonWidgets() {
+    return [
+      getActionButtonWidget("Add new Install", null),
+      getActionButtonWidget("Open Installs Directory", null),
+      getActionButtonWidget("Refresh", null),
+    ];
+  }
+
+  List<Widget> getInstallsWidgets() {
+    List<Widget> ans = [];
+
+    return ans;
   }
 }
