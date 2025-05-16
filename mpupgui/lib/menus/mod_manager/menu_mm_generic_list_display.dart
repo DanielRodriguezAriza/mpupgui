@@ -14,12 +14,14 @@ class ModManagerMenuGenericListDisplay extends StatefulWidget {
   final String name; // Display name of the container area.
   final bool Function(Directory) directoryFilter; // Function that filters whether a directory is valid or not.
   final String Function() directoryGetter;
+  final Widget Function(String name, String path)? widgetConstructor;
 
   const ModManagerMenuGenericListDisplay({
     super.key,
     required this.name,
     required this.directoryFilter,
     required this.directoryGetter,
+    this.widgetConstructor,
   });
 
   @override
@@ -97,7 +99,7 @@ class _ModManagerMenuGenericListDisplayState extends State<ModManagerMenuGeneric
                 level: 2,
                 child: MagickaPupScroller(
                   controller: controller,
-                  children: getInstallsWidgets(),
+                  children: getEntriesWidgets(),
                 ),
               ),
             ),
@@ -130,15 +132,16 @@ class _ModManagerMenuGenericListDisplayState extends State<ModManagerMenuGeneric
     ];
   }
 
-  List<Widget> getInstallsWidgets() {
+  List<Widget> getEntriesWidgets() {
+    var fn = widget.widgetConstructor?? getEntryWidget;
     List<Widget> ans = [];
     for(int i = 0; i < entryCount; ++i) {
-      ans.add(getInstallWidget(entryNames[i], entryPaths[i]));
+      ans.add(fn(entryNames[i], entryPaths[i]));
     }
     return ans;
   }
 
-  Widget getInstallWidget(String name, String path) {
+  Widget getEntryWidget(String name, String path) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: SizedBox(
