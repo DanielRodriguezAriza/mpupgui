@@ -29,17 +29,31 @@ class _ModManagerMenuInstallsState extends State<ModManagerMenuInstalls> {
     loadInstalls();
   }
 
+  bool isValidMagickaInstall(Directory directory) {
+    var entryFiles = directory.listSync().whereType<File>();
+    for(var entryFile in entryFiles) {
+      if(pathName(entryFile.path) == "Magicka.exe") {
+        return true;
+      }
+    }
+    return false;
+  }
+
   // NOTE : We can either iterate all entries and just say if(entry is Directory)
   // or use the .whereType<T>() function to filter and get only the entries that are of the specified type.
   void loadInstalls() {
-    installs.clear();
+    setState(() {
+      installs.clear();
+    });
     var dir = Directory(ModManager.pathToInstalls);
     if(dir.existsSync()) {
       var entries = dir.listSync().whereType<Directory>();
       for(var entry in entries) {
-        var name = pathName(entry.path);
-        installs.add(name);
-        // print(name);
+        if(isValidMagickaInstall(entry)) {
+          setState(() {
+            installs.add(pathName(entry.path));
+          });
+        }
       }
     }
   }
