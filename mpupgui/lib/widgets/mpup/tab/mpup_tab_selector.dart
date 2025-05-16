@@ -17,10 +17,16 @@ class TabData {
 
 class MagickaPupTabSelector extends StatefulWidget {
   final List<TabData> tabs;
+  final double? tabsHeight;
+  final double fontSize;
+  final bool isBold;
 
   const MagickaPupTabSelector({
     super.key,
     required this.tabs,
+    this.tabsHeight,
+    this.fontSize = 18,
+    this.isBold = false,
   });
 
   @override
@@ -37,28 +43,45 @@ class _MagickaPupTabSelectorState extends State<MagickaPupTabSelector> {
   }
 
   Widget getWidget() {
+    var children = widget.tabsHeight == null ? [
+      Expanded(
+        child: getUpperSection(),
+      ),
+      Expanded(
+        flex: 9,
+        child: getLowerSection(),
+      ),
+    ] : [
+      SizedBox(
+        height: widget.tabsHeight,
+        child: getUpperSection(),
+      ),
+      Expanded(
+        child: getLowerSection(),
+      ),
+    ];
     return Scaffold(
       body: MagickaPupBackground(
         child: Column(
-          children: [
-            Expanded(
-              child: MagickaPupBackground(
-                level: 1,
-                child: Row(
-                  children: getButtonsWidgets(),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 9,
-              child: IndexedStack(
-                index: currentTabIndex,
-                children: getTabsWidgets(),
-              ),
-            ),
-          ],
+          children: children,
         ),
       ),
+    );
+  }
+
+  Widget getUpperSection() {
+    return MagickaPupBackground(
+      level: 1,
+      child: Row(
+        children: getButtonsWidgets(),
+      ),
+    );
+  }
+
+  Widget getLowerSection() {
+    return IndexedStack(
+      index: currentTabIndex,
+      children: getTabsWidgets(),
     );
   }
 
@@ -91,8 +114,8 @@ class _MagickaPupTabSelectorState extends State<MagickaPupTabSelector> {
         level: currentTabIndex == index ? 3 : 2,
         child: MagickaPupText(
           text: tabData.name,
-          isBold: true,
-          fontSize: 20,
+          isBold: widget.isBold,
+          fontSize: widget.fontSize,
         ),
       ),
     );
