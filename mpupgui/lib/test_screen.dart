@@ -306,6 +306,8 @@ class TestScreen extends StatelessWidget {
   Widget getMenuWidget() {
     // return const MagickaPupFileProcessorMenuGeneric();
     return const MagickaPupTabSelector(
+      tabsHeight: 45,
+      isBold: true,
       tabs: [
         TabData(
           name: "Installs",
