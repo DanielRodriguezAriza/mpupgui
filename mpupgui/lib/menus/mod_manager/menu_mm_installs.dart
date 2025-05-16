@@ -20,7 +20,7 @@ class ModManagerMenuInstalls extends StatelessWidget {
   bool directoryFilter(Directory directory) {
     var entryFiles = directory.listSync().whereType<File>();
     for(var entryFile in entryFiles) {
-      if(pathName(entryFile.path) == "Magicka.exe") {
+      if(pathName(entryFile.path).toLowerCase() == "Magicka.exe".toLowerCase()) {
         return true;
       }
     }
