@@ -15,6 +15,12 @@ class ModManagerMenuProfiles extends StatelessWidget {
       directoryFilter: directoryFilter,
       directoryGetter: directoryGetter,
       widgetConstructor: getEntryWidget,
+      additionalButtons: [
+        ModManagerMenuGenericListDisplayAction(
+          name: "Add new Profile",
+          action: addNewProfile,
+        ),
+      ],
     );
   }
 
@@ -34,5 +40,9 @@ class ModManagerMenuProfiles extends StatelessWidget {
 
   Widget getEntryWidget(String name, String path) {
     return const Placeholder();
+  }
+
+  void addNewProfile() {
+    
   }
 }
