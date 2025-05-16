@@ -10,6 +10,7 @@ import 'package:mpupgui/widgets/mpup/utility/mpup_scroller.dart';
 import 'package:mpupgui/widgets/mpup_scaffold.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 import 'package:watcher/watcher.dart';
+import "package:open_filex/open_filex.dart";
 
 class ModManagerMenuInstalls extends StatefulWidget {
   const ModManagerMenuInstalls({super.key});
@@ -21,7 +22,9 @@ class ModManagerMenuInstalls extends StatefulWidget {
 class _ModManagerMenuInstallsState extends State<ModManagerMenuInstalls> {
 
   final ScrollController controller = ScrollController();
-  List<String> installs = [];
+  int installsCount = 0;
+  List<String> installsNames = [];
+  List<String> installsPaths = [];
 
   @override
   void initState() {
@@ -43,7 +46,9 @@ class _ModManagerMenuInstallsState extends State<ModManagerMenuInstalls> {
   // or use the .whereType<T>() function to filter and get only the entries that are of the specified type.
   void loadInstalls() {
     setState(() {
-      installs.clear();
+      installsCount = 0;
+      installsNames.clear();
+      installsPaths.clear();
     });
     var dir = Directory(ModManager.pathToInstalls);
     if(dir.existsSync()) {
@@ -51,7 +56,9 @@ class _ModManagerMenuInstallsState extends State<ModManagerMenuInstalls> {
       for(var entry in entries) {
         if(isValidMagickaInstall(entry)) {
           setState(() {
-            installs.add(pathName(entry.path));
+            installsNames.add(pathName(entry.path));
+            installsPaths.add(entry.path);
+            installsCount += 1;
           });
         }
       }
@@ -120,13 +127,13 @@ class _ModManagerMenuInstallsState extends State<ModManagerMenuInstalls> {
 
   List<Widget> getInstallsWidgets() {
     List<Widget> ans = [];
-    for(var install in installs) {
-      ans.add(getInstallWidget(install));
+    for(int i = 0; i < installsCount; ++i) {
+      ans.add(getInstallWidget(installsNames[i], installsPaths[i]));
     }
     return ans;
   }
 
-  Widget getInstallWidget(String install) {
+  Widget getInstallWidget(String name, String path) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: SizedBox(
@@ -142,7 +149,7 @@ class _ModManagerMenuInstallsState extends State<ModManagerMenuInstalls> {
                   padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: MagickaPupText(
                     isBold: true,
-                    text: install,
+                    text: name,
                     fontSize: 18,
                   ),
                 ),
@@ -153,7 +160,9 @@ class _ModManagerMenuInstallsState extends State<ModManagerMenuInstalls> {
                 child: MagickaPupButton(
                   level: 0,
                   useAutoPadding: false,
-                  onPressed: (){},
+                  onPressed: () async {
+                    await OpenFilex.open(path);
+                  },
                   child: const MagickaPupText(
                     text: "...",
                     fontSize: 10,
