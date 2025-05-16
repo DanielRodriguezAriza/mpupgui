@@ -10,11 +10,22 @@ import 'package:mpupgui/widgets/mpup/utility/mpup_scroller.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 import "package:open_filex/open_filex.dart";
 
+class ModManagerMenuGenericListDisplayAction {
+  final String name;
+  final Function action;
+
+  const ModManagerMenuGenericListDisplayAction({
+    required this.name,
+    required this.action,
+  });
+}
+
 class ModManagerMenuGenericListDisplay extends StatefulWidget {
   final String name; // Display name of the container area.
   final bool Function(Directory) directoryFilter; // Function that filters whether a directory is valid or not.
   final String Function() directoryGetter;
   final Widget Function(String name, String path)? widgetConstructor;
+  final List<ModManagerMenuGenericListDisplayAction>? additionalButtons;
 
   const ModManagerMenuGenericListDisplay({
     super.key,
@@ -22,6 +33,7 @@ class ModManagerMenuGenericListDisplay extends StatefulWidget {
     required this.directoryFilter,
     required this.directoryGetter,
     this.widgetConstructor,
+    this.additionalButtons,
   });
 
   @override
@@ -125,11 +137,20 @@ class _ModManagerMenuGenericListDisplayState extends State<ModManagerMenuGeneric
   }
 
   List<Widget> getActionButtonWidgets() {
-    return [
+    List<Widget> ans = [];
+    List<Widget> widgets = [
       // getActionButtonWidget("Add new Install", null),
       getActionButtonWidget("Open Directory", openRootDirectory),
       getActionButtonWidget("Refresh", loadEntries),
     ];
+    if(widget.additionalButtons != null) {
+      for(var buttonData in widget.additionalButtons!) {
+        var widget = getActionButtonWidget(buttonData.name, buttonData.action);
+        ans.add(widget);
+      }
+    }
+    ans += widgets;
+    return ans;
   }
 
   List<Widget> getEntriesWidgets() {
