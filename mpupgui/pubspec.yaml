@@ -36,6 +36,7 @@ dependencies:
   file_selector: ^1.0.3
   watcher: ^1.0.0 # Filesystem watcher, to watch for events like changes on the FS under a specific path (new files, new dirs, etc...)
   # desktop_multi_window: ^0.2.1 # Support for multiple windows
+  open_filex: ^4.7.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
