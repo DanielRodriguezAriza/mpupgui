@@ -40,6 +40,10 @@ String pathJoin(String pathA, String pathB) {
   return dart_path.join(pathA, pathB);
 }
 
+String pathJoinMany(List<String> paths) {
+  return dart_path.joinAll(paths);
+}
+
 String pathName(String path, [bool includeExtension = false]) {
   // NOTE : Trailing separators are already ignored by the library anyway,
   // so no need to worry about that.
