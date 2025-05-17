@@ -3,7 +3,13 @@ import 'package:mpupgui/data/theme_manager.dart';
 import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 
-void showPopUp(BuildContext context, String title, String description, [Function? onAccept, Function? onCancel]) {
+void showPopUp({
+  required BuildContext context,
+  required String title,
+  required String description,
+  Function? onAccept,
+  Function? onCancel
+}) {
   var themeData = ThemeManager.getCurrentThemeData();
   showDialog(
     context: context,
