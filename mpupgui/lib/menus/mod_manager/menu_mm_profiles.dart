@@ -160,8 +160,14 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
                     level: 0,
                     useAutoPadding: false,
                     onPressed: () {
-                      showPopUp(context, "Warning!", "Are you sure you want to delete this profile?");
-                      // TODO : Implement onAccept callback to actually delete the profile.
+                      showPopUp(
+                        context: context,
+                        title: "Warning!",
+                        description: "Are you sure you want to delete this profile?",
+                        onAccept: (){
+                          deleteProfile(path);
+                        },
+                      );
                     },
                     child: const MagickaPupText(
                       text: "X",
@@ -187,5 +193,12 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
     setState(() {
       menuIndex = 1;
     });
+  }
+
+  void deleteProfile(String path) {
+    Directory dir = Directory(path);
+    if(dir.existsSync()) {
+      dir.deleteSync(recursive: true); // Recursive set to true so that elements within the directory can be deleted as well.
+    }
   }
 }
