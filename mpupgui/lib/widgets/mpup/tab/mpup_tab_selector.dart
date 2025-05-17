@@ -8,10 +8,12 @@ import 'package:mpupgui/widgets/mpup_text.dart';
 class TabData {
   final String name;
   final Widget widget;
+  final bool rebuildOnEnter;
 
   const TabData({
     required this.name,
     required this.widget,
+    this.rebuildOnEnter = false,
   });
 }
 
@@ -87,8 +89,15 @@ class _MagickaPupTabSelectorState extends State<MagickaPupTabSelector> {
 
   List<Widget> getTabsWidgets() {
     List<Widget> tabsWidgets = [];
+    int idx = 0;
     for(var tab in widget.tabs) {
-      tabsWidgets.add(tab.widget);
+      if(tab.rebuildOnEnter && currentTabIndex != idx) {
+        tabsWidgets.add(const Placeholder());
+      }
+      else {
+        tabsWidgets.add(tab.widget);
+      }
+      ++idx;
     }
     return tabsWidgets;
   }
