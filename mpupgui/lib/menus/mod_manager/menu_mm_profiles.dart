@@ -10,13 +10,21 @@ import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 import 'package:open_filex/open_filex.dart';
 
-class ModManagerMenuProfiles extends StatelessWidget {
+class ModManagerMenuProfiles extends StatefulWidget {
   const ModManagerMenuProfiles({super.key});
+
+  @override
+  State<ModManagerMenuProfiles> createState() => _ModManagerMenuProfilesState();
+}
+
+class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
+
+  int menuIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return IndexedStack(
-      index: 0,
+      index: menuIndex,
       children: [
         getProfileListMenu(),
         getProfileEntryMenu(),
@@ -40,7 +48,18 @@ class ModManagerMenuProfiles extends StatelessWidget {
   }
 
   Widget getProfileEntryMenu() {
-    return ModManagerMenuProfileEntry();
+    return ModManagerMenuProfileEntry(
+      onApply: (){
+        setState(() {
+          menuIndex = 0;
+        });
+      },
+      onCancel: (){
+        setState(() {
+          menuIndex = 0;
+        });
+      },
+    );
   }
 
   bool directoryFilter(Directory dir) {
@@ -104,7 +123,7 @@ class ModManagerMenuProfiles extends StatelessWidget {
                     level: 0,
                     useAutoPadding: false,
                     onPressed: () async {
-                      await OpenFilex.open(path);
+                      editProfile();
                     },
                     child: const MagickaPupText(
                       text: "E",
@@ -139,10 +158,14 @@ class ModManagerMenuProfiles extends StatelessWidget {
   }
 
   void createProfile() {
-    
+    setState(() {
+      menuIndex = 1;
+    });
   }
 
   void editProfile() {
-
+    setState(() {
+      menuIndex = 1;
+    });
   }
 }
