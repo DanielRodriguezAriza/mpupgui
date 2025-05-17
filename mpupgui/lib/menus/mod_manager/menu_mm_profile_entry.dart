@@ -3,6 +3,7 @@ import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
+import 'package:mpupgui/widgets/mpup_text_field.dart';
 
 class ModManagerMenuProfileEntry extends StatefulWidget {
 
@@ -62,10 +63,45 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
           ),
           Expanded(
             child: MagickaPupContainer(
-              text: "Profile",
+              text: "Profile Configuration",
               level: 2,
-              child: MagickaPupText(
-                text: "hi",
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 100,
+                          child: MagickaPupText(
+                            text: "Profile Name",
+                          ),
+                        ),
+                        Expanded(
+                          child: MagickaPupTextField(),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: MagickaPupContainer(
+                            text: "Base",
+                            // TODO : Implement
+                          ),
+                        ),
+                        Expanded(
+                          child: MagickaPupContainer(
+                            text: "Mods",
+                            // TODO : Implement
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
             ),
           ),
