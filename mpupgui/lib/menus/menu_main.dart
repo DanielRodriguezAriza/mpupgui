@@ -26,14 +26,17 @@ class MainMenu extends StatelessWidget {
           TabData(
             name: "Installs",
             widget: ModManagerMenuInstalls(),
+            rebuildOnEnter: true,
           ),
           TabData(
             name: "Mods",
             widget: ModManagerMenuMods(),
+            rebuildOnEnter: true,
           ),
           TabData(
             name: "Profiles",
             widget: ModManagerMenuProfiles(),
+            rebuildOnEnter: true,
           ),
           TabData(
             name: "Compiler",
