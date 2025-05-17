@@ -9,6 +9,7 @@ import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
 import 'package:mpupgui/widgets/mpup/utility/mpup_scroller.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 import "package:open_filex/open_filex.dart";
+import 'package:watcher/watcher.dart';
 
 class ModManagerMenuGenericListDisplayAction {
   final String name;
@@ -47,9 +48,15 @@ class _ModManagerMenuGenericListDisplayState extends State<ModManagerMenuGeneric
   List<String> entryNames = [];
   List<String> entryPaths = [];
 
+  late DirectoryWatcher watcher;
+
   @override
   void initState() {
     super.initState();
+    watcher = DirectoryWatcher(widget.directoryGetter()); // TODO : Fix issue where this is not updated when the path is changed on the settings... we need to maybe go back to the navigator bullshit thing and state saving on static classes???
+    watcher.events.listen((event){
+      loadEntries();
+    });
     loadEntries();
   }
 
