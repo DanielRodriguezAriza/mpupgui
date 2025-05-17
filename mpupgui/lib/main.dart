@@ -8,6 +8,7 @@ import 'package:mpupgui/menus/menu_init.dart';
 import 'package:mpupgui/menus/menu_main.dart';
 import 'package:mpupgui/menus/mod_manager/menu_mm.dart';
 import 'package:mpupgui/menus/menu_settings.dart';
+import 'package:mpupgui/menus/mod_manager/menu_mm_profile_entry.dart';
 import 'package:mpupgui/test_screen.dart';
 import 'package:mpupgui/utility/plain_page_router.dart';
 import 'package:window_size/window_size.dart';
@@ -16,9 +17,7 @@ bool isPlatformDesktop() {
   return Platform.isWindows || Platform.isLinux || Platform.isMacOS;
 }
 
-// NOTE : Made main into an async method so that process interop
-// doesn't shit its pants in flutter... yay...
-void main() async {
+void initFlutterApp() {
   // Ensure that flutter bindings are initialized
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -32,9 +31,20 @@ void main() async {
 
   // Initialize app data
   SettingsManager.loadSettings();
+}
+
+void runFlutterApp() {
+  runApp(const MyApp());
+}
+
+// NOTE : Made main into an async function so that process interop
+// doesn't cause flutter to shit its pants... yay...
+void main() async {
+  // Initialize the main app
+  initFlutterApp();
 
   // Run the main app
-  runApp(const MyApp());
+  runFlutterApp();
 }
 
 class MyApp extends StatelessWidget {
@@ -49,7 +59,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      initialRoute: "/", // The init screen in this case
+      initialRoute: "/main", // The init screen in this case
       onGenerateRoute: (settings) {
         return PlainPageRouter(
             page: getPage(settings.name),
@@ -61,9 +71,9 @@ class MyApp extends StatelessWidget {
 
   Widget getPage(String? pathString) {
     switch(pathString) {
-      case "/": return const TestScreen();
-      default: return const TestScreen();
+      case "/main": return const MainMenu();
+      case "/profile": return const ModManagerMenuProfileEntry();
+      default: return const MainMenu(); // If lost, return to main menu
     }
   }
 }
-
