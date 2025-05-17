@@ -27,7 +27,7 @@ class ModManagerMenuProfiles extends StatelessWidget {
   bool directoryFilter(Directory dir) {
     var files = dir.listSync().whereType<File>();
     for(var file in files) {
-      if(pathName(file.path).toLowerCase() == "profile.json") {
+      if(pathName(file.path, true).toLowerCase() == "profile.json") {
         return true;
       }
     }
