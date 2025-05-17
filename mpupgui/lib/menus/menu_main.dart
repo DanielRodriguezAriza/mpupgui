@@ -14,10 +14,10 @@ class MainMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MagickaPupScaffold(child: MagickaPupText(text: "Main Menu!"));
+    return getWidget(context);
   }
 
-  Widget getWidget() {
+  Widget getWidget(BuildContext context) {
     // return const MagickaPupFileProcessorMenuGeneric();
     return const MagickaPupTabSelector(
         tabsHeight: 45,
