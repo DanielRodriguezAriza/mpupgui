@@ -40,10 +40,14 @@ String pathJoin(String pathA, String pathB) {
   return dart_path.join(pathA, pathB);
 }
 
-String pathName(String path) {
+String pathName(String path, [bool includeExtension = false]) {
   // NOTE : Trailing separators are already ignored by the library anyway,
   // so no need to worry about that.
-  return dart_path.basenameWithoutExtension(path);
+  if(includeExtension) {
+    return dart_path.basename(path);
+  } else {
+    return dart_path.basenameWithoutExtension(path);
+  }
 }
 
 String pathExtension(String path) {
