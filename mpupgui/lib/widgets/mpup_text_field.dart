@@ -10,6 +10,8 @@ class MagickaPupTextField extends StatelessWidget {
 
   final double maxHeight;
   final double maxWidth;
+  final double minHeight;
+  final double minWidth;
 
   const MagickaPupTextField({
     super.key,
@@ -19,6 +21,8 @@ class MagickaPupTextField extends StatelessWidget {
 
     this.maxHeight = 20,
     this.maxWidth = double.infinity,
+    this.minHeight = 0,
+    this.minWidth = 0,
   });
 
   @override
@@ -49,6 +53,8 @@ class MagickaPupTextField extends StatelessWidget {
         constraints: BoxConstraints(
           maxHeight: maxHeight,
           maxWidth: maxWidth,
+          minHeight: minHeight,
+          minWidth: minWidth,
         ),
       ),
     );
