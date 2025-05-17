@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:mpupgui/data/mod_manager.dart';
 import 'package:mpupgui/menus/mod_manager/menu_mm_generic_list_display.dart';
 import 'package:mpupgui/utility/file_handling.dart';
+import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
+import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
+import 'package:mpupgui/widgets/mpup_text.dart';
+import 'package:open_filex/open_filex.dart';
 
 class ModManagerMenuProfiles extends StatelessWidget {
   const ModManagerMenuProfiles({super.key});
@@ -39,7 +43,84 @@ class ModManagerMenuProfiles extends StatelessWidget {
   }
 
   Widget getEntryWidget(String name, String path) {
-    return const Placeholder();
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+      child: SizedBox(
+        width: 80,
+        height: 80,
+        child: MagickaPupContainer(
+          level: 1,
+          child: Row(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                  child: MagickaPupText(
+                    isBold: true,
+                    text: name,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: MagickaPupButton(
+                    level: 0,
+                    useAutoPadding: false,
+                    onPressed: () async {
+                      await Process.start(pathJoinMany([path, "game", "Magicka.exe"]), []); // Open the game
+                    },
+                    child: const MagickaPupText(
+                      text: "P",
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: MagickaPupButton(
+                    level: 0,
+                    useAutoPadding: false,
+                    onPressed: () async {
+                      await OpenFilex.open(path);
+                    },
+                    child: const MagickaPupText(
+                      text: "E",
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: MagickaPupButton(
+                    level: 0,
+                    useAutoPadding: false,
+                    onPressed: () async {
+                      await OpenFilex.open(path);
+                    },
+                    child: const MagickaPupText(
+                      text: "O",
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   void addNewProfile() {
