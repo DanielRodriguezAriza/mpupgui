@@ -24,10 +24,6 @@ class MainMenu extends StatelessWidget {
         isBold: true,
         tabs: [
           TabData(
-            name: "Game",
-            widget: ModManagerMenuProfileEntry(),
-          ),
-          TabData(
             name: "Installs",
             widget: ModManagerMenuInstalls(),
           ),
