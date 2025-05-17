@@ -69,18 +69,24 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(5),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 100,
-                          child: MagickaPupText(
-                            text: "Profile Name",
+                    child: SizedBox(
+                      height: 30,
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 100,
+                            child: MagickaPupText(
+                              text: "Profile Name",
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: MagickaPupTextField(),
-                        ),
-                      ],
+                          Expanded(
+                            child: SizedBox(
+                              height: 25,
+                              child: MagickaPupTextField(),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Expanded(
