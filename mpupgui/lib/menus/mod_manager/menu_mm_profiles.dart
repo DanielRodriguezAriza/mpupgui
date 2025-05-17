@@ -5,6 +5,7 @@ import 'package:mpupgui/data/mod_manager.dart';
 import 'package:mpupgui/menus/mod_manager/menu_mm_generic_list_display.dart';
 import 'package:mpupgui/menus/mod_manager/menu_mm_profile_entry.dart';
 import 'package:mpupgui/utility/file_handling.dart';
+import 'package:mpupgui/utility/popup_util.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
@@ -145,6 +146,25 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
                     },
                     child: const MagickaPupText(
                       text: "O",
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: MagickaPupButton(
+                    level: 0,
+                    useAutoPadding: false,
+                    onPressed: () {
+                      showPopUp(context, "Warning!", "Are you sure you want to delete this profile?");
+                      // TODO : Implement onAccept callback to actually delete the profile.
+                    },
+                    child: const MagickaPupText(
+                      text: "X",
                       fontSize: 10,
                     ),
                   ),
