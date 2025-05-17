@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
   Widget getPage(String? pathString) {
     switch(pathString) {
       case "/main": return const MainMenu();
-      case "/profile": return const ModManagerMenuProfileEntry();
+      // case "/profile": return const ModManagerMenuProfileEntry();
       default: return const MainMenu(); // If lost, return to main menu
     }
   }
