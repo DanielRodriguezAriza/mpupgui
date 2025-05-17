@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mpupgui/data/mod_manager.dart';
 import 'package:mpupgui/menus/mod_manager/menu_mm_generic_list_display.dart';
+import 'package:mpupgui/menus/mod_manager/menu_mm_profile_entry.dart';
 import 'package:mpupgui/utility/file_handling.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
@@ -14,6 +15,16 @@ class ModManagerMenuProfiles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return IndexedStack(
+      index: 0,
+      children: [
+        getProfileListMenu(),
+        getProfileEntryMenu(),
+      ],
+    );
+  }
+
+  Widget getProfileListMenu() {
     return ModManagerMenuGenericListDisplay(
       name: "Profiles",
       directoryFilter: directoryFilter,
@@ -22,10 +33,14 @@ class ModManagerMenuProfiles extends StatelessWidget {
       additionalButtons: [
         ModManagerMenuGenericListDisplayAction(
           name: "Add new Profile",
-          action: addNewProfile,
+          action: createProfile,
         ),
       ],
     );
+  }
+
+  Widget getProfileEntryMenu() {
+    return ModManagerMenuProfileEntry();
   }
 
   bool directoryFilter(Directory dir) {
@@ -123,7 +138,11 @@ class ModManagerMenuProfiles extends StatelessWidget {
     );
   }
 
-  void addNewProfile() {
+  void createProfile() {
     
+  }
+
+  void editProfile() {
+
   }
 }
