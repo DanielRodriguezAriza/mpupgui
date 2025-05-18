@@ -57,3 +57,48 @@ String pathName(String path, [bool includeExtension = false]) {
 String pathExtension(String path) {
   return dart_path.extension(path);
 }
+
+// region pathIsValid
+
+// Functions to check if a given path contains characters that are not valid
+// on the current system.
+
+bool pathIsValid(String path) {
+  return directoryIsValid(Directory(path)) || fileIsValid(File(path));
+}
+
+bool fileIsValid(File file) {
+  try {
+    String path = file.absolute.path;
+    return true;
+  } catch(e) {
+    return false;
+  }
+}
+
+bool directoryIsValid(Directory directory) {
+  try {
+    String path = directory.absolute.path;
+    return true;
+  } catch(e) {
+    return false;
+  }
+}
+
+// endregion
+
+// region pathExists
+
+bool pathExists(String path) {
+  return directoryExists(Directory(path)) || fileExists(File(path));
+}
+
+bool directoryExists(Directory directory) {
+  return directory.existsSync();
+}
+
+bool fileExists(File file) {
+  return file.existsSync();
+}
+
+// endregion
