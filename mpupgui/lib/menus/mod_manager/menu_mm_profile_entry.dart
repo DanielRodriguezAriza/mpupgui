@@ -7,11 +7,15 @@ import 'package:mpupgui/widgets/mpup_text_field.dart';
 
 class ModManagerMenuProfileEntry extends StatefulWidget {
 
+  final String path;
+  final bool isNew;
   final Function? onApply;
   final Function? onCancel;
 
   const ModManagerMenuProfileEntry({
     super.key,
+    required this.path,
+    required this.isNew,
     this.onApply,
     this.onCancel,
   });
@@ -26,6 +30,14 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     return MagickaPupBackground(
       child: Column(
         children: [
+          Align(
+            alignment: Alignment.topCenter,
+            child: MagickaPupText(
+              text: widget.isNew ? "Create Profile" : "Edit Profile",
+              fontSize: 30,
+              isBold: true,
+            ),
+          ),
           IntrinsicHeight(
             child: MagickaPupContainer(
               height: 60,
