@@ -161,17 +161,35 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
 
   void applyChanges(BuildContext context) {
     // TODO : Implement additional logic
+    bool successfullyAppliedChanges = false;
     if(widget.isNew) {
-      createProfile(context);
+      successfullyAppliedChanges = createProfile(context);
     } else {
-      editProfile();
+      successfullyAppliedChanges = editProfile();
     }
-    if(widget.onApply != null) {
-      widget.onApply!();
+
+    if(successfullyAppliedChanges) {
+      // Additional exit logic goes here.
+      if(widget.onApply != null) {
+        widget.onApply!();
+      }
+    } else {
+      // Display error pop up to notify that we could not apply the changes
+
+      // TODO : Improve the error messages by using some proper error handling
+      // eg: use exceptions and whatnot, and then catching and reading out the
+      // exception messages...
+
+      // Show the popup dialogue
+      showPopUp(
+        context: context,
+        title: "Failed to Apply Changes!",
+        description: "Could not apply the specified changes to the profile!",
+      );
     }
   }
 
-  void createProfile(BuildContext context) {
+  bool createProfile(BuildContext context) {
     String profilePath = pathJoin(ModManager.getPathToProfiles(), controller.text);
     Directory profileDir = Directory(profilePath);
     if(directoryIsValid(profileDir)) {
@@ -189,9 +207,11 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     } else {
       // TODO : Implement
     }
+    return false;
   }
 
-  void editProfile() {
+  bool editProfile() {
     // TODO : Implement
+    return false;
   }
 }
