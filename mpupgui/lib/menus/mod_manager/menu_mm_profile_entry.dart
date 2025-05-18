@@ -27,6 +27,10 @@ class ModManagerMenuProfileEntry extends StatefulWidget {
 class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry> {
   @override
   Widget build(BuildContext context) {
+    return getWidget(context);
+  }
+
+  Widget getWidget(BuildContext context) {
     return MagickaPupBackground(
       child: Column(
         children: [
@@ -38,44 +42,9 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
               isBold: true,
             ),
           ),
-          IntrinsicHeight(
-            child: MagickaPupContainer(
-              height: 60,
-              text: "Actions",
-              level: 2,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: MagickaPupButton(
-                      onPressed: (){
-                        if(widget.onApply != null) {
-                          widget.onApply!();
-                        }
-                      },
-                      child: MagickaPupText(
-                        text: "Apply Changes"
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: MagickaPupButton(
-                      onPressed: (){
-                        if(widget.onCancel != null) {
-                          widget.onCancel!();
-                        }
-                      },
-                      child: MagickaPupText(
-                        text: "Cancel",
-                      )
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
           Expanded(
             child: MagickaPupContainer(
-              text: "Profile Configuration",
+              // text: "Profile Configuration",
               level: 2,
               child: Column(
                 children: [
@@ -119,6 +88,41 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
                       ],
                     ),
                   )
+                ],
+              ),
+            ),
+          ),
+          IntrinsicHeight(
+            child: MagickaPupContainer(
+              height: 60,
+              // text: "Actions",
+              level: 2,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: MagickaPupButton(
+                        onPressed: (){
+                          if(widget.onCancel != null) {
+                            widget.onCancel!();
+                          }
+                        },
+                        child: MagickaPupText(
+                          text: "Cancel",
+                        )
+                    ),
+                  ), // Cancel button
+                  Expanded(
+                    child: MagickaPupButton(
+                      onPressed: (){
+                        if(widget.onApply != null) {
+                          widget.onApply!();
+                        }
+                      },
+                      child: MagickaPupText(
+                          text: "Apply Changes"
+                      ),
+                    ),
+                  ), // Accept button
                 ],
               ),
             ),
