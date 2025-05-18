@@ -163,7 +163,7 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
                       showPopUp(
                         context: context,
                         title: "Warning!",
-                        description: "Are you sure you want to delete this profile?",
+                        description: "Are you sure you want to delete the profile \"$name\"?",
                         onAccept: (){
                           deleteProfile(path);
                         },
