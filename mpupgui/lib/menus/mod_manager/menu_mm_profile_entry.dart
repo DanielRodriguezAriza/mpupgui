@@ -114,9 +114,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
                   Expanded(
                     child: MagickaPupButton(
                         onPressed: (){
-                          if(widget.onCancel != null) {
-                            widget.onCancel!();
-                          }
+                          cancelChanges();
                         },
                         child: MagickaPupText(
                           text: "Cancel",
@@ -126,9 +124,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
                   Expanded(
                     child: MagickaPupButton(
                       onPressed: (){
-                        if(widget.onApply != null) {
-                          widget.onApply!();
-                        }
+                        applyChanges();
                       },
                       child: MagickaPupText(
                           text: "Apply Changes"
