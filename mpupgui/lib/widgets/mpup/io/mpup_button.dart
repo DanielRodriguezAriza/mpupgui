@@ -62,6 +62,8 @@ class MagickaPupButton extends StatelessWidget {
   ButtonStyle getButtonStyle(BuildContext context, AppThemeData themeData) {
     var fixedSize = getFixedSize(context);
     return ElevatedButton.styleFrom(
+      //minimumSize: const Size(0, 0), // NOTE : WARNING!!! Setting the min size to 0 will fucking break all buttons and you will not be able to click on any of them, no matter what their actual size is!!!
+      padding: const EdgeInsets.all(1), // Remove the extra padding for the child. Elevated buttons have an annoying default padding value which forces elements that could fit within the button's area to actually jump out of bounds and get an offset when the button is small enough. With text, it splits it on multiple lines unnecessarily. Note that setting this value to 0 breaks buttons in some cases, so we set the padding to 1 at least and that's it...
       fixedSize: fixedSize,
       elevation: elevation,
       shape: RoundedRectangleBorder(
