@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mpupgui/utility/file_handling.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
@@ -25,6 +26,14 @@ class ModManagerMenuProfileEntry extends StatefulWidget {
 }
 
 class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry> {
+  TextEditingController controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    controller.text = pathName(widget.path);
+  }
+
   @override
   Widget build(BuildContext context) {
     return getWidget(context);
@@ -63,7 +72,10 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
                           Expanded(
                             child: SizedBox(
                               height: 25,
-                              child: MagickaPupTextField(),
+                              child: MagickaPupTextField(
+                                controller: controller,
+                                onEdit: (){},
+                              ),
                             ),
                           ),
                         ],
@@ -130,5 +142,32 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
         ],
       ),
     );
+  }
+
+  void cancelChanges() {
+    // Do nothing else for now...
+    if(widget.onCancel != null) {
+      widget.onCancel!();
+    }
+  }
+
+  void applyChanges() {
+    // TODO : Implement additional logic
+    if(widget.isNew) {
+      createProfile();
+    } else {
+      editProfile();
+    }
+    if(widget.onApply != null) {
+      widget.onApply!();
+    }
+  }
+
+  void createProfile() {
+    // TODO : Implement
+  }
+
+  void editProfile() {
+    // TODO : Implement
   }
 }
