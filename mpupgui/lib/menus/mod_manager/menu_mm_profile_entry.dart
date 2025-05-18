@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:mpupgui/data/mod_manager.dart';
 import 'package:mpupgui/utility/file_handling.dart';
+import 'package:mpupgui/utility/popup_util.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
@@ -114,7 +118,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
                   Expanded(
                     child: MagickaPupButton(
                         onPressed: (){
-                          cancelChanges();
+                          cancelChanges(context);
                         },
                         child: MagickaPupText(
                           text: "Cancel",
@@ -124,7 +128,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
                   Expanded(
                     child: MagickaPupButton(
                       onPressed: (){
-                        applyChanges();
+                        applyChanges(context);
                       },
                       child: MagickaPupText(
                           text: "Apply Changes"
@@ -148,17 +152,17 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     return Placeholder();
   }
 
-  void cancelChanges() {
+  void cancelChanges(BuildContext context) {
     // Do nothing else for now...
     if(widget.onCancel != null) {
       widget.onCancel!();
     }
   }
 
-  void applyChanges() {
+  void applyChanges(BuildContext context) {
     // TODO : Implement additional logic
     if(widget.isNew) {
-      createProfile();
+      createProfile(context);
     } else {
       editProfile();
     }
@@ -167,8 +171,24 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     }
   }
 
-  void createProfile() {
-    // TODO : Implement
+  void createProfile(BuildContext context) {
+    String profilePath = pathJoin(ModManager.getPathToProfiles(), controller.text);
+    Directory profileDir = Directory(profilePath);
+    if(directoryIsValid(profileDir)) {
+      showPopUp(
+        context: context,
+        title: "Could not create the profile!",
+        description: "The profile name is not valid!",
+      );
+    } else if(directoryExists(profileDir)) {
+      showPopUp(
+        context: context,
+        title: "Could not create the profile!",
+        description: "The profile name is already in use!",
+      );
+    } else {
+      // TODO : Implement
+    }
   }
 
   void editProfile() {
