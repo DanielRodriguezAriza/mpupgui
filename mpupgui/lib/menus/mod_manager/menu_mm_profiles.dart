@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:mpupgui/data/menu_manager.dart';
 import 'package:mpupgui/data/mod_manager.dart';
 import 'package:mpupgui/menus/mod_manager/menu_mm_generic_list_display.dart';
 import 'package:mpupgui/menus/mod_manager/menu_mm_profile_entry.dart';
@@ -21,16 +22,16 @@ class ModManagerMenuProfiles extends StatefulWidget {
 class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
 
   int menuIndex = 0;
+  late String selectedProfilePath;
+  late bool selectedProfileIsNew;
 
   @override
   Widget build(BuildContext context) {
-    return IndexedStack(
-      index: menuIndex,
-      children: [
-        getProfileListMenu(),
-        getProfileEntryMenu(),
-      ],
-    );
+    if(menuIndex == 0) {
+      return getProfileListMenu();
+    } else {
+      return getProfileEntryMenu();
+    }
   }
 
   Widget getProfileListMenu() {
@@ -42,7 +43,9 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
       additionalButtons: [
         ModManagerMenuGenericListDisplayAction(
           name: "Add new Profile",
-          action: createProfile,
+          action: (){
+            createProfile(context, "NewProfile"); // TODO : Add system to get the new profile name with added numbers at the end if "NewProfile" is already taken.
+          },
         ),
       ],
     );
@@ -50,6 +53,8 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
 
   Widget getProfileEntryMenu() {
     return ModManagerMenuProfileEntry(
+      path: selectedProfilePath,
+      isNew: selectedProfileIsNew,
       onApply: (){
         setState(() {
           menuIndex = 0;
@@ -124,7 +129,7 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
                     level: 0,
                     useAutoPadding: false,
                     onPressed: () async {
-                      editProfile();
+                      editProfile(context, path);
                     },
                     child: const MagickaPupText(
                       text: "E",
@@ -183,13 +188,17 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
     );
   }
 
-  void createProfile() {
+  void createProfile(BuildContext context, String name) {
+    selectedProfilePath = name;
+    selectedProfileIsNew = true;
     setState(() {
       menuIndex = 1;
     });
   }
 
-  void editProfile() {
+  void editProfile(BuildContext context, String name) {
+    selectedProfilePath = name;
+    selectedProfileIsNew = false;
     setState(() {
       menuIndex = 1;
     });
