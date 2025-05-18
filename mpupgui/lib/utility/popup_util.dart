@@ -150,9 +150,7 @@ void showPopUpGeneric({
       width: 200,
       child: MagickaPupButton(
         onPressed: (){
-          if(action.action != null) {
-            action.action!();
-          }
+          executeAction(action);
         },
         child: MagickaPupText(
           text: action.text,
@@ -219,6 +217,7 @@ void showPopUpGeneric({
           ),
         ),
       ),
+      actionsAlignment: MainAxisAlignment.center,
       actions: createButtonWidgets(),
     ),
   );
