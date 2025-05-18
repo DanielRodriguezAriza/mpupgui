@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mpupgui/menus/menu_file_processor_generic.dart';
+import 'package:mpupgui/menus/menu_home.dart';
 import 'package:mpupgui/menus/menu_settings.dart';
 import 'package:mpupgui/menus/mod_manager/menu_mm_installs.dart';
 import 'package:mpupgui/menus/mod_manager/menu_mm_mods.dart';
@@ -23,6 +24,10 @@ class MainMenu extends StatelessWidget {
         tabsHeight: 45,
         isBold: true,
         tabs: [
+          TabData(
+            name: "Home",
+            widget: HomeMenu(),
+          ),
           TabData(
             name: "Installs",
             widget: ModManagerMenuInstalls(),
