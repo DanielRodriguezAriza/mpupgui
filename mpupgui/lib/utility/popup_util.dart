@@ -37,8 +37,33 @@ void showPopUp({
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(themeData.borderRadius),
       ),
-      title: MagickaPupText(
-        text: title
+      titlePadding: const EdgeInsets.all(5),
+      title: Column(
+        children: [
+          Align(
+            alignment: Alignment.topRight,
+            child: SizedBox(
+              width: 20,
+              height: 20,
+              child: MagickaPupButton(
+                useAutoPadding: false,
+                onPressed: (){
+                  cancelAction();
+                },
+                child: const Align(
+                  alignment: Alignment.center,
+                  child: MagickaPupText(
+                    text: "X",
+                    fontSize: 10,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          MagickaPupText(
+              text: title
+          ),
+        ],
       ),
       content: MagickaPupText(
         text: description,
