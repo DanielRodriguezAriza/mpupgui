@@ -15,20 +15,28 @@ class GameProfileData {
   });
 
   void loadFromFile(String path) {
-    String contents = readStringFromFile(path);
-    var dict = jsonDecode(contents);
-    name = dict["Name"];
-    install = dict["Install"];
-    mods = dict["Mods"];
+    try {
+      String contents = readStringFromFile(path);
+      var dict = jsonDecode(contents);
+      name = dict["Name"];
+      install = dict["Install"];
+      mods = dict["Mods"];
+    } catch(e) {
+      // Do Nothing.
+    }
   }
 
   void saveToFile(String path) {
-    var dict = {
-      "Name" : name,
-      "Install" : install,
-      "Mods" : mods,
-    };
-    String contents = jsonEncode(dict);
-    writeStringToFile(path, contents);
+    try {
+      var dict = {
+        "Name": name,
+        "Install": install,
+        "Mods": mods,
+      };
+      String contents = jsonEncode(dict);
+      writeStringToFile(path, contents);
+    } catch(e) {
+      // Do Nothing.
+    }
   }
 }
