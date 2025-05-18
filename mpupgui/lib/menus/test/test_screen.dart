@@ -315,7 +315,7 @@ class TestScreen extends StatelessWidget {
       tabs: [
         TabData(
           name: "Game",
-          widget: ModManagerMenuProfileEntry(),
+          widget: Placeholder(), // ModManagerMenuProfileEntry(),
         ),
         TabData(
           name: "Installs",
