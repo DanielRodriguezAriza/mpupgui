@@ -181,7 +181,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
       // exception messages...
 
       // Show the popup dialogue
-      showPopUp(
+      showPopUpError(
         context: context,
         title: "Failed to Apply Changes!",
         description: "Could not apply the specified changes to the profile!",
