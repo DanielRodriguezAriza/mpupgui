@@ -87,14 +87,14 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
                       children: [
                         Expanded(
                           child: MagickaPupContainer(
-                            text: "Base",
-                            // TODO : Implement
+                            text: "Base Install",
+                            child: getInstalls(context),
                           ),
                         ),
                         Expanded(
                           child: MagickaPupContainer(
                             text: "Mods",
-                            // TODO : Implement
+                            child: getMods(context),
                           ),
                         ),
                       ],
@@ -138,6 +138,14 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
         ],
       ),
     );
+  }
+
+  Widget getInstalls(BuildContext context) {
+    return Placeholder();
+  }
+
+  Widget getMods(BuildContext context) {
+    return Placeholder();
   }
 
   void cancelChanges() {
