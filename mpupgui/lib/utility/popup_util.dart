@@ -223,3 +223,21 @@ void showPopUpGeneric({
     ),
   );
 }
+
+void showPopUpError({
+  required BuildContext context,
+  required String title,
+  required String description,
+})
+{
+  showPopUpGeneric(
+    context: context,
+    title: title,
+    description: description,
+    actions: [
+      PopUpAction(
+        text: "Ok",
+      ),
+    ],
+  );
+}
