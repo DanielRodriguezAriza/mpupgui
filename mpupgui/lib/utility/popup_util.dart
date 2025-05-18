@@ -10,7 +10,26 @@ void showPopUp({
   Function? onAccept,
   Function? onCancel
 }) {
+  // Get the theme data
   var themeData = ThemeManager.getCurrentThemeData();
+
+  // Local function that stores the code for the "accept" action
+  void acceptAction() {
+    Navigator.pop(context, "Ok");
+    if(onAccept != null) {
+      onAccept();
+    }
+  }
+
+  // Local function that stores the code for the "cancel" action
+  void cancelAction() {
+    Navigator.pop(context, "Cancel");
+    if(onCancel != null) {
+      onCancel!();
+    }
+  }
+
+  // Show popup dialogue
   showDialog(
     context: context,
     builder: (BuildContext context) => AlertDialog(
@@ -30,12 +49,9 @@ void showPopUp({
           width: 200,
           child: MagickaPupButton(
             onPressed: (){
-              Navigator.pop(context, "Cancel");
-              if(onCancel != null) {
-                onCancel!();
-              }
+              cancelAction();
             },
-            child: MagickaPupText(
+            child: const MagickaPupText(
               text: "Cancel",
             ),
           ),
@@ -45,12 +61,9 @@ void showPopUp({
           width: 200,
           child: MagickaPupButton(
             onPressed: (){
-              Navigator.pop(context, "Ok");
-              if(onAccept != null) {
-                onAccept();
-              }
+              acceptAction();
             },
-            child: MagickaPupText(
+            child: const MagickaPupText(
               text: "Ok",
             ),
           ),
