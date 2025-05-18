@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:mpupgui/data/game_profile_data.dart';
 import 'package:mpupgui/data/menu_manager.dart';
 import 'package:mpupgui/data/mod_manager.dart';
 import 'package:mpupgui/menus/mod_manager/menu_mm_generic_list_display.dart';
@@ -83,6 +84,8 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
   }
 
   Widget getEntryWidget(String name, String path) {
+    GameProfileData profileData = GameProfileData();
+    profileData.loadFromFile(pathJoin(path, "profile.json"));
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: SizedBox(
@@ -97,7 +100,7 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
                   padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: MagickaPupText(
                     isBold: true,
-                    text: name,
+                    text: profileData.name,
                     fontSize: 18,
                   ),
                 ),
