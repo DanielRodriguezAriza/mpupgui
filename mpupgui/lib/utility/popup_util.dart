@@ -60,13 +60,21 @@ void showPopUp({
               ),
             ),
           ),
-          MagickaPupText(
-              text: title
+          Align(
+            alignment: Alignment.center,
+            child: MagickaPupText(
+                text: title
+            ),
           ),
         ],
       ),
-      content: MagickaPupText(
-        text: description,
+      content: IntrinsicHeight(
+        child: Align(
+          alignment: Alignment.center,
+          child: MagickaPupText(
+            text: description,
+          ),
+        ),
       ),
       actions: <Widget>[
         SizedBox(
