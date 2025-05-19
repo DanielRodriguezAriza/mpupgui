@@ -8,6 +8,7 @@ abstract final class ModManager {
   static String pathToInstalls = "./installs";
   static String pathToMods = "./mods";
   static String pathToProfiles = "./profiles";
+  static String pathToMagickCowModManager = "./MagickCowModManager.exe";
 
   static void setPathToInstalls(String path) {
     pathToInstalls = path;
@@ -31,6 +32,14 @@ abstract final class ModManager {
 
   static String getPathToProfiles() {
     return pathToProfiles;
+  }
+
+  static void setPathToMagickCowModManager(String path) {
+    pathToMagickCowModManager = path;
+  }
+
+  static String getPathToMagickCowModManager() {
+    return pathToMagickCowModManager;
   }
 
   // endregion
