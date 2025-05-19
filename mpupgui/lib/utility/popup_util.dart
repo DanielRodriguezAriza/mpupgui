@@ -123,6 +123,7 @@ void showPopUpGeneric({
   required String description,
   List<PopUpAction>? actions,
   Function? onClose,
+  bool canDismiss = true, // Determines whether the pop up can be dismissed or not (cancelled) by clicking / pressing the background.
 })
 {
   // Get the theme data
@@ -174,6 +175,7 @@ void showPopUpGeneric({
   // Show popup dialogue
   showDialog(
     context: context,
+    barrierDismissible: canDismiss,
     builder: (BuildContext context) => AlertDialog(
       backgroundColor: themeData.colors.image[1],
       shape: RoundedRectangleBorder(
