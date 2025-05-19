@@ -41,6 +41,12 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   String selectedInstall = "";
   List<String> selectedMods = [];
 
+  // TODO : Clear out the test data and implement the buttons to actually move up and down the values.
+  Map<String, int> loadOrder = {
+    "m2" : 0,
+    "m2 - copia" : -2
+  }; // The load order of the mods.
+
   @override
   void initState() {
     super.initState();
@@ -189,6 +195,36 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
         return true;
       },
       widgetConstructor: getModEntry,
+      onUpdate: (List<FileSystemEntity> entries) {
+        print("UPDATED!");
+      },
+      sortFunction: (FileSystemEntity a, FileSystemEntity b) {
+        var nameA = pathName(a.path);
+        var nameB = pathName(b.path);
+
+        bool containsA = loadOrder.containsKey(nameA);
+        bool containsB = loadOrder.containsKey(nameB);
+
+        if(containsA && !containsB) {
+          return -1;
+        }
+
+        if(!containsA && containsB) {
+          return 1;
+        }
+
+        if(containsA && containsB) {
+          int numA = loadOrder[nameA]!;
+          int numB = loadOrder[nameB]!;
+          if(numA < numB) {
+            return -1;
+          } else {
+            return 1;
+          }
+        }
+
+        return 0; // Does not contain neither of them.
+      },
     );
   }
 
