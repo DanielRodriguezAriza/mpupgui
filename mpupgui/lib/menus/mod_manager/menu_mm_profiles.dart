@@ -45,7 +45,7 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
         ModManagerMenuGenericListDisplayAction(
           name: "Add new Profile",
           action: (){
-            createProfile(context, "NewProfile"); // TODO : Add system to get the new profile name with added numbers at the end if "NewProfile" is already taken.
+            createProfile(context);
           },
         ),
       ],
@@ -192,16 +192,16 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
     );
   }
 
-  void createProfile(BuildContext context, String name) {
-    selectedProfilePath = name;
+  void createProfile(BuildContext context) {
+    selectedProfilePath = "";
     selectedProfileIsNew = true;
     setState(() {
       menuIndex = 1;
     });
   }
 
-  void editProfile(BuildContext context, String name) {
-    selectedProfilePath = name;
+  void editProfile(BuildContext context, String path) {
+    selectedProfilePath = path;
     selectedProfileIsNew = false;
     setState(() {
       menuIndex = 1;
