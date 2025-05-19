@@ -187,7 +187,12 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   }
 
   Widget getMods(BuildContext context) {
-    return const Placeholder();
+    return MagickaPupFileSystemView(
+      path: ModManager.getPathToMods(),
+      filter: (FileSystemEntity entry) {
+        return true;
+      }
+    );
   }
 
   void cancelChanges(BuildContext context) {
