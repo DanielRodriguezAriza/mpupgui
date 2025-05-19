@@ -71,24 +71,33 @@ class _ModManagerMenuGenericListDisplayState extends State<ModManagerMenuGeneric
   // NOTE : We can either iterate all entries and just say if(entry is Directory)
   // or use the .whereType<T>() function to filter and get only the entries that are of the specified type.
   void loadEntries() {
+    if(!mounted) {
+      // Weird fix for an issue with directory watcher where the watcher gets a notification state
+      // before the widget even exists!
+      // Or maybe this has to do with the fact that init state calls loadEntries, which calls a setState
+      // on the fucking initState function??? I have no idea!!! FUCKING FLUTTER!!!!
+      return;
+    }
+
     setState(() {
+      // Reset the state
       entryCount = 0;
       entryNames.clear();
       entryPaths.clear();
-    });
-    var dir = Directory(widget.directoryGetter());
-    if(dir.existsSync()) {
-      var entries = dir.listSync().whereType<Directory>();
-      for(var entry in entries) {
-        if(isValidDirectory(entry)) {
-          setState(() {
+
+      // Load the new entries
+      var dir = Directory(widget.directoryGetter());
+      if(dir.existsSync()) {
+        var entries = dir.listSync().whereType<Directory>();
+        for(var entry in entries) {
+          if(isValidDirectory(entry)) {
             entryNames.add(pathName(entry.path));
             entryPaths.add(entry.path);
             entryCount += 1;
-          });
+          }
         }
       }
-    }
+    });
   }
 
   @override
