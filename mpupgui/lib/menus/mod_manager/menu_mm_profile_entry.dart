@@ -8,6 +8,7 @@ import 'package:mpupgui/utility/popup_util.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
+import 'package:mpupgui/widgets/mpup/utility/mpup_fs_view.dart';
 import 'package:mpupgui/widgets/mpup/utility/mpup_scroller.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 import 'package:mpupgui/widgets/mpup_text_field.dart';
@@ -168,7 +169,22 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
 
   Widget getInstalls(BuildContext context) {
     // return getScroller(context, controllerScrollInstalls);
-    return const Placeholder();
+    return MagickaPupFileSystemView(
+      path: ModManager.getPathToInstalls(),
+      filter: (FileSystemEntity entry) {
+        if (entry is Directory) {
+          Directory dir = entry;
+          var entries = dir
+              .listSync()
+              .whereType<File>()
+              .where((e) =>
+          pathName(e.path, true).toLowerCase() == "magicka.exe")
+          ;
+          return entries.isNotEmpty;
+        }
+        return false;
+      }
+    );
   }
 
   Widget getMods(BuildContext context) {
