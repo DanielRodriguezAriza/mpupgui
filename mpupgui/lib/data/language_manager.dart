@@ -51,6 +51,10 @@ class LanguageManager {
     currentLanguage = language;
   }
 
+  static Language getLanguage() {
+    return currentLanguage;
+  }
+
   static String getStringByLanguage(Language language, String locString) {
     var ans = LanguageManager.locStrings[language]?[locString];
     ans ??= "LOC_NOT_FOUND";
