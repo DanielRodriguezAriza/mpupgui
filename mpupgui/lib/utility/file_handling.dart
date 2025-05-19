@@ -36,6 +36,19 @@ Future<List<String>?> pickFiles(bool allowMultiple, [List<String>? extensions]) 
   return null;
 }
 
+Future<String?> pickFile([List<String>? extensions]) async {
+  FilePickerResult? result = await FilePicker.platform.pickFiles(
+    type: extensions == null ? FileType.any : FileType.custom,
+    allowedExtensions: extensions,
+    allowMultiple: false,
+    lockParentWindow: true,
+  );
+  if(result != null && result.files.isNotEmpty) {
+    return result.files[0].path;
+  }
+  return null;
+}
+
 String pathJoin(String pathA, String pathB) {
   return dart_path.join(pathA, pathB);
 }
