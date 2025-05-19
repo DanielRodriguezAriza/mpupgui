@@ -21,6 +21,13 @@ class ModManagerMenuGenericListDisplayAction {
   });
 }
 
+// TODO : In the future, change the implementation of this widget to use
+// internally the mpup fs view widget, since it is a more generic and clean
+// interface to do exactly the same fucking thing... or just get rid of this
+// widget right here and implement each of the mod manager list view menus
+// directly using the other widget class and just adding the small boilerplate
+// for the buttons by hand for greater and cleaner menu customization...
+
 class ModManagerMenuGenericListDisplay extends StatefulWidget {
   final String name; // Display name of the container area.
   final bool Function(Directory) directoryFilter; // Function that filters whether a directory is valid or not.
