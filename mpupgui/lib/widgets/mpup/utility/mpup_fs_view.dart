@@ -14,8 +14,6 @@ import 'package:watcher/watcher.dart';
 // to check whether they should be displayed or not.
 // A directory watcher is used to update events in real time.
 
-// TODO : Implement!!!
-
 class MagickaPupFileSystemView extends StatefulWidget {
 
   final String path;

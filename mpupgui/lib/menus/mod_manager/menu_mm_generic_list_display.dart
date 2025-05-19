@@ -53,7 +53,7 @@ class _ModManagerMenuGenericListDisplayState extends State<ModManagerMenuGeneric
   @override
   void initState() {
     super.initState();
-    watcher = DirectoryWatcher(widget.directoryGetter()); // TODO : Fix issue where this is not updated when the path is changed on the settings... we need to maybe go back to the navigator bullshit thing and state saving on static classes???
+    watcher = DirectoryWatcher(widget.directoryGetter()); // NOTE : Requires widget to be reconstructed for the path to be updated...
     watcher.events.listen((event){
       loadEntries();
     });
