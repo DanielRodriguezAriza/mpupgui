@@ -1,4 +1,4 @@
-class ModManager {
+abstract final class ModManager {
   // region Mod Manager Config / Paths
 
   static String pathToInstalls = "./installs";
