@@ -52,6 +52,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
       data.tryReadFromFile(pathJoin(widget.path, "profile.json"));
       controllerProfileName.text = data.name;
       selectedInstall = data.install;
+      selectedMods = data.mods.toList(); // Make a copy of the list of mods.
     }
   }
 
@@ -343,10 +344,9 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
 
   GameProfileData getProfileData() {
     GameProfileData profileData = GameProfileData();
-    // TODO : Implement logic to get the profile data from the selected mods and install, name, and any other settings added in the future...
     profileData.name = controllerProfileName.text;
     profileData.install = selectedInstall;
-
+    profileData.mods = selectedMods.toList();
     return profileData;
   }
 
