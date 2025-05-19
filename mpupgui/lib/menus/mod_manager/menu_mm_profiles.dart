@@ -115,7 +115,14 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
                     level: 0,
                     useAutoPadding: false,
                     onPressed: () async {
-                      await Process.start(pathJoinMany([path, "game", "Magicka.exe"]), []); // Open the game
+                      showPopUpGeneric(
+                        context: context,
+                        title: "A popup",
+                        description: "The description",
+                        canClose: true,
+                        canDismiss: false,
+                      );
+                      // await Process.start(pathJoinMany([path, "game", "Magicka.exe"]), []); // Open the game
                     },
                     child: const MagickaPupText(
                       text: "P",
