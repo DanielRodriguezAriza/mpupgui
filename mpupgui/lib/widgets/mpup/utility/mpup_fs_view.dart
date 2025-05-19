@@ -127,4 +127,9 @@ class _MagickaPupFileSystemViewState extends State<MagickaPupFileSystemView> {
     );
   }
 
+  List<Widget> getEntryWidgets() {
+    List<Widget> ans = List<Widget>.from(entries.map((entry)=>getEntryWidget(entry)));
+    return ans;
+  }
+
 }
