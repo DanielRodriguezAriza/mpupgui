@@ -20,6 +20,7 @@ class MagickaPupFileSystemView extends StatefulWidget {
   final bool Function(FileSystemEntity) filter;
   final Widget Function(FileSystemEntity)? widgetConstructor;
   final int Function(FileSystemEntity, FileSystemEntity)? sortFunction;
+  final void Function(List<FileSystemEntity>)? onUpdate;
 
   const MagickaPupFileSystemView({
     super.key,
@@ -27,6 +28,7 @@ class MagickaPupFileSystemView extends StatefulWidget {
     required this.filter,
     this.widgetConstructor,
     this.sortFunction,
+    this.onUpdate,
   });
 
   @override
@@ -89,6 +91,10 @@ class _MagickaPupFileSystemViewState extends State<MagickaPupFileSystemView> {
         }
       }
     });
+
+    if(widget.onUpdate != null) {
+      widget.onUpdate!(entries);
+    }
   }
 
   // Default function to generate the widget of an entry.
