@@ -25,6 +25,7 @@ Future<List<String>?> pickFiles(bool allowMultiple, [List<String>? extensions]) 
     type: extensions == null ? FileType.any : FileType.custom,
     allowedExtensions: extensions,
     allowMultiple: allowMultiple,
+    lockParentWindow: true,
   );
   if(result != null) {
     List<String> ans = [];
