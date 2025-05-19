@@ -168,7 +168,6 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   }
 
   Widget getInstalls(BuildContext context) {
-    // return getScroller(context, controllerScrollInstalls);
     return MagickaPupFileSystemView(
       path: ModManager.getPathToInstalls(),
       filter: (FileSystemEntity entry) {
@@ -188,7 +187,6 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   }
 
   Widget getMods(BuildContext context) {
-    // return getScroller(context, controllerScrollMods);
     return const Placeholder();
   }
 
