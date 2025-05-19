@@ -19,12 +19,14 @@ class MagickaPupFileSystemView extends StatefulWidget {
   final String path;
   final bool Function(FileSystemEntity) filter;
   final Widget Function(FileSystemEntity)? widgetConstructor;
+  final int Function(FileSystemEntity, FileSystemEntity)? sortFunction;
 
   const MagickaPupFileSystemView({
     super.key,
     required this.path,
     required this.filter,
     this.widgetConstructor,
+    this.sortFunction,
   });
 
   @override
@@ -82,6 +84,9 @@ class _MagickaPupFileSystemViewState extends State<MagickaPupFileSystemView> {
       if(dir.existsSync()) {
         // Only pick the entries that return through through the filter function
         entries = dir.listSync().where(widget.filter).toList();
+        if(widget.sortFunction != null) {
+          entries.sort(widget.sortFunction);
+        }
       }
     });
   }
