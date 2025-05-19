@@ -187,7 +187,8 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
       path: ModManager.getPathToMods(),
       filter: (FileSystemEntity entry) {
         return true;
-      }
+      },
+      widgetConstructor: getModEntry,
     );
   }
 
@@ -252,6 +253,79 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
                     useAutoPadding: false,
                     onPressed: () async {
                       selectInstall(name);
+                    },
+                    child: child,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget getModEntry(FileSystemEntity entry) {
+    final String name = pathName(entry.path);
+    final String path = entry.path;
+    final AppThemeData themeData = ThemeManager.getCurrentThemeData();
+    final bool isSelected = selectedMods.contains(name);
+    final Widget child = isSelected ? Container(
+      width: 20,
+      height: 20,
+      decoration: BoxDecoration(
+        color: themeData.colors.image[3],
+        borderRadius: BorderRadius.circular(100),
+      ),
+    ) : Container();
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+      child: SizedBox(
+        width: 80,
+        height: 80,
+        child: MagickaPupContainer(
+          level: 1,
+          child: Row(
+            children: [
+              Expanded(
+                // flex: 9,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                  child: MagickaPupText(
+                    isBold: true,
+                    text: name,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: MagickaPupButton(
+                    level: 0,
+                    useAutoPadding: false,
+                    onPressed: () async {
+                      await OpenFilex.open(path);
+                    },
+                    child: const MagickaPupText(
+                      text: "...",
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: MagickaPupButton(
+                    level: 0,
+                    useAutoPadding: false,
+                    onPressed: () async {
+                      selectMod(name);
                     },
                     child: child,
                   ),
