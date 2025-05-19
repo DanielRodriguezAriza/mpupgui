@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 // This widget class offers a list view of elements from the file system.
@@ -8,7 +10,17 @@ import 'package:flutter/material.dart';
 // TODO : Implement!!!
 
 class MagickaPupFileSystemView extends StatefulWidget {
-  const MagickaPupFileSystemView({super.key});
+
+  final String path;
+  final bool Function(Directory) filter;
+  final Widget Function(Directory)? widgetConstructor;
+
+  const MagickaPupFileSystemView({
+    super.key,
+    required this.path,
+    required this.filter,
+    this.widgetConstructor,
+  });
 
   @override
   State<MagickaPupFileSystemView> createState() => _MagickaPupFileSystemViewState();
