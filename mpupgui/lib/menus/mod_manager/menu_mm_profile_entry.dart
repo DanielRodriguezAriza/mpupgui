@@ -38,6 +38,7 @@ class ModManagerMenuProfileEntry extends StatefulWidget {
 class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry> {
 
   TextEditingController controllerProfileName = TextEditingController();
+  String selectedInstall = "";
 
   @override
   void initState() {
@@ -49,6 +50,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
       GameProfileData data = GameProfileData();
       data.tryReadFromFile(pathJoin(widget.path, "profile.json"));
       controllerProfileName.text = data.name;
+      selectedInstall = data.install;
     }
   }
 
@@ -190,6 +192,16 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   Widget getInstallEntry(FileSystemEntity entry) {
     final String name = pathName(entry.path);
     final String path = entry.path;
+    final AppThemeData themeData = ThemeManager.getCurrentThemeData();
+    final bool isSelected = selectedInstall == name;
+    final Widget? child = isSelected ? Container(
+      width: 20,
+      height: 20,
+      decoration: BoxDecoration(
+        color: themeData.colors.image[3],
+        borderRadius: BorderRadius.circular(100),
+      ),
+    ) : Container();
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: SizedBox(
@@ -237,17 +249,9 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
                     level: 0,
                     useAutoPadding: false,
                     onPressed: () async {
-                      // TODO : Implement selection logic
+                      selectInstall(name);
                     },
-                    // TODO : Implement logic to display this as selected or not selected, etc...
-                    child: Container(
-                      width: 20,
-                      height: 20,
-                      decoration: BoxDecoration(
-                        color: ThemeManager.getCurrentThemeData().colors.image[3],
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                    ),
+                    child: child,
                   ),
                 ),
               ),
@@ -341,5 +345,15 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     // TODO : Implement logic to get the profile data from the selected mods and install, name, and any other settings added in the future...
     profileData.name = controllerProfileName.text;
     return profileData;
+  }
+
+  void selectInstall(String name) {
+    setState(() {
+      selectedInstall = name;
+    });
+  }
+
+  void selectMod(String name) {
+    // TODO : Implement
   }
 }
