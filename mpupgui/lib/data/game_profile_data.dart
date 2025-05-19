@@ -14,14 +14,28 @@ class GameProfileData {
     this.mods = const [],
   });
 
-  bool loadFromFile(String path) {
+  void readFromFile(String path) {
+    String contents = readStringFromFile(path);
+    var dict = jsonDecode(contents);
+    name = dict["Name"];
+    install = dict["Install"];
+    mods = List<String>.from(dict["Mods"].map((mod)=>mod));
+  }
+
+  void writeToFile(String path) {
+    var dict = {
+      "Name": name,
+      "Install": install,
+      "Mods": mods,
+    };
+    String contents = jsonEncode(dict);
+    writeStringToFile(path, contents);
+  }
+
+  bool tryReadFromFile(String path) {
     bool ans;
     try {
-      String contents = readStringFromFile(path);
-      var dict = jsonDecode(contents);
-      name = dict["Name"];
-      install = dict["Install"];
-      mods = List<String>.from(dict["Mods"].map((mod)=>mod));
+      readFromFile(path);
       ans = true;
     } catch(e) {
       // Do Nothing.
@@ -31,16 +45,10 @@ class GameProfileData {
     return ans;
   }
 
-  bool saveToFile(String path) {
+  bool tryWriteToFile(String path) {
     bool ans;
     try {
-      var dict = {
-        "Name": name,
-        "Install": install,
-        "Mods": mods,
-      };
-      String contents = jsonEncode(dict);
-      writeStringToFile(path, contents);
+      writeToFile(path);
       ans = true;
     } catch(e) {
       // Do Nothing.
