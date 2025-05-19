@@ -39,6 +39,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
 
   TextEditingController controllerProfileName = TextEditingController();
   String selectedInstall = "";
+  List<String> selectedMods = [];
 
   @override
   void initState() {
@@ -345,6 +346,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     // TODO : Implement logic to get the profile data from the selected mods and install, name, and any other settings added in the future...
     profileData.name = controllerProfileName.text;
     profileData.install = selectedInstall;
+
     return profileData;
   }
 
@@ -355,6 +357,10 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   }
 
   void selectMod(String name) {
-    // TODO : Implement
+    if(selectedMods.contains(name)) {
+      selectedMods.remove(name);
+    } else {
+      selectedMods.add(name);
+    }
   }
 }
