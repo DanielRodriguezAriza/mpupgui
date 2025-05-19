@@ -221,19 +221,27 @@ class _SettingsMenuState extends State<SettingsMenu> {
     );
   }
 
+  Future<String?> _settingsPickDir() async {
+    return await pickDir();
+  }
+
+  Future<String?> _settingsPickFileExecutable() async {
+    return await pickFile(["exe"]);
+  }
+
   Widget getPathsWidgets() {
     return Column(
       children: [
-        getPathWidget("Magicka PUP", setPathMagickaPup, textControllerMagickaPup),
-        getPathWidget("MagickCow MM", setPathMagickCowMM, textControllerMagickCowMM),
-        getPathWidget("Installs", setPathInstalls, textControllerInstalls),
-        getPathWidget("Mods", setPathMods, textControllerMods),
-        getPathWidget("Profiles", setPathProfiles, textControllerProfiles),
+        getPathWidget("Magicka PUP", setPathMagickaPup, _settingsPickFileExecutable, textControllerMagickaPup),
+        getPathWidget("MagickCow MM", setPathMagickCowMM, _settingsPickFileExecutable, textControllerMagickCowMM),
+        getPathWidget("Installs", setPathInstalls, _settingsPickDir, textControllerInstalls),
+        getPathWidget("Mods", setPathMods, _settingsPickDir, textControllerMods),
+        getPathWidget("Profiles", setPathProfiles, _settingsPickDir, textControllerProfiles),
       ]
     );
   }
 
-  Widget getPathWidget(String text, Function action, TextEditingController controller) {
+  Widget getPathWidget(String text, Function action, Function pick, TextEditingController controller) {
     return Padding(
       padding: const EdgeInsets.all(0),
       child: MagickaPupContainer(
@@ -262,7 +270,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
                 height: 1000,
                 width: 20,
                 onPressed: () async {
-                  String? str = await pickDir();
+                  String? str = await pick();
                   if(str != null) {
                     controller.text = str;
                     action(controller.text);
