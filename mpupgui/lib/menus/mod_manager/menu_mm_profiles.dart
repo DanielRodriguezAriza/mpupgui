@@ -73,7 +73,8 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
     var files = dir.listSync().whereType<File>();
     for(var file in files) {
       if(pathName(file.path, true).toLowerCase() == "profile.json") {
-        return true;
+        var data = GameProfileData();
+        return data.loadFromFile(file.path);
       }
     }
     return false;
