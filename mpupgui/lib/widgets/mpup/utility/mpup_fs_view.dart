@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mpupgui/utility/file_handling.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
+import 'package:mpupgui/widgets/mpup/utility/mpup_scroller.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:watcher/watcher.dart';
@@ -50,7 +51,15 @@ class _MagickaPupFileSystemViewState extends State<MagickaPupFileSystemView> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return getWidget();
+  }
+
+  // Function to construct the main widget
+  Widget getWidget() {
+    return MagickaPupScroller(
+      controller: scrollController,
+      children: getEntryWidgets(),
+    );
   }
 
   // Function to load the FS entries found within the specified path
@@ -127,6 +136,7 @@ class _MagickaPupFileSystemViewState extends State<MagickaPupFileSystemView> {
     );
   }
 
+  // Function to get a list of all of the entry widgets
   List<Widget> getEntryWidgets() {
     var fn = getEntryWidgetDefault;
     if(widget.widgetConstructor != null) {
