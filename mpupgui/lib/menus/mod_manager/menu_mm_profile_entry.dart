@@ -194,7 +194,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     final String path = entry.path;
     final AppThemeData themeData = ThemeManager.getCurrentThemeData();
     final bool isSelected = selectedInstall == name;
-    final Widget? child = isSelected ? Container(
+    final Widget child = isSelected ? Container(
       width: 20,
       height: 20,
       decoration: BoxDecoration(
@@ -344,6 +344,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     GameProfileData profileData = GameProfileData();
     // TODO : Implement logic to get the profile data from the selected mods and install, name, and any other settings added in the future...
     profileData.name = controllerProfileName.text;
+    profileData.install = selectedInstall;
     return profileData;
   }
 
