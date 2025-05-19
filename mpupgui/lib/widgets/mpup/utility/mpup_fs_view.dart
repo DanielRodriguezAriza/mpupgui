@@ -82,7 +82,7 @@ class _MagickaPupFileSystemViewState extends State<MagickaPupFileSystemView> {
   // Default function to generate the widget of an entry.
   // If the user provides a custom function, this one is not used.
   // Otherwise, this is the function that is invoked to populate the child widgets.
-  Widget getEntryWidget(FileSystemEntity entry) {
+  Widget getEntryWidgetDefault(FileSystemEntity entry) {
     final String name = pathName(entry.path);
     final String path = entry.path;
     return Padding(
@@ -128,8 +128,11 @@ class _MagickaPupFileSystemViewState extends State<MagickaPupFileSystemView> {
   }
 
   List<Widget> getEntryWidgets() {
-    List<Widget> ans = List<Widget>.from(entries.map((entry)=>getEntryWidget(entry)));
-    return ans;
+    var fn = getEntryWidgetDefault;
+    if(widget.widgetConstructor != null) {
+      fn = widget.widgetConstructor!;
+    }
+    return List<Widget>.from(entries.map((entry) => fn(entry)));
   }
 
 }
