@@ -74,7 +74,7 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
     for(var file in files) {
       if(pathName(file.path, true).toLowerCase() == "profile.json") {
         var data = GameProfileData();
-        return data.loadFromFile(file.path);
+        return data.tryReadFromFile(file.path);
       }
     }
     return false;
@@ -86,7 +86,7 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
 
   Widget getEntryWidget(String name, String path) {
     GameProfileData profileData = GameProfileData();
-    profileData.loadFromFile(pathJoin(path, "profile.json"));
+    profileData.tryReadFromFile(pathJoin(path, "profile.json"));
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: SizedBox(
