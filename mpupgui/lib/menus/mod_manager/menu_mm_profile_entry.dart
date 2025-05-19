@@ -224,8 +224,18 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   }
 
   bool editProfile() {
-    // TODO : Implement
-    return false;
+    bool ans;
+    try {
+      String filePath = pathJoin(widget.path, "profile.json");
+
+      var profileData = getProfileData();
+      profileData.writeToFile(filePath);
+
+      ans = true; // success;
+    } catch(e) {
+      ans = false; // failure
+    }
+    return ans;
   }
 
   GameProfileData getProfileData() {
