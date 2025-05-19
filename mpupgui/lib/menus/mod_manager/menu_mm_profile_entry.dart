@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mpupgui/data/game_profile_data.dart';
 import 'package:mpupgui/data/mod_manager.dart';
+import 'package:mpupgui/data/theme_manager.dart';
 import 'package:mpupgui/utility/file_handling.dart';
 import 'package:mpupgui/utility/popup_util.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
@@ -12,6 +13,7 @@ import 'package:mpupgui/widgets/mpup/utility/mpup_fs_view.dart';
 import 'package:mpupgui/widgets/mpup/utility/mpup_scroller.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 import 'package:mpupgui/widgets/mpup_text_field.dart';
+import 'package:open_filex/open_filex.dart';
 import 'package:watcher/watcher.dart';
 
 class ModManagerMenuProfileEntry extends StatefulWidget {
@@ -171,7 +173,8 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
           return entries.isNotEmpty;
         }
         return false;
-      }
+      },
+      widgetConstructor: getInstallEntry,
     );
   }
 
@@ -181,6 +184,77 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
       filter: (FileSystemEntity entry) {
         return true;
       }
+    );
+  }
+
+  Widget getInstallEntry(FileSystemEntity entry) {
+    final String name = pathName(entry.path);
+    final String path = entry.path;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+      child: SizedBox(
+        width: 80,
+        height: 80,
+        child: MagickaPupContainer(
+          level: 1,
+          child: Row(
+            children: [
+              Expanded(
+                // flex: 9,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                  child: MagickaPupText(
+                    isBold: true,
+                    text: name,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: MagickaPupButton(
+                    level: 0,
+                    useAutoPadding: false,
+                    onPressed: () async {
+                      await OpenFilex.open(path);
+                    },
+                    child: const MagickaPupText(
+                      text: "...",
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: MagickaPupButton(
+                    level: 0,
+                    useAutoPadding: false,
+                    onPressed: () async {
+                      // TODO : Implement selection logic
+                    },
+                    // TODO : Implement logic to display this as selected or not selected, etc...
+                    child: Container(
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                        color: ThemeManager.getCurrentThemeData().colors.image[3],
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
