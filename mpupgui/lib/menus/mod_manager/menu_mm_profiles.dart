@@ -115,14 +115,29 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
                     level: 0,
                     useAutoPadding: false,
                     onPressed: () async {
+                      /*
                       showPopUpGeneric(
                         context: context,
-                        title: "A popup",
-                        description: "The description",
+                        title: "Running Install...",
+                        description: "Preparing install before it can be launched.",
                         canClose: true,
                         canDismiss: false,
                       );
-                      // await Process.start(pathJoinMany([path, "game", "Magicka.exe"]), []); // Open the game
+                      */
+
+                      try {
+                        await Process.start(pathJoinMany(
+                            [path, "game", "Magicka.exe"]),
+                            []); // Open the game
+                      } catch(e) {
+                        if(mounted) {
+                          showPopUpError(
+                              context: context,
+                              title: "An Error has occurred!",
+                              description: "Magicka has failed to launch!",
+                          );
+                        }
+                      }
                     },
                     child: const MagickaPupText(
                       text: "P",
