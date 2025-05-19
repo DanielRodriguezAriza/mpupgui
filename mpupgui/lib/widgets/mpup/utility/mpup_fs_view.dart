@@ -81,7 +81,7 @@ class _MagickaPupFileSystemViewState extends State<MagickaPupFileSystemView> {
       var dir = Directory(widget.path);
       if(dir.existsSync()) {
         // Only pick the entries that return through through the filter function
-        var entries = dir.listSync().where(widget.filter);
+        entries = dir.listSync().where(widget.filter).toList();
       }
     });
   }
