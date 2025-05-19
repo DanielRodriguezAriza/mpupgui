@@ -79,4 +79,52 @@ class _MagickaPupFileSystemViewState extends State<MagickaPupFileSystemView> {
     });
   }
 
+  // Default function to generate the widget of an entry.
+  // If the user provides a custom function, this one is not used.
+  // Otherwise, this is the function that is invoked to populate the child widgets.
+  Widget getEntryWidget(FileSystemEntity entry) {
+    final String name = pathName(entry.path);
+    final String path = entry.path;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+      child: SizedBox(
+        width: 80,
+        height: 80,
+        child: MagickaPupContainer(
+          level: 1,
+          child: Row(
+            children: [
+              Expanded(
+                // flex: 9,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                  child: MagickaPupText(
+                    isBold: true,
+                    text: name,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 50,
+                height: 50,
+                child: MagickaPupButton(
+                  level: 0,
+                  useAutoPadding: false,
+                  onPressed: () async {
+                    await OpenFilex.open(path);
+                  },
+                  child: const MagickaPupText(
+                    text: "...",
+                    fontSize: 10,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
 }
