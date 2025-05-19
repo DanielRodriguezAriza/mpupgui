@@ -8,8 +8,10 @@ import 'package:mpupgui/utility/popup_util.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
+import 'package:mpupgui/widgets/mpup/utility/mpup_scroller.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 import 'package:mpupgui/widgets/mpup_text_field.dart';
+import 'package:watcher/watcher.dart';
 
 class ModManagerMenuProfileEntry extends StatefulWidget {
 
@@ -31,18 +33,21 @@ class ModManagerMenuProfileEntry extends StatefulWidget {
 }
 
 class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry> {
-  TextEditingController controller = TextEditingController();
+
+  TextEditingController controllerProfileName = TextEditingController();
+  ScrollController controllerScrollInstalls = ScrollController();
+  ScrollController controllerScrollMods = ScrollController();
 
   @override
   void initState() {
     super.initState();
 
     if(widget.isNew) {
-      controller.text = "New Profile";
+      controllerProfileName.text = "New Profile";
     } else {
       GameProfileData data = GameProfileData();
       data.tryReadFromFile(pathJoin(widget.path, "profile.json"));
-      controller.text = data.name;
+      controllerProfileName.text = data.name;
     }
   }
 
@@ -85,7 +90,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
                             child: SizedBox(
                               height: 25,
                               child: MagickaPupTextField(
-                                controller: controller,
+                                controller: controllerProfileName,
                                 onEdit: (){},
                               ),
                             ),
@@ -152,12 +157,23 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     );
   }
 
+  Widget getScroller(BuildContext context, ScrollController controller, String path, Function validator, Function constructor) {
+    List<Widget> children = [];
+    // TODO : Implement...
+    return MagickaPupScroller(
+      controller: controller,
+      children: children,
+    );
+  }
+
   Widget getInstalls(BuildContext context) {
-    return Placeholder();
+    // return getScroller(context, controllerScrollInstalls);
+    return const Placeholder();
   }
 
   Widget getMods(BuildContext context) {
-    return Placeholder();
+    // return getScroller(context, controllerScrollMods);
+    return const Placeholder();
   }
 
   void cancelChanges(BuildContext context) {
@@ -241,7 +257,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   GameProfileData getProfileData() {
     GameProfileData profileData = GameProfileData();
     // TODO : Implement logic to get the profile data from the selected mods and install, name, and any other settings added in the future...
-    profileData.name = controller.text;
+    profileData.name = controllerProfileName.text;
     return profileData;
   }
 }
