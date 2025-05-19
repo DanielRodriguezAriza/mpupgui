@@ -431,10 +431,12 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   }
 
   void selectMod(String name) {
-    if(selectedMods.contains(name)) {
-      selectedMods.remove(name);
-    } else {
-      selectedMods.add(name);
-    }
+    setState(() {
+      if(selectedMods.contains(name)) {
+        selectedMods.remove(name);
+      } else {
+        selectedMods.add(name);
+      }
+    });
   }
 }
