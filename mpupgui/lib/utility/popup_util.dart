@@ -201,7 +201,7 @@ void showPopUpGeneric({
           text: title
       ),
     );
-    return canClose ? [topAreaButton, topAreaText] : [topAreaText];
+    return canClose ? [topAreaButton, topAreaText] : [Padding(padding: const EdgeInsets.fromLTRB(0, 10, 0, 0), child: topAreaText)];
   }
 
   // Show popup dialogue
