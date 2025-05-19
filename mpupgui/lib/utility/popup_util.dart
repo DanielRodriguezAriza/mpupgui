@@ -124,6 +124,7 @@ void showPopUpGeneric({
   List<PopUpAction>? actions,
   Function? onClose,
   bool canDismiss = true, // Determines whether the pop up can be dismissed or not (cancelled) by clicking / pressing the background.
+  bool canClose = true, // Determines whether the pop up can be closed or not. If true, a close button appears at the top right.
 })
 {
   // Get the theme data
@@ -172,6 +173,37 @@ void showPopUpGeneric({
     return ans;
   }
 
+  // Local function to create top area children widgets
+  List<Widget> createTopAreaWidgets() {
+    final Widget topAreaButton = Align(
+      alignment: Alignment.topRight,
+      child: SizedBox(
+        width: 20,
+        height: 20,
+        child: MagickaPupButton(
+          useAutoPadding: false,
+          onPressed: (){
+            executeCancelAction();
+          },
+          child: const Align(
+            alignment: Alignment.center,
+            child: MagickaPupText(
+              text: "X",
+              fontSize: 10,
+            ),
+          ),
+        ),
+      ),
+    );
+    final Widget topAreaText = Align(
+      alignment: Alignment.center,
+      child: MagickaPupText(
+          text: title
+      ),
+    );
+    return canClose ? [topAreaButton, topAreaText] : [topAreaText];
+  }
+
   // Show popup dialogue
   showDialog(
     context: context,
@@ -183,34 +215,7 @@ void showPopUpGeneric({
       ),
       titlePadding: const EdgeInsets.all(5),
       title: Column(
-        children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: SizedBox(
-              width: 20,
-              height: 20,
-              child: MagickaPupButton(
-                useAutoPadding: false,
-                onPressed: (){
-                  executeCancelAction();
-                },
-                child: const Align(
-                  alignment: Alignment.center,
-                  child: MagickaPupText(
-                    text: "X",
-                    fontSize: 10,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: MagickaPupText(
-                text: title
-            ),
-          ),
-        ],
+        children: createTopAreaWidgets(),
       ),
       content: IntrinsicHeight(
         child: Align(
