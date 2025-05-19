@@ -28,6 +28,7 @@ class SettingsMenu extends StatefulWidget {
 class _SettingsMenuState extends State<SettingsMenu> {
 
   final TextEditingController textControllerMagickaPup = TextEditingController();
+  final TextEditingController textControllerMagickCowMM = TextEditingController();
   final TextEditingController textControllerInstalls = TextEditingController();
   final TextEditingController textControllerMods = TextEditingController();
   final TextEditingController textControllerProfiles = TextEditingController();
@@ -45,6 +46,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
     // This is done just in case users have modified their settings manually by editing the settings json file.
     SettingsManager.loadSettings();
     textControllerMagickaPup.text = MagickaPupManager.getMagickaPupPath();
+    textControllerMagickCowMM.text = ModManager.getPathToMagickCowModManager();
     textControllerInstalls.text = ModManager.getPathToInstalls();
     textControllerMods.text = ModManager.getPathToMods();
     textControllerProfiles.text = ModManager.getPathToProfiles();
@@ -223,6 +225,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
     return Column(
       children: [
         getPathWidget("Magicka PUP", setPathMagickaPup, textControllerMagickaPup),
+        getPathWidget("MagickCow MM", setPathMagickCowMM, textControllerMagickCowMM),
         getPathWidget("Installs", setPathInstalls, textControllerInstalls),
         getPathWidget("Mods", setPathMods, textControllerMods),
         getPathWidget("Profiles", setPathProfiles, textControllerProfiles),
@@ -286,6 +289,13 @@ class _SettingsMenuState extends State<SettingsMenu> {
   void setPathMagickaPup(String path) {
     setState(() {
       MagickaPupManager.setMagickaPupPath(path);
+      SettingsManager.saveSettings();
+    });
+  }
+
+  void setPathMagickCowMM(String path) {
+    setState(() {
+      ModManager.setPathToMagickCowModManager(path);
       SettingsManager.saveSettings();
     });
   }

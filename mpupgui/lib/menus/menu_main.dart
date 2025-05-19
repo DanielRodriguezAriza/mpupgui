@@ -58,6 +58,7 @@ class MainMenu extends StatelessWidget {
           TabData(
             name: "Settings",
             widget: SettingsMenu(),
+            // rebuildOnEnter: true,
           ),
         ]
     );
