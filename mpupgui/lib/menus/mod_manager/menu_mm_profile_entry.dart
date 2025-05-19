@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:mpupgui/data/game_profile_data.dart';
 import 'package:mpupgui/data/mod_manager.dart';
 import 'package:mpupgui/utility/file_handling.dart';
 import 'package:mpupgui/utility/popup_util.dart';
@@ -35,7 +36,14 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   @override
   void initState() {
     super.initState();
-    controller.text = pathName(widget.path);
+
+    if(widget.isNew) {
+      controller.text = "New Profile";
+    } else {
+      GameProfileData data = GameProfileData();
+      data.tryReadFromFile(pathJoin(widget.path, "profile.json"));
+      controller.text = data.name;
+    }
   }
 
   @override
@@ -163,8 +171,10 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     // TODO : Implement additional logic
     bool successfullyAppliedChanges = false;
     if(widget.isNew) {
+      // Create new profile
       successfullyAppliedChanges = createProfile(context);
     } else {
+      // Edit the currently selected profile
       successfullyAppliedChanges = editProfile();
     }
 
@@ -179,6 +189,8 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
       // TODO : Improve the error messages by using some proper error handling
       // eg: use exceptions and whatnot, and then catching and reading out the
       // exception messages...
+      // basically just implement a way to see why the fuck is it that we cannot
+      // really apply the changes we've just made...
 
       // Show the popup dialogue
       showPopUpError(
@@ -190,28 +202,36 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   }
 
   bool createProfile(BuildContext context) {
-    String profilePath = pathJoin(ModManager.getPathToProfiles(), controller.text);
-    Directory profileDir = Directory(profilePath);
-    if(directoryIsValid(profileDir)) {
-      showPopUp(
-        context: context,
-        title: "Could not create the profile!",
-        description: "The profile name is not valid!",
-      );
-    } else if(directoryExists(profileDir)) {
-      showPopUp(
-        context: context,
-        title: "Could not create the profile!",
-        description: "The profile name is already in use!",
-      );
-    } else {
-      // TODO : Implement
+    bool ans;
+    try {
+      String basePath = ModManager.getPathToProfiles();
+      String dirName = "${ModManager.getNextProfileDirNumber()}";
+
+      String profileDirPath = pathJoin(basePath, dirName);
+      Directory profileDir = Directory(profileDirPath);
+      profileDir.createSync();
+
+      String profileFilePath = pathJoin(profileDirPath, "profile.json");
+      var profileData = getProfileData();
+      profileData.writeToFile(profileFilePath);
+
+      ans = true; // success
+    } catch(e) {
+      // If something goes wrong during profile creation, when then bail out and notify that we did not create the profile properly.
+      ans = false; // failure
     }
-    return false;
+    return ans;
   }
 
   bool editProfile() {
     // TODO : Implement
     return false;
+  }
+
+  GameProfileData getProfileData() {
+    GameProfileData profileData = GameProfileData();
+    // TODO : Implement logic to get the profile data from the selected mods and install, name, and any other settings added in the future...
+    profileData.name = controller.text;
+    return profileData;
   }
 }
