@@ -14,19 +14,25 @@ class GameProfileData {
     this.mods = const [],
   });
 
-  void loadFromFile(String path) {
+  bool loadFromFile(String path) {
+    bool ans;
     try {
       String contents = readStringFromFile(path);
       var dict = jsonDecode(contents);
       name = dict["Name"];
       install = dict["Install"];
-      mods = dict["Mods"];
+      mods = List<String>.from(dict["Mods"].map((mod)=>mod));
+      ans = true;
     } catch(e) {
       // Do Nothing.
+      print(e);
+      ans = false;
     }
+    return ans;
   }
 
-  void saveToFile(String path) {
+  bool saveToFile(String path) {
+    bool ans;
     try {
       var dict = {
         "Name": name,
@@ -35,8 +41,12 @@ class GameProfileData {
       };
       String contents = jsonEncode(dict);
       writeStringToFile(path, contents);
+      ans = true;
     } catch(e) {
       // Do Nothing.
+      print(e);
+      ans = false;
     }
+    return ans;
   }
 }
