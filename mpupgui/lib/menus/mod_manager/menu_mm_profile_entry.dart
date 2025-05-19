@@ -36,8 +36,6 @@ class ModManagerMenuProfileEntry extends StatefulWidget {
 class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry> {
 
   TextEditingController controllerProfileName = TextEditingController();
-  ScrollController controllerScrollInstalls = ScrollController();
-  ScrollController controllerScrollMods = ScrollController();
 
   @override
   void initState() {
@@ -155,15 +153,6 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
           ),
         ],
       ),
-    );
-  }
-
-  Widget getScroller(BuildContext context, ScrollController controller, String path, Function validator, Function constructor) {
-    List<Widget> children = [];
-    // TODO : Implement...
-    return MagickaPupScroller(
-      controller: controller,
-      children: children,
     );
   }
 
