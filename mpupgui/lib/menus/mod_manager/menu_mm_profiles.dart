@@ -126,6 +126,34 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
                       */
 
                       try {
+
+                        showPopUpGeneric(
+                          context: context,
+                          title: "Preparing install...",
+                          description: "The install is being prepared.",
+                          canClose: false,
+                          canDismiss: true,
+                        );
+
+                        var process = await Process.start(
+                          ModManager.getPathToMagickCowModManager(),
+                          [path],
+                        );
+                        process.stderr.drain();
+                        process.stdout.drain();
+                        var exitCode = await process.exitCode;
+
+                        if(mounted) {
+                          Navigator.pop(context, "Ok");
+                        }
+                        if(exitCode != 0) {
+                          // TODO : Also maybe place some error handling here?
+                        }
+                      } catch(e) {
+                        // TODO : Find a good way to implement some error handling here...
+                      }
+
+                      try {
                         await Process.start(pathJoinMany(
                             [path, "game", "Magicka.exe"]),
                             []); // Open the game
