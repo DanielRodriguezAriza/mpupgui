@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:mpupgui/data/game_profile_data.dart';
 import 'package:mpupgui/data/mod_manager.dart';
 import 'package:mpupgui/data/theme_manager.dart';
+import 'package:mpupgui/menus/mod_manager/profile/widget_install_entry.dart';
+import 'package:mpupgui/menus/mod_manager/profile/widget_mod_entry.dart';
 import 'package:mpupgui/utility/file_handling.dart';
 import 'package:mpupgui/utility/math_util.dart';
 import 'package:mpupgui/utility/popup_util.dart';
@@ -53,25 +55,22 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   // Controllers
   TextEditingController controllerProfileName = TextEditingController();
 
+  ScrollController controllerScrollInstalls = ScrollController();
   ScrollController controllerScrollMods = ScrollController();
 
   // Variables
   String selectedInstall = "";
   List<String> selectedMods = [];
 
-  // TODO : Clear out the test data and implement the buttons to actually move up and down the values.
-  Map<String, int> loadOrder = {
-    "m2" : 0,
-    "m2 - copia" : -2
-  }; // The load order of the mods.
-
   @override
   void initState() {
     super.initState();
 
     if(widget.isNew) {
+      // Create a new profile and begin editing
       controllerProfileName.text = "New Profile";
     } else {
+      // Load data from the selected profile and begin editing
       GameProfileData data = GameProfileData();
       data.tryReadFromFile(pathJoin(widget.path, "profile.json"));
       controllerProfileName.text = data.name;
@@ -186,6 +185,8 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     );
   }
 
+  // region Installs
+
   Widget getInstalls(BuildContext context) {
     return MagickaPupFileSystemView(
       path: ModManager.getPathToInstalls(),
@@ -206,6 +207,28 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     );
   }
 
+  Widget getInstallEntry(FileSystemEntity entry) {
+    final String name = pathName(entry.path);
+    return InstallEntryWidget(
+      text: name,
+      path: entry.path,
+      selected: selectedInstall == name,
+      onSelected: (){
+        selectInstall(name);
+      }
+    );
+  }
+
+  void selectInstall(String name) {
+    setState(() {
+      selectedInstall = name;
+    });
+  }
+
+  // endregion
+
+  // region Mods
+
   Widget getMods(BuildContext context) {
     return MagickaPupFileSystemView(
       path: ModManager.getPathToMods(),
@@ -215,39 +238,6 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
       widgetConstructor: getModEntry,
       onUpdate: (List<FileSystemEntity> entries) {
         print("UPDATED!");
-        for(var entry in entries) {
-          var name = pathName(entry.path);
-          if(!loadOrder.containsKey(name)) {
-            loadOrder[name] = 0;
-          }
-        }
-      },
-      sortFunction: (FileSystemEntity a, FileSystemEntity b) {
-        var nameA = pathName(a.path);
-        var nameB = pathName(b.path);
-
-        bool containsA = loadOrder.containsKey(nameA);
-        bool containsB = loadOrder.containsKey(nameB);
-
-        if(containsA && !containsB) {
-          return -1;
-        }
-
-        if(!containsA && containsB) {
-          return 1;
-        }
-
-        if(containsA && containsB) {
-          int numA = loadOrder[nameA]!;
-          int numB = loadOrder[nameB]!;
-          if(numA < numB) {
-            return -1;
-          } else {
-            return 1;
-          }
-        }
-
-        return 0; // Does not contain neither of them.
       },
     );
 
@@ -257,181 +247,32 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     );*/
   }
 
-  Widget getInstallEntry(FileSystemEntity entry) {
+  Widget getModEntry(FileSystemEntity entry) {
     final String name = pathName(entry.path);
-    final String path = entry.path;
-    final AppThemeData themeData = ThemeManager.getCurrentThemeData();
-    final bool isSelected = selectedInstall == name;
-    final Widget child = isSelected ? Container(
-      width: 20,
-      height: 20,
-      decoration: BoxDecoration(
-        color: themeData.colors.image[3],
-        borderRadius: BorderRadius.circular(100),
-      ),
-    ) : Container();
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-      child: SizedBox(
-        width: 80,
-        height: 80,
-        child: MagickaPupContainer(
-          level: 1,
-          child: Row(
-            children: [
-              Expanded(
-                // flex: 9,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                  child: MagickaPupText(
-                    isBold: true,
-                    text: name,
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                child: SizedBox(
-                  width: 50,
-                  height: 50,
-                  child: MagickaPupButton(
-                    level: 0,
-                    useAutoPadding: false,
-                    onPressed: () async {
-                      await OpenFilex.open(path);
-                    },
-                    child: const MagickaPupText(
-                      text: "...",
-                      fontSize: 10,
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                child: SizedBox(
-                  width: 50,
-                  height: 50,
-                  child: MagickaPupButton(
-                    level: 0,
-                    useAutoPadding: false,
-                    onPressed: () async {
-                      selectInstall(name);
-                    },
-                    child: child,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+    return ModEntryWidget(
+      text: name,
+      path: entry.path,
+      selected: selectedMods.contains(name),
+      onSelected: (){
+        selectMod(name);
+      }
     );
   }
 
-  Widget getModEntry(FileSystemEntity entry) {
-    final String name = pathName(entry.path);
-    final String path = entry.path;
-    final AppThemeData themeData = ThemeManager.getCurrentThemeData();
-    final bool isSelected = selectedMods.contains(name);
-    final Widget child = isSelected ? Container(
-      width: 20,
-      height: 20,
-      decoration: BoxDecoration(
-        color: themeData.colors.image[3],
-        borderRadius: BorderRadius.circular(100),
-      ),
-    ) : Container();
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-      child: SizedBox(
-        width: 80,
-        height: 80,
-        child: MagickaPupContainer(
-          level: 1,
-          child: Row(
-            children: [
-              Expanded(
-                // flex: 9,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                  child: MagickaPupText(
-                    isBold: true,
-                    text: name,
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                child: SizedBox(
-                  width: 50,
-                  height: 50,
-                  child: MagickaPupButton(
-                    onPressed: (){
-                      if(!loadOrder.containsKey(name)) {
-                        loadOrder[name] = clampIntValueMin(loadOrder[name]! + 1, 0);
-                      }
-                    },
-                    child: const Placeholder(),
-                  ),
-                ),
-              ), // The up button
-              Padding(
-                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                child: SizedBox(
-                  width: 50,
-                  height: 50,
-                  child: MagickaPupButton(
-                    onPressed: (){
-                      if(loadOrder.containsKey(name)) {
-                        loadOrder[name] = clampIntValueMin(loadOrder[name]! + 1, 0);
-                      }
-                    },
-                    child: const Placeholder(),
-                  ),
-                ),
-              ), // The down button
-              Padding(
-                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                child: SizedBox(
-                  width: 50,
-                  height: 50,
-                  child: MagickaPupButton(
-                    level: 0,
-                    useAutoPadding: false,
-                    onPressed: () async {
-                      await OpenFilex.open(path);
-                    },
-                    child: const MagickaPupText(
-                      text: "...",
-                      fontSize: 10,
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                child: SizedBox(
-                  width: 50,
-                  height: 50,
-                  child: MagickaPupButton(
-                    level: 0,
-                    useAutoPadding: false,
-                    onPressed: () async {
-                      selectMod(name);
-                    },
-                    child: child,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+  void selectMod(String name) {
+    // Logic to enable / disable a mod
+    setState(() {
+      if(selectedMods.contains(name)) {
+        selectedMods.remove(name);
+      } else {
+        selectedMods.add(name);
+      }
+    });
   }
+
+  // endregion
+
+  // region Profile Editing Actions
 
   void cancelChanges(BuildContext context) {
     // Do nothing else for now...
@@ -519,19 +360,5 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     return profileData;
   }
 
-  void selectInstall(String name) {
-    setState(() {
-      selectedInstall = name;
-    });
-  }
-
-  void selectMod(String name) {
-    setState(() {
-      if(selectedMods.contains(name)) {
-        selectedMods.remove(name);
-      } else {
-        selectedMods.add(name);
-      }
-    });
-  }
+  // endregion
 }
