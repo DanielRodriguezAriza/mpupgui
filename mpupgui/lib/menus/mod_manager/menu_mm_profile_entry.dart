@@ -5,6 +5,7 @@ import 'package:mpupgui/data/game_profile_data.dart';
 import 'package:mpupgui/data/mod_manager.dart';
 import 'package:mpupgui/data/theme_manager.dart';
 import 'package:mpupgui/utility/file_handling.dart';
+import 'package:mpupgui/utility/math_util.dart';
 import 'package:mpupgui/utility/popup_util.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
@@ -35,9 +36,26 @@ class ModManagerMenuProfileEntry extends StatefulWidget {
   State<ModManagerMenuProfileEntry> createState() => _ModManagerMenuProfileEntryState();
 }
 
+class ModData {
+  late String name;
+  late bool selected;
+  late int loadOrder;
+
+  ModData({
+    this.name = "",
+    this.selected = false,
+    this.loadOrder = -1,
+  });
+}
+
 class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry> {
 
+  // Controllers
   TextEditingController controllerProfileName = TextEditingController();
+
+  ScrollController controllerScrollMods = ScrollController();
+
+  // Variables
   String selectedInstall = "";
   List<String> selectedMods = [];
 
@@ -197,6 +215,12 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
       widgetConstructor: getModEntry,
       onUpdate: (List<FileSystemEntity> entries) {
         print("UPDATED!");
+        for(var entry in entries) {
+          var name = pathName(entry.path);
+          if(!loadOrder.containsKey(name)) {
+            loadOrder[name] = 0;
+          }
+        }
       },
       sortFunction: (FileSystemEntity a, FileSystemEntity b) {
         var nameA = pathName(a.path);
@@ -226,6 +250,11 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
         return 0; // Does not contain neither of them.
       },
     );
+
+    /*return MagickaPupScroller(
+      controller: controllerScrollMods,
+      children: children
+    );*/
   }
 
   Widget getInstallEntry(FileSystemEntity entry) {
@@ -334,6 +363,36 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
                   ),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: MagickaPupButton(
+                    onPressed: (){
+                      if(!loadOrder.containsKey(name)) {
+                        loadOrder[name] = clampIntValueMin(loadOrder[name]! + 1, 0);
+                      }
+                    },
+                    child: const Placeholder(),
+                  ),
+                ),
+              ), // The up button
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: MagickaPupButton(
+                    onPressed: (){
+                      if(loadOrder.containsKey(name)) {
+                        loadOrder[name] = clampIntValueMin(loadOrder[name]! + 1, 0);
+                      }
+                    },
+                    child: const Placeholder(),
+                  ),
+                ),
+              ), // The down button
               Padding(
                 padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                 child: SizedBox(
