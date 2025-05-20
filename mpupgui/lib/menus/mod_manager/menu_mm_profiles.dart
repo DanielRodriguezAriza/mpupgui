@@ -5,7 +5,7 @@ import 'package:mpupgui/data/game_profile_data.dart';
 import 'package:mpupgui/data/menu_manager.dart';
 import 'package:mpupgui/data/mod_manager.dart';
 import 'package:mpupgui/menus/mod_manager/menu_mm_generic_list_display.dart';
-import 'package:mpupgui/menus/mod_manager/menu_mm_profile_entry.dart';
+import 'package:mpupgui/menus/mod_manager/profile/menu_mm_profile_entry.dart';
 import 'package:mpupgui/utility/file_handling.dart';
 import 'package:mpupgui/utility/popup_util.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';

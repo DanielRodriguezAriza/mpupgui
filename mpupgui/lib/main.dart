@@ -8,7 +8,7 @@ import 'package:mpupgui/menus/menu_init.dart';
 import 'package:mpupgui/menus/menu_main.dart';
 import 'package:mpupgui/menus/mod_manager/menu_mm.dart';
 import 'package:mpupgui/menus/menu_settings.dart';
-import 'package:mpupgui/menus/mod_manager/menu_mm_profile_entry.dart';
+import 'package:mpupgui/menus/mod_manager/profile/menu_mm_profile_entry.dart';
 import 'package:mpupgui/menus/test/test_screen.dart';
 import 'package:mpupgui/utility/plain_page_router.dart';
 import 'package:window_size/window_size.dart';

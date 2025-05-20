@@ -8,7 +8,7 @@ import 'package:mpupgui/menus/menu_settings.dart';
 import 'package:mpupgui/menus/mod_manager/menu_mm.dart';
 import 'package:mpupgui/menus/mod_manager/menu_mm_installs.dart';
 import 'package:mpupgui/menus/mod_manager/menu_mm_mods.dart';
-import 'package:mpupgui/menus/mod_manager/menu_mm_profile_entry.dart';
+import 'package:mpupgui/menus/mod_manager/profile/menu_mm_profile_entry.dart';
 import 'package:mpupgui/menus/mod_manager/menu_mm_profiles.dart';
 import 'package:mpupgui/widgets/mpup/tab/mpup_tab_selector.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
