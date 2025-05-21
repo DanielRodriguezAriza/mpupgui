@@ -38,11 +38,11 @@ class ModManagerMenuProfileEntry extends StatefulWidget {
   State<ModManagerMenuProfileEntry> createState() => _ModManagerMenuProfileEntryState();
 }
 
-class ModStatus {
+class ModData {
   late bool selected;
   late int loadOrder;
 
-  ModStatus({
+  ModData({
     this.selected = false,
     this.loadOrder = 0,
   });
@@ -53,13 +53,21 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   // Controllers
   TextEditingController controllerProfileName = TextEditingController();
 
+  ScrollController controllerScrollInstalls = ScrollController();
+  ScrollController controllerScrollMods = ScrollController();
+
   // Variables
+  List<String> foundInstalls = [];
+  List<String> foundMods = [];
+
   String selectedInstall = "";
-  Map<String, ModStatus> modData = {};
+  Map<String, ModData> modData = {};
 
   @override
   void initState() {
     super.initState();
+
+    loadInstalls();
 
     if(widget.isNew) {
       // Create a new profile and begin editing
@@ -72,7 +80,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
       selectedInstall = data.install;
       var selectedMods = data.mods.toList(); // Make a copy of the list of mods.
       for(int index = 0; index < selectedMods.length; ++index) {
-        modData[selectedMods[index]] = ModStatus(loadOrder: index, selected: true);
+        modData[selectedMods[index]] = ModData(loadOrder: index, selected: true);
       }
     }
   }
@@ -185,7 +193,26 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
 
   // region Installs
 
+  void loadInstalls() {
+    setState(() {
+      foundInstalls.clear();
+    });
+    Directory dir = Directory(ModManager.getPathToInstalls());
+    var childDirs = dir.listSync().whereType<Directory>();
+    for(var childDir in childDirs) {
+      for(var file in childDir.listSync().whereType<File>()) {
+        final String name = pathName(file.path, true);
+        if(name.toLowerCase() == "magicka.exe") {
+          setState(() {
+            foundInstalls.add(pathName(childDir.path));
+          });
+        }
+      }
+    }
+  }
+
   Widget getInstalls(BuildContext context) {
+    /*
     return MagickaPupFileSystemView(
       path: ModManager.getPathToInstalls(),
       filter: (FileSystemEntity entry) {
@@ -203,16 +230,29 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
       },
       widgetConstructor: getInstallEntry,
     );
+    */
+
+    return MagickaPupScroller(
+      controller: controllerScrollInstalls,
+      children: getInstallEntries(),
+    );
   }
 
-  Widget getInstallEntry(FileSystemEntity entry) {
-    final String name = pathName(entry.path);
+  List<Widget> getInstallEntries() {
+    List<Widget> ans = [];
+    for(var install in foundInstalls) {
+      ans.add(getInstallEntry(install));
+    }
+    return ans;
+  }
+
+  Widget getInstallEntry(String install) {
     return InstallEntryWidget(
-      text: name,
-      path: entry.path,
-      selected: selectedInstall == name,
+      text: install,
+      path: install,
+      selected: selectedInstall == install,
       onSelected: (){
-        selectInstall(name);
+        selectInstall(install);
       }
     );
   }
@@ -253,7 +293,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   void selectMod(String name) {
 
     if(!modData.containsKey(name)) {
-      modData[name] = ModStatus(selected: false, loadOrder: 0);
+      modData[name] = ModData(selected: false, loadOrder: 0);
     }
 
     // Logic to enable / disable a mod
