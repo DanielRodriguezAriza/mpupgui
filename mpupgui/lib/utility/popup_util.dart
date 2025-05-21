@@ -120,7 +120,8 @@ class PopUpAction {
 void showPopUpGeneric({
   required BuildContext context,
   required String title,
-  required String description,
+  String? description,
+  Widget? body,
   List<PopUpAction>? actions,
   Function? onClose,
   bool canDismiss = true, // Determines whether the pop up can be dismissed or not (cancelled) by clicking / pressing the background.
@@ -204,6 +205,41 @@ void showPopUpGeneric({
     return canClose ? [topAreaButton, topAreaText] : [Padding(padding: const EdgeInsets.fromLTRB(0, 10, 0, 0), child: topAreaText)];
   }
 
+  // Local function to create the widget for the content of the pop up
+  Widget createContentWidget() {
+
+    final Widget? textWidget = description == null ? null : Align(
+      alignment: Alignment.center,
+      child: MagickaPupText(
+        text: description!,
+      ),
+    );
+    final Widget? bodyWidget = body == null ? null : Align(
+      alignment: Alignment.center,
+      child: body,
+    );
+
+    List<Widget> children = [];
+    if(textWidget != null) {
+      var w = Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+        child: textWidget,
+      );
+      children.add(w);
+    }
+    if(bodyWidget != null) {
+      children.add(bodyWidget);
+    }
+
+    final Widget ans = IntrinsicHeight(
+      child: Column(
+        children: children,
+      ),
+    );
+
+    return ans;
+  }
+
   // Show popup dialogue
   showDialog(
     context: context,
@@ -217,14 +253,7 @@ void showPopUpGeneric({
       title: Column(
         children: createTopAreaWidgets(),
       ),
-      content: IntrinsicHeight(
-        child: Align(
-          alignment: Alignment.center,
-          child: MagickaPupText(
-            text: description,
-          ),
-        ),
-      ),
+      content: createContentWidget(),
       actionsAlignment: MainAxisAlignment.center,
       actions: createButtonWidgets(),
     ),
