@@ -268,19 +268,19 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   Widget getMods(BuildContext context) {
     return MagickaPupScroller(
       controller: controllerScrollMods,
-      children: getModEntries(),
+      children: getModEntries(context),
     );
   }
 
-  List<Widget> getModEntries() {
+  List<Widget> getModEntries(BuildContext context) {
     List<Widget> ans = [];
     for(var mod in foundMods) {
-      ans.add(getModEntry(mod));
+      ans.add(getModEntry(context, mod));
     }
     return ans;
   }
 
-  Widget getModEntry(EntryData entryData) {
+  Widget getModEntry(BuildContext context, EntryData entryData) {
     return ModEntryWidget(
       text: entryData.name,
       path: entryData.path,
@@ -289,6 +289,23 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
         selectMod(entryData.name);
       },
       loadOrder: 0, // TODO : Get rid of this shit property please!!! or rework it or whatever...
+      setLoadOrder: (){
+        setLoadOrder(context, entryData.name);
+      },
+    );
+  }
+
+  void setLoadOrder(BuildContext context, String name) {
+    showPopUp(
+      context: context, title: "Set Load Order",
+      description: "Do you want to change it bro?",
+      onAccept: (){
+        setState(() {
+          EntryData entryData = foundMods.where((d)=>d.name == name).first;
+          foundMods.remove(entryData);
+          foundMods.insert(0, entryData);
+        });
+      }
     );
   }
 
