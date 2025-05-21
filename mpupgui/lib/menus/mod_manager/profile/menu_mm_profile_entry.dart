@@ -213,26 +213,6 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   }
 
   Widget getInstalls(BuildContext context) {
-    /*
-    return MagickaPupFileSystemView(
-      path: ModManager.getPathToInstalls(),
-      filter: (FileSystemEntity entry) {
-        if (entry is Directory) {
-          Directory dir = entry;
-          var entries = dir
-              .listSync()
-              .whereType<File>()
-              .where((e) =>
-          pathName(e.path, true).toLowerCase() == "magicka.exe")
-          ;
-          return entries.isNotEmpty;
-        }
-        return false;
-      },
-      widgetConstructor: getInstallEntry,
-    );
-    */
-
     return MagickaPupScroller(
       controller: controllerScrollInstalls,
       children: getInstallEntries(),
