@@ -3,6 +3,7 @@ import 'package:mpupgui/data/theme_manager.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
+import 'package:mpupgui/widgets/mpup_text_field.dart';
 import 'package:open_filex/open_filex.dart';
 
 class ModEntryWidget extends StatelessWidget {
@@ -10,6 +11,7 @@ class ModEntryWidget extends StatelessWidget {
   final String text;
   final String path;
   final bool selected;
+  final int loadOrder;
   final VoidCallback onSelected;
 
   const ModEntryWidget({
@@ -18,6 +20,7 @@ class ModEntryWidget extends StatelessWidget {
     required this.path,
     required this.selected,
     required this.onSelected,
+    required this.loadOrder,
   });
 
   @override
@@ -53,6 +56,14 @@ class ModEntryWidget extends StatelessWidget {
                     text: text,
                     fontSize: 18,
                   ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: const Placeholder(),
                 ),
               ),
               Padding(

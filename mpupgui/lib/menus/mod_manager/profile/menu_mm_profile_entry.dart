@@ -38,15 +38,13 @@ class ModManagerMenuProfileEntry extends StatefulWidget {
   State<ModManagerMenuProfileEntry> createState() => _ModManagerMenuProfileEntryState();
 }
 
-class ModData {
-  late String name;
+class ModStatus {
   late bool selected;
   late int loadOrder;
 
-  ModData({
-    this.name = "",
+  ModStatus({
     this.selected = false,
-    this.loadOrder = -1,
+    this.loadOrder = 0,
   });
 }
 
@@ -55,12 +53,9 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   // Controllers
   TextEditingController controllerProfileName = TextEditingController();
 
-  ScrollController controllerScrollInstalls = ScrollController();
-  ScrollController controllerScrollMods = ScrollController();
-
   // Variables
   String selectedInstall = "";
-  List<String> selectedMods = [];
+  Map<String, ModStatus> modData = {};
 
   @override
   void initState() {
@@ -75,7 +70,10 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
       data.tryReadFromFile(pathJoin(widget.path, "profile.json"));
       controllerProfileName.text = data.name;
       selectedInstall = data.install;
-      selectedMods = data.mods.toList(); // Make a copy of the list of mods.
+      var selectedMods = data.mods.toList(); // Make a copy of the list of mods.
+      for(int index = 0; index < selectedMods.length; ++index) {
+        modData[selectedMods[index]] = ModStatus(loadOrder: index, selected: true);
+      }
     }
   }
 
@@ -236,15 +234,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
         return true;
       },
       widgetConstructor: getModEntry,
-      onUpdate: (List<FileSystemEntity> entries) {
-        print("UPDATED!");
-      },
     );
-
-    /*return MagickaPupScroller(
-      controller: controllerScrollMods,
-      children: children
-    );*/
   }
 
   Widget getModEntry(FileSystemEntity entry) {
@@ -252,21 +242,23 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     return ModEntryWidget(
       text: name,
       path: entry.path,
-      selected: selectedMods.contains(name),
+      selected: modData.containsKey(name) && modData[name]!.selected,
       onSelected: (){
         selectMod(name);
-      }
+      },
+      loadOrder: modData.containsKey(name) ? modData[name]!.loadOrder : 0,
     );
   }
 
   void selectMod(String name) {
+
+    if(!modData.containsKey(name)) {
+      modData[name] = ModStatus(selected: false, loadOrder: 0);
+    }
+
     // Logic to enable / disable a mod
     setState(() {
-      if(selectedMods.contains(name)) {
-        selectedMods.remove(name);
-      } else {
-        selectedMods.add(name);
-      }
+      modData[name]!.selected = !(modData[name]!.selected);
     });
   }
 
@@ -356,7 +348,13 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     GameProfileData profileData = GameProfileData();
     profileData.name = controllerProfileName.text;
     profileData.install = selectedInstall;
-    profileData.mods = selectedMods.toList();
+    List<String> selectedMods = [];
+    for(var modName in modData.keys) {
+      if(modData[modName]!.selected) {
+        selectedMods.add(modName);
+      }
+    }
+    profileData.mods = selectedMods;
     return profileData;
   }
 
