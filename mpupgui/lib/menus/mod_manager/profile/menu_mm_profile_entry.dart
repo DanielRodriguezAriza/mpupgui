@@ -250,7 +250,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
 
   void loadMods() {
     setState(() {
-      foundInstalls.clear();
+      foundMods.clear();
     });
     Directory dir = Directory(ModManager.getPathToMods());
     var childDirs = dir.listSync().whereType<Directory>();
@@ -260,20 +260,24 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   }
 
   Widget getMods(BuildContext context) {
-    return MagickaPupFileSystemView(
-      path: ModManager.getPathToMods(),
-      filter: (FileSystemEntity entry) {
-        return true;
-      },
-      widgetConstructor: getModEntry,
+    return MagickaPupScroller(
+      controller: controllerScrollMods,
+      children: getModEntries(),
     );
   }
 
-  Widget getModEntry(FileSystemEntity entry) {
-    final String name = pathName(entry.path);
+  List<Widget> getModEntries() {
+    List<Widget> ans = [];
+    for(var mod in foundMods) {
+      ans.add(getModEntry(mod, mod));
+    }
+    return ans;
+  }
+
+  Widget getModEntry(String name, String path) {
     return ModEntryWidget(
       text: name,
-      path: entry.path,
+      path: path,
       selected: modData.containsKey(name) && modData[name]!.selected,
       onSelected: (){
         selectMod(name);
