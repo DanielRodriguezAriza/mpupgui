@@ -68,6 +68,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     super.initState();
 
     loadInstalls();
+    loadMods();
 
     if(widget.isNew) {
       // Create a new profile and begin editing
