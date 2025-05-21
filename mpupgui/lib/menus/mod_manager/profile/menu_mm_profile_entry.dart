@@ -38,13 +38,13 @@ class ModManagerMenuProfileEntry extends StatefulWidget {
   State<ModManagerMenuProfileEntry> createState() => _ModManagerMenuProfileEntryState();
 }
 
-class ModData {
-  late bool selected;
-  late int loadOrder;
+class EntryData {
+  String name;
+  String path;
 
-  ModData({
-    this.selected = false,
-    this.loadOrder = 0,
+  EntryData({
+    required this.name,
+    required this.path,
   });
 }
 
@@ -57,11 +57,12 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   ScrollController controllerScrollMods = ScrollController();
 
   // Variables
-  List<String> foundInstalls = [];
-  List<String> foundMods = [];
-
   String selectedInstall = "";
-  Map<String, ModData> modData = {};
+  List<EntryData> foundInstalls = [];
+
+  List<String> selectedMods = [];
+  List<EntryData> foundMods = [];
+
 
   @override
   void initState() {
@@ -79,10 +80,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
       data.tryReadFromFile(pathJoin(widget.path, "profile.json"));
       controllerProfileName.text = data.name;
       selectedInstall = data.install;
-      var selectedMods = data.mods.toList(); // Make a copy of the list of mods.
-      for(int index = 0; index < selectedMods.length; ++index) {
-        modData[selectedMods[index]] = ModData(loadOrder: index, selected: true);
-      }
+      selectedMods = data.mods.toList(); // Make a copy of the list of mods.
     }
   }
 
@@ -205,7 +203,11 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
         final String name = pathName(file.path, true);
         if(name.toLowerCase() == "magicka.exe") {
           setState(() {
-            foundInstalls.add(pathName(childDir.path));
+            EntryData entryData = EntryData(
+              name: pathName(childDir.path),
+              path: childDir.path,
+            );
+            foundInstalls.add(entryData);
           });
         }
       }
@@ -227,13 +229,13 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     return ans;
   }
 
-  Widget getInstallEntry(String install) {
+  Widget getInstallEntry(EntryData entryData) {
     return InstallEntryWidget(
-      text: install,
-      path: install,
-      selected: selectedInstall == install,
+      text: entryData.name,
+      path: entryData.path,
+      selected: selectedInstall == entryData.name,
       onSelected: (){
-        selectInstall(install);
+        selectInstall(entryData.name);
       }
     );
   }
@@ -255,7 +257,11 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     Directory dir = Directory(ModManager.getPathToMods());
     var childDirs = dir.listSync().whereType<Directory>();
     setState(() {
-      foundMods = childDirs.map((d)=>pathName(d.path)).toList();
+      foundMods = childDirs.map((d) =>
+          EntryData(
+              name: pathName(d.path),
+              path: d.path)
+      ).toList();
     });
   }
 
@@ -269,33 +275,34 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   List<Widget> getModEntries() {
     List<Widget> ans = [];
     for(var mod in foundMods) {
-      ans.add(getModEntry(mod, mod));
+      ans.add(getModEntry(mod));
     }
     return ans;
   }
 
-  Widget getModEntry(String name, String path) {
+  Widget getModEntry(EntryData entryData) {
     return ModEntryWidget(
-      text: name,
-      path: path,
-      selected: modData.containsKey(name) && modData[name]!.selected,
+      text: entryData.name,
+      path: entryData.path,
+      selected: selectedMods.contains(entryData.name),
       onSelected: (){
-        selectMod(name);
+        selectMod(entryData.name);
       },
-      loadOrder: modData.containsKey(name) ? modData[name]!.loadOrder : 0,
+      loadOrder: 0, // TODO : Get rid of this shit property please!!! or rework it or whatever...
     );
   }
 
   void selectMod(String name) {
-
-    if(!modData.containsKey(name)) {
-      modData[name] = ModData(selected: false, loadOrder: 0);
-    }
-
     // Logic to enable / disable a mod
-    setState(() {
-      modData[name]!.selected = !(modData[name]!.selected);
-    });
+    if(selectedMods.contains(name)) {
+      setState(() {
+        selectedMods.remove(name);
+      });
+    } else {
+      setState(() {
+        selectedMods.add(name);
+      });
+    }
   }
 
   // endregion
@@ -384,13 +391,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     GameProfileData profileData = GameProfileData();
     profileData.name = controllerProfileName.text;
     profileData.install = selectedInstall;
-    List<String> selectedMods = [];
-    for(var modName in modData.keys) {
-      if(modData[modName]!.selected) {
-        selectedMods.add(modName);
-      }
-    }
-    profileData.mods = selectedMods;
+    profileData.mods = selectedMods.toList(); // Copy the list of selected mods
     return profileData;
   }
 
