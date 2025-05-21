@@ -10,23 +10,29 @@ import 'package:open_filex/open_filex.dart';
 import 'package:watcher/watcher.dart';
 
 // TODO : Finish implementing this shit... or just remove it and make yourself a happier person...
+// TODO : Really, just kill this fucking class! The logic is not even worth it!
 // MagickaPup file system view with selectable and ordering controls.
 
-class MagickaPupAdvancedFSView<T> extends StatefulWidget {
+class MagickaPupAdvancedFSViewEntry {
+  late FileSystemEntity entry;
+  late bool selected;
+  late int order;
+}
+
+class MagickaPupAdvancedFSView extends StatefulWidget {
 
   // The list of entries is controlled externally for greater control
   // Note that all of this stuff could maybe be modified in the future to make
   // use of a custom Controller-type class like the scroll controller and the
   // text controller and whatnot... so we'd have controller.entries to access
   // this data.
-  final List<T> entries;
+  final List<MagickaPupAdvancedFSViewEntry> entries;
 
   // Other properties
   final String path;
   final bool Function(FileSystemEntity) filter;
-  final Widget Function(FileSystemEntity)? widgetConstructor;
-  final int Function(FileSystemEntity, FileSystemEntity)? sortFunction;
-  final void Function(List<FileSystemEntity>)? onUpdate;
+  final Widget Function(MagickaPupAdvancedFSViewEntry)? widgetConstructor;
+  final void Function(List<MagickaPupAdvancedFSViewEntry>)? onUpdate;
 
   const MagickaPupAdvancedFSView({
     super.key,
@@ -34,18 +40,16 @@ class MagickaPupAdvancedFSView<T> extends StatefulWidget {
     required this.entries,
     required this.filter,
     this.widgetConstructor,
-    this.sortFunction,
     this.onUpdate,
   });
 
   @override
-  State<MagickaPupAdvancedFSView<T>> createState() => _MagickaPupAdvancedFSViewState<T>();
+  State<MagickaPupAdvancedFSView> createState() => _MagickaPupAdvancedFSViewState();
 }
 
-class _MagickaPupAdvancedFSViewState<T> extends State<MagickaPupAdvancedFSView<T>> {
+class _MagickaPupAdvancedFSViewState extends State<MagickaPupAdvancedFSView> {
 
   final ScrollController scrollController = ScrollController();
-  List<FileSystemEntity> entries = [];
   late DirectoryWatcher watcher;
 
   @override
@@ -85,31 +89,47 @@ class _MagickaPupAdvancedFSViewState<T> extends State<MagickaPupAdvancedFSView<T
     }
 
     setState(() {
-      // Reset the state
-      entries.clear();
+      List<FileSystemEntity> tempEntries = [];
+      List<MagickaPupAdvancedFSViewEntry> ans = [];
+
+      MagickaPupAdvancedFSViewEntry generateEntry(FileSystemEntity e) {
+        MagickaPupAdvancedFSViewEntry ans = MagickaPupAdvancedFSViewEntry();
+        ans.entry = e;
+        return ans;
+      }
 
       // Load the new entries
       var dir = Directory(widget.path);
       if(dir.existsSync()) {
         // Only pick the entries that return through through the filter function
-        entries = dir.listSync().where(widget.filter).toList();
-        if(widget.sortFunction != null) {
-          entries.sort(widget.sortFunction);
+        tempEntries = dir.listSync().where(widget.filter).toList();
+
+        // Update the list of entries
+        // If an entry was already there, do not remove it. Preserve load order.
+        // If an entry is now missing, get rid of it.
+        for(var entry in widget.entries) {
+          if(tempEntries.contains(entry.entry)) {
+            MagickaPupAdvancedFSViewEntry newEntry = MagickaPupAdvancedFSViewEntry();
+            newEntry.entry = entry.entry;
+            newEntry.order = entry.order;
+            newEntry.selected = entry.selected;
+            ans.add(newEntry);
+          }
         }
       }
     });
 
     if(widget.onUpdate != null) {
-      widget.onUpdate!(entries);
+      widget.onUpdate!(widget.entries!);
     }
   }
 
   // Default function to generate the widget of an entry.
   // If the user provides a custom function, this one is not used.
   // Otherwise, this is the function that is invoked to populate the child widgets.
-  Widget getEntryWidgetDefault(FileSystemEntity entry) {
-    final String name = pathName(entry.path);
-    final String path = entry.path;
+  Widget getEntryWidgetDefault(MagickaPupAdvancedFSViewEntry entry) {
+    final String name = pathName(entry.entry.path);
+    final String path = entry.entry.path;
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: SizedBox(
@@ -158,7 +178,7 @@ class _MagickaPupAdvancedFSViewState<T> extends State<MagickaPupAdvancedFSView<T
     if(widget.widgetConstructor != null) {
       fn = widget.widgetConstructor!;
     }
-    return List<Widget>.from(entries.map((entry) => fn(entry)));
+    return List<Widget>.from(widget.entries.map((entry) => fn(entry)));
   }
 
 }
