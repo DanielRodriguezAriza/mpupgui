@@ -296,16 +296,23 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   }
 
   void setLoadOrder(BuildContext context, String name) {
-    showPopUp(
+    showPopUpGeneric(
       context: context, title: "Set Load Order",
       description: "Do you want to change it bro?",
-      onAccept: (){
-        setState(() {
-          EntryData entryData = foundMods.where((d)=>d.name == name).first;
-          foundMods.remove(entryData);
-          foundMods.insert(0, entryData);
-        });
-      }
+      actions: [
+        PopUpAction(
+          text: "Ok",
+          action: () {
+            setState(() {
+              EntryData entryData = foundMods
+                  .where((d) => d.name == name)
+                  .first;
+              foundMods.remove(entryData);
+              foundMods.insert(0, entryData);
+            });
+          }
+        ),
+      ],
     );
   }
 
