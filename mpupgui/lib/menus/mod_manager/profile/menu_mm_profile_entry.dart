@@ -267,6 +267,17 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
 
   // region Mods
 
+  void loadMods() {
+    setState(() {
+      foundInstalls.clear();
+    });
+    Directory dir = Directory(ModManager.getPathToMods());
+    var childDirs = dir.listSync().whereType<Directory>();
+    setState(() {
+      foundMods = childDirs.map((d)=>pathName(d.path)).toList();
+    });
+  }
+
   Widget getMods(BuildContext context) {
     return MagickaPupFileSystemView(
       path: ModManager.getPathToMods(),
