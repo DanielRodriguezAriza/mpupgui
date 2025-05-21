@@ -13,6 +13,7 @@ class ModEntryWidget extends StatelessWidget {
   final bool selected;
   final int loadOrder;
   final VoidCallback onSelected;
+  final VoidCallback setLoadOrder;
 
   const ModEntryWidget({
     super.key,
@@ -21,6 +22,7 @@ class ModEntryWidget extends StatelessWidget {
     required this.selected,
     required this.onSelected,
     required this.loadOrder,
+    required this.setLoadOrder,
   });
 
   @override
@@ -63,7 +65,12 @@ class ModEntryWidget extends StatelessWidget {
                 child: SizedBox(
                   width: 50,
                   height: 50,
-                  child: const Placeholder(),
+                  child: MagickaPupButton(
+                    onPressed: (){
+                      setLoadOrder();
+                    },
+                    child: const Placeholder(),
+                  ),
                 ),
               ),
               Padding(
