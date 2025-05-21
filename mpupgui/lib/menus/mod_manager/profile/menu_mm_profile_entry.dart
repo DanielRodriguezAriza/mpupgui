@@ -56,6 +56,8 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   ScrollController controllerScrollInstalls = ScrollController();
   ScrollController controllerScrollMods = ScrollController();
 
+  TextEditingController controllerPopUp = TextEditingController();
+
   // Variables
   String selectedInstall = "";
   List<EntryData> foundInstalls = [];
@@ -299,16 +301,31 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     showPopUpGeneric(
       context: context, title: "Set Load Order",
       description: "Do you want to change it bro?",
+      body: MagickaPupTextField(
+        controller: controllerPopUp,
+        numeric: true,
+      ),
       actions: [
         PopUpAction(
           text: "Ok",
           action: () {
             setState(() {
-              EntryData entryData = foundMods
-                  .where((d) => d.name == name)
-                  .first;
+
+              // If no text was issued, don't move the entry, pretty please.
+              if(controllerPopUp.text.trim().isEmpty){
+                return;
+              }
+
+              // Calculate the target index
+              const int minIndex = 0;
+              final int maxIndex = foundMods.length - 1;
+              final int target = int.parse(controllerPopUp.text);
+              final int idx = clampIntValue(target, minIndex, maxIndex);
+
+              // Move the entry to the specified location
+              EntryData entryData = foundMods.where((d) => d.name == name).first;
               foundMods.remove(entryData);
-              foundMods.insert(0, entryData);
+              foundMods.insert(idx, entryData);
             });
           }
         ),
