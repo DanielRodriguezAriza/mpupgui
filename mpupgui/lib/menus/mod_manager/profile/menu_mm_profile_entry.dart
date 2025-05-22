@@ -69,50 +69,77 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   List<String> modsFound = [];
 
 
+  // region Initialization
+
+  // Function to execute generic initialization logic.
+  // Applies both to creating and editing a profile.
+  void initMenuProfileGeneric() {
+    // Load the list of available installs from the hard drive
+    loadInstalls();
+
+    // Load the list of available mods from the hard drive
+    loadMods();
+  }
+
+  // Function with initialization logic when creating a new profile
+  void initMenuProfileCreate() {
+    // Create a new profile and begin editing
+
+    // Assign the profile name to be "New Profile" or whatever language
+    // specific name.
+    controllerProfileName.text = "New Profile";
+
+    // If any installs are available, select the first available install.
+    if(foundInstalls.isNotEmpty) {
+      selectedInstall = foundInstalls.first.name;
+    }
+
+    // NOTE : Do not select any mods to be loaded by default.
+    // New profiles should always assume vanilla.
+  }
+
+  // Function with initialization logic when editing an existing profile
+  void initMenuProfileEdit() {
+    // Load data from the selected profile and begin editing
+    GameProfileData data = GameProfileData();
+    data.tryReadFromFile(pathJoin(widget.path, "profile.json"));
+
+    // Load the name of the profile
+    controllerProfileName.text = data.name;
+
+    // Load the selected base install
+    selectedInstall = data.install;
+
+    // Load the enabled mods
+    for(var mod in data.mods) {
+      int index = modsFound.indexOf(mod);
+      if(index < 0) {
+        // The mod was not found.
+        // TODO : Handle the case where the mod is within the list of mods
+        // enabled in the profile load order, but its files do not exist
+        // anymore within the mods directory.
+      } else {
+        // The mod was found.
+        // Mark it as enabled when we load the profile.
+        modsEnabled[index] = true;
+      }
+    }
+  }
+
   @override
   void initState() {
     super.initState();
 
-    loadInstalls();
-    loadMods();
+    initMenuProfileGeneric();
 
     if(widget.isNew) {
-      // Create a new profile and begin editing
-      controllerProfileName.text = "New Profile";
-
-      // Select the first available install
-      if(foundInstalls.isNotEmpty) {
-        selectedInstall = foundInstalls.first.name;
-      }
-
-      // Do not select any mods to be loaded by default.
+      initMenuProfileCreate();
     } else {
-      // Load data from the selected profile and begin editing
-      GameProfileData data = GameProfileData();
-      data.tryReadFromFile(pathJoin(widget.path, "profile.json"));
-
-      // Load the name of the profile
-      controllerProfileName.text = data.name;
-
-      // Load the selected base install
-      selectedInstall = data.install;
-
-      // Load the enabled mods
-      for(var mod in data.mods) {
-        int index = modsFound.indexOf(mod);
-        if(index < 0) {
-          // The mod was not found.
-          // TODO : Handle the case where the mod is within the list of mods
-          // enabled in the profile load order, but its files do not exist
-          // anymore within the mods directory.
-        } else {
-          // The mod was found.
-          // Mark it as enabled when we load the profile.
-          modsEnabled[index] = true;
-        }
-      }
+      initMenuProfileEdit();
     }
   }
+
+  // endregion
 
   @override
   Widget build(BuildContext context) {
