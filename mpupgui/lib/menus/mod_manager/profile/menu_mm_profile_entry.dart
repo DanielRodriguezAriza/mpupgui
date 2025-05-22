@@ -327,11 +327,12 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     final int numMods = childDirs.length;
 
     setState(() {
-      for(int i = 0; i < numMods; ++i) {
+      for (int i = 0; i < numMods; ++i) {
         modsFound.add(pathName(childDirs[i].path));
         modsEnabled.add(false);
         modsOrder.add(i);
       }
+    });
   }
 
   Widget getMods(BuildContext context) {
