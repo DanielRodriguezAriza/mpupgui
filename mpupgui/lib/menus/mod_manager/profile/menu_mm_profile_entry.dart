@@ -111,17 +111,25 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     selectedInstall = data.install;
 
     // Load the enabled mods
-    for(var mod in data.mods) {
-      int index = modsFound.indexOf(mod);
-      if(index < 0) {
+    for(int modIndex = 0; modIndex < data.mods.length; ++modIndex) {
+      final String mod = data.mods[modIndex];
+      final int entryIndex = modsFound.indexOf(mod);
+      if(entryIndex < 0) {
         // The mod was not found.
         // TODO : Handle the case where the mod is within the list of mods
         // enabled in the profile load order, but its files do not exist
         // anymore within the mods directory.
       } else {
         // The mod was found.
+
         // Mark it as enabled when we load the profile.
-        modsEnabled[index] = true;
+        modsEnabled[entryIndex] = true;
+
+        // Change its load order to match the order of the loaded profile data.
+        // NOTE : We do the quick and dirty thing. Just swap this object with
+        // the one that was at its original index.
+        modsOrder[entryIndex] = modIndex;
+        modsOrder[modIndex] = entryIndex;
       }
     }
   }
