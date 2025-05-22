@@ -63,7 +63,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   List<EntryData> foundInstalls = [];
 
   // NOTE : Some weird SOA-like stuff going on here, I suppose...
-  List<int> modsOrder = [];
+  // List<int> modsOrder = []; // NOTE : Disabled and unused for now...
   List<bool> modsEnabled = [];
   // List<bool> modsExist = []; // NOTE : The idea was that if a mod was removed, then it would appear on red when editing a load order than still contemplated this mod.
   List<String> modsFound = [];
@@ -126,10 +126,11 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
         modsEnabled[entryIndex] = true;
 
         // Change its load order to match the order of the loaded profile data.
+        modSetLoadOrder(entryIndex, modIndex);
         // NOTE : We do the quick and dirty thing. Just swap this object with
         // the one that was at its original index.
-        modsOrder[entryIndex] = modIndex;
-        modsOrder[modIndex] = entryIndex;
+        // modsOrder[entryIndex] = modIndex;
+        // modsOrder[modIndex] = entryIndex;
       }
     }
   }
@@ -342,24 +343,25 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   // to be a bit worse from the UX POV.
   // NOTE : We could do the same thing as on the other function but on the
   // order var rather than a swap if we cared about ordering that much.
-  void modSetLoadOrderInternal2(int originalIndex, int newIndex)
-  {
+  void modSetLoadOrderInternal2(int originalIndex, int newIndex) {
     // Literally just performs a simple swap.
+    /*
     final int original = modsOrder[originalIndex];
     final int target = modsOrder[newIndex];
     modsOrder[originalIndex] = target;
     modsOrder[newIndex] = original;
+    */
   }
 
   // Public function to set the load order of a mod
   void modSetLoadOrder(int originalIndex, int newIndex) {
-    modSetLoadOrderInternal2(originalIndex, newIndex);
+    modSetLoadOrderInternal(originalIndex, newIndex);
   }
 
   void loadMods() {
     setState(() {
       modsFound.clear();
-      modsOrder.clear();
+      // modsOrder.clear();
       modsEnabled.clear();
     });
     Directory dir = Directory(ModManager.getPathToMods());
@@ -371,7 +373,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
       for (int i = 0; i < numMods; ++i) {
         modsFound.add(pathName(childDirs[i].path));
         modsEnabled.add(false);
-        modsOrder.add(i);
+        // modsOrder.add(i);
       }
     });
   }
