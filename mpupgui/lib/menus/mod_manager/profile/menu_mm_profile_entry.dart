@@ -315,6 +315,47 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
 
   // region Mods
 
+  // Internal implementation to set load order.
+  // Moves elements directly in memory.
+  void modSetLoadOrderInternal(int originalIndex, int newIndex) {
+    // Clamp the index so it does not go out of bounds
+    const minIndex = 0;
+    final maxIndex = modsFound.length;
+    newIndex = clampIntValue(newIndex, minIndex, maxIndex);
+
+    // Cache the values of the original entry
+    var modFound = modsFound[originalIndex];
+    var modEnabled = modsEnabled[originalIndex];
+
+    // Remove the original entry
+    modsFound.removeAt(originalIndex);
+    modsEnabled.removeAt(originalIndex);
+
+    // Insert the entry into its new index
+    modsFound.insert(newIndex, modFound);
+    modsEnabled.insert(newIndex, modEnabled);
+  }
+
+  // Internal implementation to set load order.
+  // Changes the load order indices.
+  // Does not respect the original directory ordering, so it could be considered
+  // to be a bit worse from the UX POV.
+  // NOTE : We could do the same thing as on the other function but on the
+  // order var rather than a swap if we cared about ordering that much.
+  void modSetLoadOrderInternal2(int originalIndex, int newIndex)
+  {
+    // Literally just performs a simple swap.
+    final int original = modsOrder[originalIndex];
+    final int target = modsOrder[newIndex];
+    modsOrder[originalIndex] = target;
+    modsOrder[newIndex] = original;
+  }
+
+  // Public function to set the load order of a mod
+  void modSetLoadOrder(int originalIndex, int newIndex) {
+    modSetLoadOrderInternal2(originalIndex, newIndex);
+  }
+
   void loadMods() {
     setState(() {
       modsFound.clear();
