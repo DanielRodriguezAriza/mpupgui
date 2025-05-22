@@ -461,7 +461,13 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
 
   void applyChanges(BuildContext context) {
     // TODO : Implement additional logic
+    // TODO : Modify logic to work with async so that we can await the file generation to finish.
+
+    // Variables to store the success status
     bool successfullyAppliedChanges = false;
+    bool successfullyGeneratedFiles = false;
+
+    // Generate the profile json file data
     if(widget.isNew) {
       // Create new profile
       successfullyAppliedChanges = createProfile(context);
@@ -470,7 +476,11 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
       successfullyAppliedChanges = editProfile();
     }
 
-    if(successfullyAppliedChanges) {
+    // Invoke mcow-mm and generate the game files for the profile
+    successfullyGeneratedFiles = generateInstallFiles();
+
+    // Check if the process was successful or not
+    if(successfullyAppliedChanges && successfullyGeneratedFiles) {
       // Additional exit logic goes here.
       if(widget.onApply != null) {
         widget.onApply!();
@@ -528,6 +538,10 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
       ans = false; // failure
     }
     return ans;
+  }
+
+  bool generateInstallFiles() {
+    return true;
   }
 
   GameProfileData getProfileData() {
