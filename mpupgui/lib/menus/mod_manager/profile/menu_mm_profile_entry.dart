@@ -309,17 +309,21 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
 
   void loadMods() {
     setState(() {
-      foundMods.clear();
+      modsFound.clear();
+      modsOrder.clear();
+      modsEnabled.clear();
     });
     Directory dir = Directory(ModManager.getPathToMods());
-    var childDirs = dir.listSync().whereType<Directory>();
+    var childDirs = dir.listSync().whereType<Directory>().toList();
+
+    final int numMods = childDirs.length;
+
     setState(() {
-      foundMods = childDirs.map((d) =>
-          EntryData(
-              name: pathName(d.path),
-              path: d.path)
-      ).toList();
-    });
+      for(int i = 0; i < numMods; ++i) {
+        modsFound.add(pathName(childDirs[i].path));
+        modsEnabled.add(false);
+        modsOrder.add(i);
+      }
   }
 
   Widget getMods(BuildContext context) {
