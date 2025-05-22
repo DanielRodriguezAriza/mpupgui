@@ -66,7 +66,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   // List<int> modsOrder = []; // NOTE : Disabled and unused for now...
   List<bool> modsEnabled = [];
   // List<bool> modsExist = []; // NOTE : The idea was that if a mod was removed, then it would appear on red when editing a load order than still contemplated this mod.
-  List<String> modsFound = [];
+  List<String> modsName = [];
 
 
   // region Initialization
@@ -113,7 +113,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     // Load the enabled mods
     for(int modIndex = 0; modIndex < data.mods.length; ++modIndex) {
       final String mod = data.mods[modIndex];
-      final int entryIndex = modsFound.indexOf(mod);
+      final int entryIndex = modsName.indexOf(mod);
       if(entryIndex < 0) {
         // The mod was not found.
         // TODO : Handle the case where the mod is within the list of mods
@@ -149,6 +149,8 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   }
 
   // endregion
+
+  // region Main Widget
 
   @override
   Widget build(BuildContext context) {
@@ -256,6 +258,8 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     );
   }
 
+  // endregion
+
   // region Installs
 
   void loadInstalls() {
@@ -321,19 +325,19 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   void modSetLoadOrderInternal(int originalIndex, int newIndex) {
     // Clamp the index so it does not go out of bounds
     const minIndex = 0;
-    final maxIndex = modsFound.length;
+    final maxIndex = modsName.length;
     newIndex = clampIntValue(newIndex, minIndex, maxIndex);
 
     // Cache the values of the original entry
-    var modFound = modsFound[originalIndex];
+    var modName = modsName[originalIndex];
     var modEnabled = modsEnabled[originalIndex];
 
     // Remove the original entry
-    modsFound.removeAt(originalIndex);
+    modsName.removeAt(originalIndex);
     modsEnabled.removeAt(originalIndex);
 
     // Insert the entry into its new index
-    modsFound.insert(newIndex, modFound);
+    modsName.insert(newIndex, modName);
     modsEnabled.insert(newIndex, modEnabled);
   }
 
@@ -360,9 +364,9 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
 
   void loadMods() {
     setState(() {
-      modsFound.clear();
-      // modsOrder.clear();
+      modsName.clear();
       modsEnabled.clear();
+      // modsOrder.clear();
     });
     Directory dir = Directory(ModManager.getPathToMods());
     var childDirs = dir.listSync().whereType<Directory>().toList();
@@ -371,7 +375,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
 
     setState(() {
       for (int i = 0; i < numMods; ++i) {
-        modsFound.add(pathName(childDirs[i].path));
+        modsName.add(pathName(childDirs[i].path));
         modsEnabled.add(false);
         // modsOrder.add(i);
       }
@@ -379,7 +383,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   }
 
   Widget getMods(BuildContext context) {
-    return MagickaPupScroller(
+    return MagickaPupScroller( // TODO : Change to use the ScrollerBuilder for performance in the future
       controller: controllerScrollMods,
       children: getModEntries(context),
     );
@@ -387,28 +391,28 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
 
   List<Widget> getModEntries(BuildContext context) {
     List<Widget> ans = [];
-    for(var mod in foundMods) {
-      ans.add(getModEntry(context, mod));
+    for(int i = 0; i < modsName.length; ++i) {
+      ans.add(getModEntry(context, i));
     }
     return ans;
   }
 
-  Widget getModEntry(BuildContext context, EntryData entryData) {
+  Widget getModEntry(BuildContext context, int index) {
     return ModEntryWidget(
-      text: entryData.name,
-      path: entryData.path,
-      selected: selectedMods.contains(entryData.name),
+      text: modsName[index],
+      path: pathJoin(ModManager.getPathToMods(), modsName[index]),
+      selected: modsEnabled[index],
       onSelected: (){
-        selectMod(entryData.name);
+        selectMod(index);
       },
       loadOrder: 0, // TODO : Get rid of this shit property please!!! or rework it or whatever...
       setLoadOrder: (){
-        setLoadOrder(context, entryData.name);
+        setLoadOrder(context, index);
       },
     );
   }
 
-  void setLoadOrder(BuildContext context, String name) {
+  void setLoadOrder(BuildContext context, int index) {
     showPopUpGeneric(
       context: context, title: "Set Load Order",
       description: "Do you want to change it bro?",
@@ -422,21 +426,14 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
           action: () {
             setState(() {
 
-              // If no text was issued, don't move the entry, pretty please.
+              // If no text was issued, don't move the entry and bail out.
               if(controllerPopUp.text.trim().isEmpty){
                 return;
               }
 
-              // Calculate the target index
-              const int minIndex = 0;
-              final int maxIndex = foundMods.length - 1;
+              // Move the entry to the target location.
               final int target = int.parse(controllerPopUp.text);
-              final int idx = clampIntValue(target, minIndex, maxIndex);
-
-              // Move the entry to the specified location
-              EntryData entryData = foundMods.where((d) => d.name == name).first;
-              foundMods.remove(entryData);
-              foundMods.insert(idx, entryData);
+              modSetLoadOrder(index, target);
             });
           }
         ),
@@ -444,17 +441,11 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     );
   }
 
-  void selectMod(String name) {
-    // Logic to enable / disable a mod
-    if(selectedMods.contains(name)) {
-      setState(() {
-        selectedMods.remove(name);
-      });
-    } else {
-      setState(() {
-        selectedMods.add(name);
-      });
-    }
+  // Logic to enable / disable a mod
+  void selectMod(int index) {
+    setState(() {
+      modsEnabled[index] = !modsEnabled[index];
+    });
   }
 
   // endregion
@@ -543,8 +534,18 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     GameProfileData profileData = GameProfileData();
     profileData.name = controllerProfileName.text;
     profileData.install = selectedInstall;
-    profileData.mods = selectedMods.toList(); // Copy the list of selected mods
+    profileData.mods = getEnabledMods();
     return profileData;
+  }
+
+  List<String> getEnabledMods() {
+    List<String> ans = [];
+    for(int i = 0; i < modsName.length; ++i) {
+      if(modsEnabled[i]) {
+        ans.add(modsName[i]);
+      }
+    }
+    return ans;
   }
 
   // endregion
