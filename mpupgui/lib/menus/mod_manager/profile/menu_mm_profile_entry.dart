@@ -62,8 +62,11 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   String selectedInstall = "";
   List<EntryData> foundInstalls = [];
 
-  List<String> selectedMods = [];
-  List<EntryData> foundMods = [];
+  // NOTE : Some weird SOA-like stuff going on here, I suppose...
+  List<int> modsOrder = [];
+  List<bool> modsEnabled = [];
+  // List<bool> modsExist = []; // NOTE : The idea was that if a mod was removed, then it would appear on red when editing a load order than still contemplated this mod.
+  List<String> modsFound = [];
 
 
   @override
@@ -76,13 +79,38 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
     if(widget.isNew) {
       // Create a new profile and begin editing
       controllerProfileName.text = "New Profile";
+
+      // Select the first available install
+      if(foundInstalls.isNotEmpty) {
+        selectedInstall = foundInstalls.first.name;
+      }
+
+      // Do not select any mods to be loaded by default.
     } else {
       // Load data from the selected profile and begin editing
       GameProfileData data = GameProfileData();
       data.tryReadFromFile(pathJoin(widget.path, "profile.json"));
+
+      // Load the name of the profile
       controllerProfileName.text = data.name;
+
+      // Load the selected base install
       selectedInstall = data.install;
-      selectedMods = data.mods.toList(); // Make a copy of the list of mods.
+
+      // Load the enabled mods
+      for(var mod in data.mods) {
+        int index = modsFound.indexOf(mod);
+        if(index < 0) {
+          // The mod was not found.
+          // TODO : Handle the case where the mod is within the list of mods
+          // enabled in the profile load order, but its files do not exist
+          // anymore within the mods directory.
+        } else {
+          // The mod was found.
+          // Mark it as enabled when we load the profile.
+          modsEnabled[index] = true;
+        }
+      }
     }
   }
 
