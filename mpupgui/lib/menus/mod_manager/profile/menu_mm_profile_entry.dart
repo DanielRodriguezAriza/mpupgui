@@ -325,7 +325,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   void modSetLoadOrderInternal(int originalIndex, int newIndex) {
     // Clamp the index so it does not go out of bounds
     const minIndex = 0;
-    final maxIndex = modsName.length;
+    final maxIndex = modsName.length - 1;
     newIndex = clampIntValue(newIndex, minIndex, maxIndex);
 
     // Cache the values of the original entry
