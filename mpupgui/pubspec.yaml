@@ -31,6 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   # Custom dependencies added to mpup
+  provider: ^6.1.0
   file_picker: ^10.1.5 # Used for file picker interface on major platforms. Allows opening file explorer to pick files.
   window_size: ^0.1.0 # Used to limit the size of the window to a min and max dimensions.
   file_selector: ^1.0.3
