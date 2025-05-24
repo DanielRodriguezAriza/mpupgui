@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:mpupgui/data/providers/mm_provider_profile.dart';
 import 'package:mpupgui/data/settings_manager.dart';
 import 'package:mpupgui/menus/menu_fproc_compiler.dart';
 import 'package:mpupgui/menus/menu_fproc_decompiler.dart';
@@ -11,6 +12,7 @@ import 'package:mpupgui/menus/menu_settings.dart';
 import 'package:mpupgui/menus/mod_manager/profile/menu_mm_profile_entry.dart';
 import 'package:mpupgui/menus/test/test_screen.dart';
 import 'package:mpupgui/utility/plain_page_router.dart';
+import 'package:provider/provider.dart';
 import 'package:window_size/window_size.dart';
 
 bool isPlatformDesktop() {
@@ -34,7 +36,16 @@ void initFlutterApp() {
 }
 
 void runFlutterApp() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_)=>ModManagerProfileProvider(),
+        ),
+      ],
+      child: const MyApp(),
+    )
+  );
 }
 
 // NOTE : Made main into an async function so that process interop
