@@ -55,6 +55,9 @@ class HomeMenu extends StatelessWidget {
                         ),
                       )
                     ),
+                    // Play button temporarily disabled
+                    // TODO : Finish implementing in a clean way!!!
+                    /*
                     Padding(
                       padding: const EdgeInsets.all(40),
                       child: Align(
@@ -76,6 +79,7 @@ class HomeMenu extends StatelessWidget {
                         ),
                       )
                     ),
+                    */
                   ],
                 ),
               ),
