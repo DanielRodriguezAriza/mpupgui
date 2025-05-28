@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mpupgui/data/cache_manager.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
+import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 import 'package:http/http.dart' as dart_http;
 
@@ -60,6 +61,27 @@ class HomeMenu extends StatelessWidget {
                           }
                         },
                       ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(40),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: SizedBox(
+                          width: 200,
+                          height: 100,
+                          child: MagickaPupButton(
+                            level: 1,
+                            onPressed: (){
+                              // TODO : Implement quick play button logic...
+                              // As well as install selection logic, similar to
+                              // minecraft's launcher and stuff like that I guess...
+                            },
+                            child: const MagickaPupText(
+                                text: "Play"
+                            ),
+                          ),
+                        ),
+                      )
                     ),
                   ],
                 ),
