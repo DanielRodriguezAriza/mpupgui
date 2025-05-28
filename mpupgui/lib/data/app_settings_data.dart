@@ -108,7 +108,7 @@ class AppSettingsData {
   bool tryWriteToFile(String filename) {
     bool ans;
     try {
-      readFromFile(filename);
+      writeToFile(filename);
       ans = true;
     } catch(e) {
       ans = false;
