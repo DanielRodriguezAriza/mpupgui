@@ -11,6 +11,15 @@ abstract final class SettingsManager {
 
   static const String settingsFile = "./data/mpupgui_settings.json";
 
+  static void resetSettings() {
+    // Write the default settings to the settings file
+    AppSettingsData settingsData = AppSettingsData.getDefault();
+    settingsData.tryWriteToFile(settingsFile);
+
+    // Re-load the settings file
+    loadSettings();
+  }
+
   static void loadSettings() {
     AppSettingsData settingsData = AppSettingsData();
     settingsData.tryReadFromFile(settingsFile);
