@@ -30,18 +30,22 @@ class AppSettingsData {
     return _loadValueRaw(dict, path) ?? defaultValue;
   }
 
-  void setDefaultValues() {
-    language = Language.values.byName("english");
-    theme = AppTheme.values.byName("dark");
+  static AppSettingsData getDefault() {
+    AppSettingsData ans = AppSettingsData();
 
-    pathToMagickaPup = "./data/MagickaPUP.exe";
-    pathToMagickCowModManager = "./data/MagickCowModManager.exe";
+    ans.language = Language.values.byName("english");
+    ans.theme = AppTheme.values.byName("dark");
 
-    pathToInstalls = "./data/mm/installs";
-    pathToMods = "./data/mm/mods";
-    pathToProfiles = "./data/mm/profiles";
+    ans.pathToMagickaPup = "./data/MagickaPUP.exe";
+    ans.pathToMagickCowModManager = "./data/MagickCowModManager.exe";
 
-    pathToCache = "./data/cache";
+    ans.pathToInstalls = "./data/mm/installs";
+    ans.pathToMods = "./data/mm/mods";
+    ans.pathToProfiles = "./data/mm/profiles";
+
+    ans.pathToCache = "./data/cache";
+
+    return ans;
   }
 
   void readFromFile(String settingsFile) {
