@@ -47,7 +47,10 @@ class AppSettingsData {
   void readFromFile(String settingsFile) {
     var str = readStringFromFile(settingsFile);
     var data = jsonDecode(str);
+    readFromDict(data);
+  }
 
+  void readFromDict(var data) {
     // Load Language
     String languageStr = _loadValue(data, "Language", "english");
     language = Language.values.byName(languageStr);
@@ -96,6 +99,7 @@ class AppSettingsData {
       readFromFile(filename);
       ans = true;
     } catch(e) {
+      readFromDict(null); // Hacky workaround to get default settings loaded
       ans = false;
     }
     return ans;
