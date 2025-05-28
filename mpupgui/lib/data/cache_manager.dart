@@ -6,7 +6,15 @@ import 'package:mpupgui/utility/file_handling.dart';
 
 abstract final class CacheManager {
 
-  static String pathToCachedData = "./data/cache/";
+  static late String pathToCachedData;
+
+  static String getPathToCache() {
+    return pathToCachedData;
+  }
+
+  static void setPathToCache(String path) {
+    pathToCachedData = path;
+  }
 
   static Future<File?> getImage(String url) async {
     String cachePath = pathJoin(pathToCachedData, pathName(url, true));
