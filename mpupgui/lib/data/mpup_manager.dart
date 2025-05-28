@@ -17,7 +17,7 @@ class mpup_FileDataOutput {
 abstract final class MagickaPupManager {
 
   // MagickaPUP program related data
-  static String currentMagickaPupPath = "";
+  static late String currentMagickaPupPath;
 
   static void setMagickaPupPath(String path) {
     currentMagickaPupPath = path;
