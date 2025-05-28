@@ -5,6 +5,7 @@ import 'package:mpupgui/data/mpup_manager.dart';
 import 'package:mpupgui/data/settings_manager.dart';
 import 'package:mpupgui/data/theme_manager.dart';
 import 'package:mpupgui/utility/file_handling.dart';
+import 'package:mpupgui/utility/popup_util.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
@@ -167,6 +168,45 @@ class _SettingsMenuState extends State<SettingsMenu> {
     );
   }
 
+  Widget getSettingsActionButtonWidget(String text, Function action) {
+    return Expanded(
+      child: MagickaPupButton(
+        onPressed: action,
+        child: MagickaPupText(
+          text: text,
+          isBold: true,
+          fontSize: 20,
+        ),
+      ),
+    );
+  }
+
+  void settingsActionUndoChanges() {
+    loadSettings();
+    // NOTE : This does not work as of now. For it to work, we would need
+    // to get rid of automatic settings saving and implement the manual
+    // save button system. Not sure which one is more user friendly.
+  }
+
+  void settingsActionSaveChanges() {
+    // TODO : Implement
+    // NOTE : As of now, settings are saved automatically. Maybe this is not
+    // such a good idea, so we'll see what to do in the future...
+  }
+
+  void settingsActionResetToDefault() {
+    // NOTE : In the future, it would be ideal to have a button to reset EACH
+    // setting individually to default, and then this one global button too.
+    showPopUp(
+      context: context,
+      title: "Warning!",
+      description: "Are you sure you want to reset the settings to default?\r\nThis change cannot be undone.",
+      onAccept: (){
+        SettingsManager.resetSettings();
+      }
+    );
+  }
+
   Widget getWidget(BuildContext context) {
     return Scaffold(
       body: MagickaPupBackground(
@@ -180,18 +220,9 @@ class _SettingsMenuState extends State<SettingsMenu> {
                 height: 60,
                 child: Row(
                   children: [
-                    Expanded(
-                      child: MagickaPupButton(
-                        onPressed: (){
-                          settingsActionResetToDefault();
-                        },
-                        child: MagickaPupText(
-                          text: "Reset to Default",
-                          isBold: true,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
+                    // getSettingsActionButtonWidget("Save changes", settingsActionUndoChanges),
+                    getSettingsActionButtonWidget("Reset to Default", settingsActionResetToDefault),
+                    // getSettingsActionButtonWidget("Undo changes", settingsActionUndoChanges),
                   ],
                 ),
               ),
