@@ -203,6 +203,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
       description: "Are you sure you want to reset the settings to default?\r\nThis change cannot be undone.",
       onAccept: (){
         SettingsManager.resetSettings();
+        loadSettings();
       }
     );
   }
