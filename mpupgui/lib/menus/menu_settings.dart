@@ -175,6 +175,29 @@ class _SettingsMenuState extends State<SettingsMenu> {
           children: [
             IntrinsicHeight(
               child: MagickaPupContainer(
+                text: "Actions",
+                level: 2,
+                height: 60,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: MagickaPupButton(
+                        onPressed: (){
+                          settingsActionResetToDefault();
+                        },
+                        child: MagickaPupText(
+                          text: "Reset to Default",
+                          isBold: true,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            IntrinsicHeight(
+              child: MagickaPupContainer(
                 text: "Theme",
                 level: 2,
                 height: 60,
