@@ -19,6 +19,13 @@ bool isPlatformDesktop() {
   return Platform.isWindows || Platform.isLinux || Platform.isMacOS;
 }
 
+void ensureDirectoryExists(String path) {
+  Directory dir = Directory(path);
+  if(!dir.existsSync()) {
+    dir.createSync();
+  }
+}
+
 void initFlutterApp() {
   // Ensure that flutter bindings are initialized
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,6 +37,12 @@ void initFlutterApp() {
     setWindowMinSize(const Size(1200, 825)); // Limit the window min size so that it cannot go below Width x Height.
     // setWindowMaxSize(const Size(800, 600)); // We could limit the max size, but for now we don't really care about that, so any resolution is supported.
   }
+
+  // Create the data directories if they do not exist.
+  // Usually performed on first boot.
+  ensureDirectoryExists("./data");
+  ensureDirectoryExists("./data/cache");
+  ensureDirectoryExists("./data/mm");
 
   // Initialize app data
   SettingsManager.loadSettings();
