@@ -21,7 +21,7 @@ class AppSettingsData {
       T ans = dict[path];
       return ans;
     } catch(e) {
-      print("AppSettingsData._loadValue() has failed : $e");
+      // print("AppSettingsData._loadValue() has failed : $e");
       return null;
     }
   }
