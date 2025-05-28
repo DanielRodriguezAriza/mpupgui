@@ -8,7 +8,7 @@ import 'package:mpupgui/utility/file_handling.dart';
 
 abstract final class SettingsManager {
 
-  static const String settingsFile = "./mpupgui_settings.json";
+  static const String settingsFile = "./data/mpupgui_settings.json";
 
   static void loadSettings() {
     AppSettingsData settingsData = AppSettingsData();
