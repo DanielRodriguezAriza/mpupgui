@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:mpupgui/data/cache_manager.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
@@ -11,7 +12,6 @@ class HomeMenu extends StatelessWidget {
 
   // The URL to the image that is displayed on the background of the steam library for Magicka 1
   final String backgroundURL = "https://cdn.akamai.steamstatic.com/steam/apps/42910/library_hero.jpg";
-  final String backgroundPath = "./library_hero.jpg";
 
   // NOTE : If the image fetching fails, nothing bad really happens. The app just fails silently by getting a 404 since the
   // resource was not found, and the visual effect is the same as if no image was displayed, so that's ok for our purposes.
@@ -42,7 +42,7 @@ class HomeMenu extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(5),
                       child: FutureBuilder<File?>(
-                        future: getImage(backgroundPath, backgroundURL),
+                        future: CacheManager.getImage(backgroundURL),
                         builder: (context, snapshot) {
                           if(snapshot.connectionState == ConnectionState.waiting) {
                             return Container();
@@ -74,47 +74,4 @@ class HomeMenu extends StatelessWidget {
       ),
     );
   }
-
-  // NOTE : Old method, no proper caching implemented. Just exists so that
-  // you can remember that NetworkImage exists.
-  /*
-  ImageProvider<Object> getImage() {
-    File backgroundFile = File(backgroundCachePath);
-    if(backgroundFile.existsSync()) {
-      return FileImage(backgroundFile);
-    } else {
-      return NetworkImage(backgroundURL);
-    }
-  }
-  */
-
-  Future<File?> getImage(String cachePath, String url) async {
-    File? file = await getImageFromPath(cachePath) ?? await getImageFromNetwork(cachePath, url);
-    return file;
-  }
-
-  Future<File?> getImageFromPath(String path) async {
-    File file = File(path);
-    bool fileExists = await file.exists();
-    if(fileExists) {
-      return file;
-    } else {
-      return null;
-    }
-  }
-
-  Future<File?> getImageFromNetwork(String cachePath, String url) async {
-    final response = await dart_http.get(Uri.parse(url));
-    if(response.statusCode == 200) {
-      final bytes = response.bodyBytes;
-      File file = File(cachePath);
-      await file.writeAsBytes(bytes);
-      bool fileExists = await file.exists();
-      if(fileExists) {
-        return file;
-      } // else, failed to write to target file
-    } // else, failed to find the resource online
-    return null;
-  }
-
 }
