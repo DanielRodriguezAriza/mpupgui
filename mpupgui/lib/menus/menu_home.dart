@@ -13,10 +13,6 @@ class HomeMenu extends StatelessWidget {
   // The URL to the image that is displayed on the background of the steam library for Magicka 1
   final String backgroundURL = "https://cdn.akamai.steamstatic.com/steam/apps/42910/library_hero.jpg";
 
-  // NOTE : If the image fetching fails, nothing bad really happens. The app just fails silently by getting a 404 since the
-  // resource was not found, and the visual effect is the same as if no image was displayed, so that's ok for our purposes.
-  // TODO : Maybe implement some caching mechanism so that we can have a local image cached once and use that from then on.
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
