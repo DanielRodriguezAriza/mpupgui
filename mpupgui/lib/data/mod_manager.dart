@@ -5,10 +5,10 @@ import 'package:mpupgui/utility/file_handling.dart';
 abstract final class ModManager {
   // region Mod Manager Config / Paths
 
-  static String pathToInstalls = "./installs";
-  static String pathToMods = "./mods";
-  static String pathToProfiles = "./profiles";
-  static String pathToMagickCowModManager = "./MagickCowModManager.exe";
+  static late String pathToInstalls;
+  static late String pathToMods;
+  static late String pathToProfiles;
+  static late String pathToMagickCowModManager;
 
   static void setPathToInstalls(String path) {
     pathToInstalls = path;
