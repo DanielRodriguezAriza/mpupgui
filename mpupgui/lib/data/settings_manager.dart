@@ -13,7 +13,7 @@ abstract final class SettingsManager {
 
   static void loadSettings() {
     AppSettingsData settingsData = AppSettingsData();
-    settingsData.readFromFile(settingsFile);
+    settingsData.tryReadFromFile(settingsFile);
 
     LanguageManager.setLanguage(settingsData.language);
     ThemeManager.setTheme(settingsData.theme);
