@@ -30,6 +30,20 @@ class AppSettingsData {
     return _loadValueRaw(dict, path) ?? defaultValue;
   }
 
+  void setDefaultValues() {
+    language = Language.values.byName("english");
+    theme = AppTheme.values.byName("dark");
+
+    pathToMagickaPup = "./data/MagickaPUP.exe";
+    pathToMagickCowModManager = "./data/MagickCowModManager.exe";
+
+    pathToInstalls = "./data/mm/installs";
+    pathToMods = "./data/mm/mods";
+    pathToProfiles = "./data/mm/profiles";
+
+    pathToCache = "./data/cache";
+  }
+
   void readFromFile(String settingsFile) {
     var str = readStringFromFile(settingsFile);
     var data = jsonDecode(str);
