@@ -115,57 +115,7 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
                     level: 0,
                     useAutoPadding: false,
                     onPressed: () async {
-                      /*
-                      showPopUpGeneric(
-                        context: context,
-                        title: "Running Install...",
-                        description: "Preparing install before it can be launched.",
-                        canClose: true,
-                        canDismiss: false,
-                      );
-                      */
-
-                      try {
-
-                        showPopUpGeneric(
-                          context: context,
-                          title: "Preparing install...",
-                          description: "The install is being prepared.",
-                          canClose: false,
-                          canDismiss: true,
-                        );
-
-                        var process = await Process.start(
-                          ModManager.getPathToMagickCowModManager(),
-                          [path],
-                        );
-                        process.stderr.drain();
-                        process.stdout.drain();
-                        var exitCode = await process.exitCode;
-
-                        if(mounted) {
-                          Navigator.pop(context, "Ok");
-                        }
-                        if(exitCode != 0) {
-                          // TODO : Also maybe place some error handling here?
-                        }
-                      } catch(e) {
-                        // TODO : Find a good way to implement some error handling here...
-                      }
-
-                      try {
-                        await Process.start(pathJoinMany(
-                            [path, "game", "Magicka.exe"]),
-                            []); // Open the game
-                      } catch(e) {
-                        if(mounted) {
-                          showPopUpError(
-                              context: context,
-                              title: "An Error has occurred!",
-                              description: "Magicka has failed to launch!",
-                          );
-                        }
-                      }
+                      await profileEntryTryLaunch(profileData, name, path);
                     },
                     child: const MagickaPupText(
                       text: "P",
@@ -240,6 +190,80 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
         ),
       ),
     );
+  }
+
+  Future<void> profileEntryTryLaunch(GameProfileData profileData, String dirName, String path) async {
+    await _profileEntryTryInstall(profileData, dirName, path);
+  }
+
+  Future<void> _profileEntryTryInstall(GameProfileData profileData, String dirName, String path) async {
+    try {
+      showPopUpGeneric(
+        context: context,
+        title: "Preparing install...",
+        description: "The install is being prepared.",
+        canClose: false,
+        canDismiss: false,
+      );
+
+      String processName = ModManager.getPathToMagickCowModManager();
+      List<String> args = [
+        "-pi", ModManager.getPathToInstalls(),
+        "-pm", ModManager.getPathToMods(),
+        "-pp", ModManager.getPathToProfiles(),
+        "-r", dirName,
+      ];
+
+      var process = await Process.start(processName, args);
+
+      process.stderr.drain();
+      process.stdout.drain();
+
+      var exitCode = await process.exitCode;
+
+      if(mounted) {
+        Navigator.pop(context, "Ok");
+      }
+
+      if(exitCode == 0) {
+        // The profile was properly installed
+        await _profileEntryTryExecute(profileData, dirName, path);
+      } else {
+        // There was an error installing the profile
+        throw Exception("Failed to install");
+        // TODO : Modify this so that the exception msg str is used as a
+        // loc string or something like that, maybe?
+      }
+    } catch(e) {
+      // Generic error handling when installing fails
+      if(mounted) {
+        showPopUpError(
+          context: context,
+          title: "Error",
+          description: "Could not install the profile!",
+        );
+      }
+      print(e);
+    }
+  }
+
+  Future<void> _profileEntryTryExecute(GameProfileData profileData, String dirName, String path) async {
+    try {
+
+      String processName = pathJoinMany([path, "game", "Magicka.exe"]);
+      List<String> args = [];
+      var process = await Process.start(processName, args);
+      process.stdout.drain();
+      process.stderr.drain();
+    } catch(e) {
+      if(mounted) {
+        showPopUpError(
+          context: context,
+          title: "An Error has occurred!",
+          description: "Magicka has failed to launch!",
+        );
+      }
+    }
   }
 
   void createProfile(BuildContext context) {
