@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:mpupgui/data/app_settings_data.dart';
+import 'package:mpupgui/data/cache_manager.dart';
 import 'package:mpupgui/data/language_manager.dart';
 import 'package:mpupgui/data/mod_manager.dart';
 import 'package:mpupgui/data/mpup_manager.dart';
@@ -21,6 +22,7 @@ abstract final class SettingsManager {
     ModManager.setPathToInstalls(settingsData.pathToInstalls);
     ModManager.setPathToMods(settingsData.pathToMods);
     ModManager.setPathToProfiles(settingsData.pathToProfiles);
+    CacheManager.setPathToCache(settingsData.pathToCache);
   }
 
   static void saveSettings() {
@@ -33,6 +35,7 @@ abstract final class SettingsManager {
     settingsData.pathToInstalls = ModManager.getPathToInstalls();
     settingsData.pathToMods = ModManager.getPathToMods();
     settingsData.pathToProfiles = ModManager.getPathToProfiles();
+    settingsData.pathToCache = CacheManager.getPathToCache();
 
     settingsData.writeToFile(settingsFile);
   }
