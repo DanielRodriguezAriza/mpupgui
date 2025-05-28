@@ -14,8 +14,9 @@ class AppSettingsData {
   late String pathToInstalls;
   late String pathToMods;
   late String pathToProfiles;
+  late String pathToCache;
 
-  T? _loadValue<T>(var dict, String path) {
+  T? _loadValueRaw<T>(var dict, String path) {
     try {
       T ans = dict[path];
       return ans;
@@ -25,32 +26,39 @@ class AppSettingsData {
     }
   }
 
+  T _loadValue<T>(var dict, String path, T defaultValue) {
+    return _loadValueRaw(dict, path) ?? defaultValue;
+  }
+
   void readFromFile(String settingsFile) {
     var str = readStringFromFile(settingsFile);
     var data = jsonDecode(str);
 
     // Load Language
-    String languageStr = _loadValue(data, "Language") ?? "english";
+    String languageStr = _loadValue(data, "Language", "english");
     language = Language.values.byName(languageStr);
 
     // Load App Theme
-    String themeStr = _loadValue(data, "Theme") ?? "dark";
+    String themeStr = _loadValue(data, "Theme", "dark");
     theme = AppTheme.values.byName(themeStr);
 
     // Load MagickaPup Path
-    pathToMagickaPup = _loadValue(data, "MagickaPupPath") ?? "./MagickaPUP.exe";
+    pathToMagickaPup = _loadValue(data, "MagickaPupPath", "./data/MagickaPUP.exe");
 
     // Load MagickCow mod manager Path
-    pathToMagickCowModManager = _loadValue(data, "MagickCowModManagerPath") ?? "./MagickCowModManager.exe";
+    pathToMagickCowModManager = _loadValue(data, "MagickCowModManagerPath", "./data/MagickCowModManager.exe");
 
     // Load path to installs
-    pathToInstalls = _loadValue(data, "pathToInstalls") ?? "./installs";
+    pathToInstalls = _loadValue(data, "pathToInstalls", "./data/mm/installs");
 
     // Load path to mods
-    pathToMods = _loadValue(data, "pathToMods") ?? "./mods";
+    pathToMods = _loadValue(data, "pathToMods", "./data/mm/mods");
 
     // Load path to profiles
-    pathToProfiles = _loadValue(data, "pathToProfiles") ?? "./profiles";
+    pathToProfiles = _loadValue(data, "pathToProfiles", "./data/mm/profiles");
+
+    // Load path to cache
+    pathToCache = _loadValue(data, "pathToCache", "./data/cache");
   }
 
   void writeToFile(String settingsFile) {
@@ -62,6 +70,7 @@ class AppSettingsData {
       "pathToInstalls" : pathToInstalls,
       "pathToMods" : pathToMods,
       "pathToProfiles" : pathToProfiles,
+      "pathToCache" : pathToCache,
     };
     var str = jsonEncode(data);
     writeStringToFile(settingsFile, str);
