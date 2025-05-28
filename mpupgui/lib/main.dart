@@ -43,6 +43,9 @@ void initFlutterApp() {
   ensureDirectoryExists("./data");
   ensureDirectoryExists("./data/cache");
   ensureDirectoryExists("./data/mm");
+  ensureDirectoryExists("./data/mm/installs");
+  ensureDirectoryExists("./data/mm/mods");
+  ensureDirectoryExists("./data/mm/profiles");
 
   // Initialize app data
   SettingsManager.loadSettings();
