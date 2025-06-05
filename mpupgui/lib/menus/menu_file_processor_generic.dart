@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:mpupgui/data/language_manager.dart';
 import 'package:mpupgui/data/mpup_manager.dart';
 import 'package:mpupgui/data/theme_manager.dart';
 import 'package:mpupgui/utility/file_handling.dart';
@@ -46,11 +47,13 @@ class MagickaPupFileProcessorMenuGeneric extends StatefulWidget {
 
   final List<String>? extensions;
   final String executionArgument;
+  final String locString;
 
   const MagickaPupFileProcessorMenuGeneric({
     super.key,
     this.extensions,
     this.executionArgument = "-u",
+    this.locString = "loc_decompile",
   });
 
   @override
@@ -99,7 +102,7 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
     String inputPath = processData.path;
     String outputPath = pathJoin(outputPathController.text, processData.name);
     List<String> arguments = [
-      "-d", "0", // Debug logging disabled
+      "-d", "0", // Debug logging disabled for increased runtime performance. And also because nobody is going to read all that shit.
       opStr, inputPath, outputPath,
     ];
 
@@ -308,10 +311,10 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
                 level: 2,
                 child: Row(
                   children: [
-                    getActionButton("Explore Files", pickInputFiles),
-                    getActionButton("Explore Directory", pickInputDir),
-                    getActionButton("Explore Directory", pickOutputDir),
-                    getActionButton("Compile", startRunningProcesses),
+                    getActionButton("Select Files", pickInputFiles),
+                    getActionButton("Select Directory", pickInputDir),
+                    getActionButton("Set Output Directory", pickOutputDir),
+                    getActionButton(LanguageManager.getString(widget.locString), startRunningProcesses),
                   ],
                 ),
               ),
