@@ -9,6 +9,7 @@ import 'package:mpupgui/utility/popup_util.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
+import 'package:mpupgui/widgets/mpup/utility/mpup_scroller.dart';
 import 'package:mpupgui/widgets/mpuplegacy_button.dart';
 import 'package:mpupgui/widgets/mpuplegacy_container.dart';
 import 'package:mpupgui/widgets/mpuplegacy_named_container.dart';
@@ -27,6 +28,8 @@ class SettingsMenu extends StatefulWidget {
 }
 
 class _SettingsMenuState extends State<SettingsMenu> {
+
+  final ScrollController settingsScrollerController = ScrollController();
 
   final TextEditingController textControllerMagickaPup = TextEditingController();
   final TextEditingController textControllerMagickCowMM = TextEditingController();
@@ -267,7 +270,12 @@ class _SettingsMenuState extends State<SettingsMenu> {
               child: MagickaPupContainer(
                 text: "Paths",
                 level: 2,
-                child: getPathsWidgets(),
+                child: MagickaPupScroller(
+                  controller: settingsScrollerController,
+                  children: [
+                    getPathsWidgets(),
+                  ],
+                ),
               ),
             ),
           ],
