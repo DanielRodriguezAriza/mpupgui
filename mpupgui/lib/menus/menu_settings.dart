@@ -231,6 +231,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
                 ),
               ),
             ),
+            /*
             IntrinsicHeight(
               child: MagickaPupContainer(
                 text: "Theme",
@@ -266,6 +267,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
                 ),
               ),
             ),
+            */
             Expanded(
               child: MagickaPupContainer(
                 text: "Paths",
