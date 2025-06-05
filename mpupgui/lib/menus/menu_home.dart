@@ -63,7 +63,7 @@ class HomeMenu extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: SizedBox(
-                          width: 200,
+                          width: 250,
                           height: 100,
                           child: MagickaPupButton(
                             level: 1,
@@ -73,7 +73,8 @@ class HomeMenu extends StatelessWidget {
                               // minecraft's launcher and stuff like that I guess...
                             },
                             child: const MagickaPupText(
-                                text: "Play"
+                              text: "Play",
+                              fontSize: 30,
                             ),
                           ),
                         ),
