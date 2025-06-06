@@ -16,6 +16,9 @@ class MagickaPupTextField extends StatelessWidget {
 
   final bool numeric;
 
+  final TextAlign textAlign;
+  final TextAlignVertical? textAlignVertical;
+
   const MagickaPupTextField({
     super.key,
     this.controller,
@@ -28,6 +31,9 @@ class MagickaPupTextField extends StatelessWidget {
     this.minWidth = 0,
 
     this.numeric = false,
+
+    this.textAlign = TextAlign.start,
+    this.textAlignVertical,
   });
 
   @override
@@ -38,6 +44,8 @@ class MagickaPupTextField extends StatelessWidget {
   Widget getTextField() {
     var themeData = ThemeManager.getCurrentThemeData();
     return TextField(
+      textAlign: textAlign,
+      textAlignVertical: textAlignVertical,
       onEditingComplete: onEdit,
       controller: controller,
       keyboardType: TextInputType.text,
