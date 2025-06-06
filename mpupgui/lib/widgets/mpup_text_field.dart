@@ -16,6 +16,14 @@ class MagickaPupTextField extends StatelessWidget {
 
   final bool numeric;
 
+  // NOTE : TextAlign and TextAlignVertical properties:
+  // To know why one is always present and the other is nullable, just
+  // look at the way the properties for alignment are made in the flutter
+  // baseline TextField widget class. Basically, the horizontal alignment always
+  // needs to exist, so they default to Alignment.start.
+  // The vertical also needs to have a value, but they instead take it as a
+  // nullable reference, and use a default value defined internally as replacement.
+  // Why? I don't know. But I decided to do the same so as to keep behaviour consistent with the standard.
   final TextAlign textAlign;
   final TextAlignVertical? textAlignVertical;
 
