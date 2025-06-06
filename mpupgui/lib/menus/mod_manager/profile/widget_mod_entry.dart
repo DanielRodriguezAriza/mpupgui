@@ -80,7 +80,7 @@ class ModEntryWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                 child: SizedBox(
-                  width: 50,
+                  width: 120,
                   height: 50,
                   child: MagickaPupButton(
                     useAutoPadding: false,
