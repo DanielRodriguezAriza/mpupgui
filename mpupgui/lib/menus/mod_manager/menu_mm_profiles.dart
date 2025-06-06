@@ -109,7 +109,7 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                 child: SizedBox(
-                  width: 50,
+                  width: 120,
                   height: 50,
                   child: MagickaPupButton(
                     level: 0,
@@ -118,8 +118,9 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
                       await profileEntryTryLaunch(profileData, name, path);
                     },
                     child: const MagickaPupText(
-                      text: "P",
-                      fontSize: 10,
+                      text: "Play",
+                      fontSize: 24,
+                      isBold: true,
                     ),
                   ),
                 ),
@@ -135,9 +136,11 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
                     onPressed: () async {
                       editProfile(context, path);
                     },
-                    child: const MagickaPupText(
-                      text: "E",
-                      fontSize: 10,
+                    child: const Padding(
+                      padding: EdgeInsets.all(4),
+                      child: Image(
+                        image: AssetImage("assets/images/mpup_icon_gear.png"),
+                      ),
                     ),
                   ),
                 ),
@@ -153,9 +156,11 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
                     onPressed: () async {
                       await OpenFilex.open(path);
                     },
-                    child: const MagickaPupText(
-                      text: "O",
-                      fontSize: 10,
+                    child: const Padding(
+                      padding: EdgeInsets.all(4),
+                      child: Image(
+                        image: AssetImage("assets/images/mpup_icon_folder.png"),
+                      ),
                     ),
                   ),
                 ),
@@ -178,9 +183,11 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
                         },
                       );
                     },
-                    child: const MagickaPupText(
-                      text: "X",
-                      fontSize: 10,
+                    child: const Padding(
+                      padding: EdgeInsets.all(4),
+                      child: Image(
+                        image: AssetImage("assets/images/mpup_icon_x.png"),
+                      ),
                     ),
                   ),
                 ),
