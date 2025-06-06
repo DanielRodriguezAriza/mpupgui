@@ -61,6 +61,17 @@ class ModEntryWidget extends StatelessWidget {
                 ),
               ),
               Padding(
+                padding: const EdgeInsets.all(2),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                  child: MagickaPupText(
+                    isBold: true,
+                    text: "$loadOrder",
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              Padding(
                 padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                 child: SizedBox(
                   width: 50,

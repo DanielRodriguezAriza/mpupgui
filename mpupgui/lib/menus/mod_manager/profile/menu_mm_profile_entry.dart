@@ -405,7 +405,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
       onSelected: (){
         selectMod(index);
       },
-      loadOrder: 0, // TODO : Get rid of this shit property please!!! or rework it or whatever...
+      loadOrder: index, // Literally only affects the number that is visually displayed, the actual display order we change here on this file with the reload logic stuff...
       setLoadOrder: (){
         setLoadOrder(context, index);
       },
