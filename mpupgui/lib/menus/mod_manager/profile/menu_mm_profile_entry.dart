@@ -425,7 +425,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
   void setLoadOrder(BuildContext context, int index) {
     showPopUpGeneric(
       context: context, title: "Set Load Order",
-      description: "Do you want to change it bro?",
+      description: "Set the load order of this mod",
       body: MagickaPupTextField(
         controller: controllerPopUp,
         numeric: true,
