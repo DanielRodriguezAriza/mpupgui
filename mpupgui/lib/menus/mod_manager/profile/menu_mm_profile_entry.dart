@@ -410,10 +410,14 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
         setLoadOrder(context, index);
       },
       setLoadOrderDown: (){
-        setLoadOrder(context, index);
+        setState(() {
+          modSetLoadOrder(index, index + 1);
+        });
       },
       setLoadOrderUp: (){
-        setLoadOrder(context, index);
+        setState(() {
+          modSetLoadOrder(index, index - 1);
+        });
       },
     );
   }
