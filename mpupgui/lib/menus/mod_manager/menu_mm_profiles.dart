@@ -252,7 +252,8 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
 
       String processName = pathJoinMany([path, "game", "Magicka.exe"]);
       List<String> args = [];
-      var process = await Process.start(processName, args);
+      String workingDirectory = pathJoin(path, "game");
+      var process = await Process.start(processName, args, workingDirectory: workingDirectory); // Ensure that the working directory is set to the game folder so that even installs made through symlinks can work.
       process.stdout.drain();
       process.stderr.drain();
     } catch(e) {
