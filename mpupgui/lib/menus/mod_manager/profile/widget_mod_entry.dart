@@ -64,6 +64,7 @@ class ModEntryWidget extends StatelessWidget {
                   ),
                 ),
               ),
+              /*
               Padding(
                 padding: const EdgeInsets.all(2),
                 child: Padding(
@@ -75,6 +76,7 @@ class ModEntryWidget extends StatelessWidget {
                   ),
                 ),
               ),
+              */
               Padding(
                 padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                 child: SizedBox(
@@ -85,7 +87,11 @@ class ModEntryWidget extends StatelessWidget {
                     onPressed: (){
                       setLoadOrder();
                     },
-                    child: const Placeholder(),
+                    child: MagickaPupText(
+                      isBold: true,
+                      text: "$loadOrder",
+                      fontSize: 18,
+                    ),
                   ),
                 ),
               ),
