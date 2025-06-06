@@ -72,11 +72,12 @@ class ModEntryWidget extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                 child: SizedBox(
                   width: 50,
                   height: 50,
                   child: MagickaPupButton(
+                    useAutoPadding: false,
                     onPressed: (){
                       setLoadOrder();
                     },
@@ -85,7 +86,40 @@ class ModEntryWidget extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                child: SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: MagickaPupButton(
+                          useAutoPadding: false,
+                          onPressed: (){
+                            setLoadOrder();
+                          },
+                          child: const MagickaPupText(
+                            text: "-",
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: MagickaPupButton(
+                          useAutoPadding: false,
+                          onPressed: (){
+                            setLoadOrder();
+                          },
+                          child: const MagickaPupText(
+                            text: "+",
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                 child: SizedBox(
                   width: 50,
                   height: 50,
@@ -103,7 +137,7 @@ class ModEntryWidget extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                 child: SizedBox(
                   width: 50,
                   height: 50,
