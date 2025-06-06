@@ -80,7 +80,7 @@ class ModEntryWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                 child: SizedBox(
-                  width: 120,
+                  width: 120, // TODO : (obvious joke is obvious) VERY IMPORTANT!!! FIX ASAP!!!! Eventually fix the issue of text that will not fit once the number gets large enough... for now, over 99999999999 mods can be added and still fit in the same line without any issues... from there, we have double the length in characters to fit in the second line until we truly run out of space, but that just looks ugly!!! So yeah, FIX ASAP!!!! /s
                   height: 50,
                   child: MagickaPupButton(
                     useAutoPadding: false,
@@ -89,7 +89,7 @@ class ModEntryWidget extends StatelessWidget {
                     },
                     child: MagickaPupText(
                       isBold: true,
-                      text: "$loadOrder",
+                      text: "$loadOrder", // Yes, really, I've tested it and the number can fit in a single line up to 99999999999... that's over 99 AMERICAN billion! or over 99 thousand million if you prefer the European billion, like normal people do!
                       fontSize: 18,
                     ),
                   ),
