@@ -445,6 +445,9 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
               // Move the entry to the target location.
               final int target = int.parse(controllerPopUp.text);
               modSetLoadOrder(index, target);
+
+              // Reset the text of the popup so that it's emtpy on the next use.
+              controllerPopUp.text = "";
             });
           }
         ),
