@@ -116,3 +116,57 @@ bool fileExists(File file) {
 }
 
 // endregion
+
+bool isSameDriveSync(String pathA, String pathB) {
+  // If on Windows:
+  // We just check the drive letter.
+  // Windows can only have up to 26 drive letters, anything more than that is not
+  // recognised... that means that users need to merge multiple drives with something like a RAID
+  // under the same mount point (the same drive letter).
+  // In that case, even stuff like hardlinks work properly, because the hardlink limitation is not under
+  // physical hard drives, but under the mount points / File system "units" themselves.
+  return pathA[0] == pathB[0]; // BRUH...
+
+  // If on another system:
+  // TODO : Implement LOL!
+
+  // NOTE : Checking if the mount point is the same like this by checking
+  // the drive letter only works on windows!
+  // on other systems, we need to use stuff like stat(), and sadly,
+  // Directory.stat() does not give enough info about the inode or the deviceId
+  // on dart, so we need to make a subprocess call... not gonna implement it
+  // for now tho, because I don't have time, but it should be easy enough.
+  // Just need to modify the code to be async so that we don't have issues...
+  // And then add an isSameDriveSync version...
+}
+
+bool isSameDriveManySync(List<String> paths) {
+
+  // If we have 0 or 1 drives on the list, then just return true cause there's
+  // nothing to compare against...
+  if(paths.length <= 1) {
+    return true;
+  }
+
+  final String firstPath = paths[0];
+  for(int i = 1; i < paths.length; ++i) {
+    if(!isSameDriveSync(firstPath, paths[i])) {
+      return false;
+    }
+  }
+
+  return true;
+
+  // This other alternative works AFAIK, but I wouldn't risk it considering how
+  // there could exist some edge case where it breaks...
+  /*
+  int comparisons = 0;
+  for(int i = 0; i < paths.length - 1; ++i) {
+    if(isSameDriveSync(paths[i], paths[i + 1])) {
+      comparisons += 1;
+    }
+  }
+
+  return comparisons == paths.length - 1;
+  */
+}
