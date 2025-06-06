@@ -14,6 +14,8 @@ class ModEntryWidget extends StatelessWidget {
   final int loadOrder;
   final VoidCallback onSelected;
   final VoidCallback setLoadOrder;
+  final VoidCallback setLoadOrderUp; // decrease the load order (order--)
+  final VoidCallback setLoadOrderDown; // increase the load order (order++)
 
   const ModEntryWidget({
     super.key,
@@ -23,6 +25,8 @@ class ModEntryWidget extends StatelessWidget {
     required this.onSelected,
     required this.loadOrder,
     required this.setLoadOrder,
+    required this.setLoadOrderUp,
+    required this.setLoadOrderDown,
   });
 
   @override
@@ -96,7 +100,7 @@ class ModEntryWidget extends StatelessWidget {
                         child: MagickaPupButton(
                           useAutoPadding: false,
                           onPressed: (){
-                            setLoadOrder();
+                            setLoadOrderUp();
                           },
                           child: const MagickaPupText(
                             text: "-",
@@ -107,7 +111,7 @@ class ModEntryWidget extends StatelessWidget {
                         child: MagickaPupButton(
                           useAutoPadding: false,
                           onPressed: (){
-                            setLoadOrder();
+                            setLoadOrderDown();
                           },
                           child: const MagickaPupText(
                             text: "+",
