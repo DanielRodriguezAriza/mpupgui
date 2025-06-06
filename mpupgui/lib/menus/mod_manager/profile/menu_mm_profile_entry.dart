@@ -429,6 +429,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
       body: MagickaPupTextField(
         controller: controllerPopUp,
         numeric: true,
+        textAlign: TextAlign.center,
       ),
       actions: [
         PopUpAction(
