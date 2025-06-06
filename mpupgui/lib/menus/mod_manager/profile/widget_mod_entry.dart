@@ -92,7 +92,7 @@ class ModEntryWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                 child: SizedBox(
-                  width: 50,
+                  width: 50 / 2,
                   height: 50,
                   child: Column(
                     children: [
@@ -104,6 +104,7 @@ class ModEntryWidget extends StatelessWidget {
                           },
                           child: const MagickaPupText(
                             text: "-",
+                            isBold: true,
                           ),
                         ),
                       ),
@@ -115,6 +116,7 @@ class ModEntryWidget extends StatelessWidget {
                           },
                           child: const MagickaPupText(
                             text: "+",
+                            isBold: true,
                           ),
                         ),
                       ),
