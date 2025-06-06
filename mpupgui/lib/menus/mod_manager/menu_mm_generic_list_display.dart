@@ -98,7 +98,7 @@ class _ModManagerMenuGenericListDisplayState extends State<ModManagerMenuGeneric
         var entries = dir.listSync().whereType<Directory>();
         for(var entry in entries) {
           if(isValidDirectory(entry)) {
-            entryNames.add(pathName(entry.path));
+            entryNames.add(pathName(entry.path, true));
             entryPaths.add(entry.path);
             entryCount += 1;
           }

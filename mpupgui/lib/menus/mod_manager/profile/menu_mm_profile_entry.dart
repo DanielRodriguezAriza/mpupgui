@@ -274,7 +274,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
         if(name.toLowerCase() == "magicka.exe") {
           setState(() {
             EntryData entryData = EntryData(
-              name: pathName(childDir.path),
+              name: pathName(childDir.path, true),
               path: childDir.path,
             );
             foundInstalls.add(entryData);
@@ -375,7 +375,7 @@ class _ModManagerMenuProfileEntryState extends State<ModManagerMenuProfileEntry>
 
     setState(() {
       for (int i = 0; i < numMods; ++i) {
-        modsName.add(pathName(childDirs[i].path));
+        modsName.add(pathName(childDirs[i].path, true));
         modsEnabled.add(false);
         // modsOrder.add(i);
       }
