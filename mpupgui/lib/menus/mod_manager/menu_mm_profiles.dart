@@ -206,11 +206,19 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
         canDismiss: false,
       );
 
+      final String pi = ModManager.getPathToInstalls();
+      final String pm = ModManager.getPathToMods();
+      final String pp = ModManager.getPathToProfiles();
+
+      final bool isSameDrive = isSameDriveManySync([pi, pm, pp]);
+      final String fhm = isSameDrive ? "hardlink" : "symlink";
+
       String processName = ModManager.getPathToMagickCowModManager();
       List<String> args = [
-        "-pi", ModManager.getPathToInstalls(),
-        "-pm", ModManager.getPathToMods(),
-        "-pp", ModManager.getPathToProfiles(),
+        "-pi", pi,
+        "-pm", pm,
+        "-pp", pp,
+        "-fhm", fhm,
         "-r", dirName,
       ];
 
