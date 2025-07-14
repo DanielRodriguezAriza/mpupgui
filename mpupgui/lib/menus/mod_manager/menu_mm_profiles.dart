@@ -255,7 +255,7 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
         "-pm", pm,
         "-pp", pp,
         "-fhm", fhm,
-        "-r", dirName,
+        "-a", dirName,
       ];
 
       var process = await Process.start(processName, args);
