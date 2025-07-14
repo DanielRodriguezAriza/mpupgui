@@ -193,7 +193,13 @@ bool isSameDriveManySync(List<String> paths) {
 // Still, we can try to implement a fixup function that can try to fix paths
 // on each platform as much as possible so that we can be as lenient as possible
 // without introducing broken behaviour.
-// That was the purpose of the following function, but too many issues were
-// introduced by it, so it has been completely discarded... just write
-// the correct paths instead, this is user error and that's it, simple as that.
-// String pathSeparatorFix(String path) {}
+// That is the purpose of the following function, but too many issues can
+// be introduced by it, so maybe it should be completely discarded... just write
+// the correct paths instead dude, this is user error and that's it, simple as that!
+// Use the following function at your own discretion, if issues come up, fuck you, deal with it!
+String pathSeparatorFix(String path) {
+  if(Platform.pathSeparator == "\\") {
+    path.replaceAll("/", "\\");
+  }
+  return path;
+}
