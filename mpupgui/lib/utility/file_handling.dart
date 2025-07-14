@@ -171,6 +171,8 @@ bool isSameDriveManySync(List<String> paths) {
   */
 }
 
+// region Path Fixes
+
 // NOTE : Notes regarding path separator behaviour.
 // Path separators are very important to get right for proper program behaviour.
 // For instance, nowadays on Windows, forward slash separator ('/') is considered
@@ -197,9 +199,19 @@ bool isSameDriveManySync(List<String> paths) {
 // be introduced by it, so maybe it should be completely discarded... just write
 // the correct paths instead dude, this is user error and that's it, simple as that!
 // Use the following function at your own discretion, if issues come up, fuck you, deal with it!
+// A "better" compromise could be made to actually just not support files in Unix systems that
+// contain backslashes in the name since Magicka uses XNA and is thus heavily tied by Microsoft's way of doing things.
 String pathSeparatorFix(String path) {
   if(Platform.pathSeparator == "\\") {
-    path.replaceAll("/", "\\");
+    return path.replaceAll("/", "\\"); // literally valid only because on Windows "/" is not a valid char for a file or dir name lol...
   }
   return path;
 }
+
+// lol...
+String pathFix(String path) {
+  return pathSeparatorFix(path);
+  // here we can add other function calls when we need to fix other stuff about our paths...
+}
+
+// endregion
