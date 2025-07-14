@@ -218,8 +218,14 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
     );
   }
 
-  Future<void> profileEntryTryLaunch(GameProfileData profileData, String dirName, String path) async {
-    await _profileEntryTryInstall(profileData, dirName, path);
+  // This used to be called "profileEntryTryLaunch"
+  // Note that this function is pretty much unused as of now...
+  // This is because we now separate the install and launch process into 2 different functions.
+  Future<void> profileEntryTryInstallAndExecute(GameProfileData profileData, String dirName, String path) async {
+    bool installSuccess = await _profileEntryTryInstall(profileData, dirName, path);
+    if(installSuccess) {
+      bool executeSuccess = await _profileEntryTryExecute(profileData, dirName, path);
+    }
   }
 
   Future<bool> _profileEntryTryInstall(GameProfileData profileData, String dirName, String path) async {
@@ -259,10 +265,7 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
         Navigator.pop(context, "Ok");
       }
 
-      if(exitCode == 0) {
-        // The profile was properly installed
-        await _profileEntryTryExecute(profileData, dirName, path);
-      } else {
+      if(exitCode != 0) {
         // There was an error installing the profile
         throw Exception("Failed to install");
         // TODO : Modify this so that the exception msg str is used as a
