@@ -112,7 +112,7 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
                   width: 120,
                   height: 50,
                   child: MagickaPupButton(
-                    level: 0,
+                    level: isProfileInstalled(path) ? 4 : 5,
                     useAutoPadding: false,
                     onPressed: () async {
                       await _profileEntryTryExecute(profileData, name, path);
@@ -333,5 +333,12 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
     if(dir.existsSync()) {
       dir.deleteSync(recursive: true); // Recursive set to true so that elements within the directory can be deleted as well.
     }
+  }
+
+  bool isProfileInstalled(String path) {
+    String exePath = pathJoinMany([path, "game", "Magicka.exe"]);
+    File file = File(exePath);
+    // print("the path $exePath");
+    return file.existsSync();
   }
 }
