@@ -128,6 +128,25 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                 child: SizedBox(
+                  width: 120,
+                  height: 50,
+                  child: MagickaPupButton(
+                    level: 0,
+                    useAutoPadding: false,
+                    onPressed: () async {
+                      await profileEntryTryLaunch(profileData, name, path);
+                    },
+                    child: const MagickaPupText(
+                      text: "Apply",
+                      fontSize: 24,
+                      isBold: true,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: SizedBox(
                   width: 50,
                   height: 50,
                   child: MagickaPupButton(
