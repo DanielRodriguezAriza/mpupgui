@@ -170,3 +170,30 @@ bool isSameDriveManySync(List<String> paths) {
   return comparisons == paths.length - 1;
   */
 }
+
+// NOTE : Notes regarding path separator behaviour.
+// Path separators are very important to get right for proper program behaviour.
+// For instance, nowadays on Windows, forward slash separator ('/') is considered
+// valid even tho it classically used the back slash separator ('\').
+// Still, despite that, executable paths don't play well with relative paths
+// that use non-standard separators.
+// For example, "./someExecutable" is valid for execution on Linux, but not on
+// Windows. To make it valid, you should use ".\someExecutable". Also, back slash
+// paths don't work on Unix systems, since back slash is considered a valid
+// character for file system entities to contain (valid char for file names and
+// dir names).
+// A fix could be to make a function that fixes up the path separators, but
+// it could only be guaranteed to work on Windows, since there, both '\' and '/'
+// are considered path separators. On UNIX systems such as Linux tho, only '/' is
+// a valid path separator, and '\' is just a regular char for paths, which means
+// that just blindly replacing all back slashes for forward slashes would not be
+// a proper solution on Linux.
+// It is for that reason that the only proper way to solve this issue is for
+// users to input the correct paths on their input fields.
+// Still, we can try to implement a fixup function that can try to fix paths
+// on each platform as much as possible so that we can be as lenient as possible
+// without introducing broken behaviour.
+// That was the purpose of the following function, but too many issues were
+// introduced by it, so it has been completely discarded... just write
+// the correct paths instead, this is user error and that's it, simple as that.
+// String pathSeparatorFix(String path) {}
