@@ -218,6 +218,13 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
     );
   }
 
+  // TODO : In the future, make it so that profile install is performed automatically as a sort of "refresh" mechanic
+  // Maybe on boot, all profiles try to "reinstall" / "refresh" to check if they are properly installed and up to date
+  // (as a sort of steam verifying files / checking for updates).
+  // Then, when a profile is edited or created, on exit, do the same thing.
+  // The install should be like a loading bar or spinner on each profile individually, that way we can allow multiple
+  // profiles to be installed at once, and players can play or do whatever else while other profile installs, etc...
+
   // This used to be called "profileEntryTryLaunch"
   // Note that this function is pretty much unused as of now...
   // This is because we now separate the install and launch process into 2 different functions.
