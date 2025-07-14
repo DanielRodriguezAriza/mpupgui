@@ -115,7 +115,7 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
                     level: 0,
                     useAutoPadding: false,
                     onPressed: () async {
-                      await profileEntryTryLaunch(profileData, name, path);
+                      await _profileEntryTryExecute(profileData, name, path);
                     },
                     child: const MagickaPupText(
                       text: "Play",
@@ -134,7 +134,7 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
                     level: 0,
                     useAutoPadding: false,
                     onPressed: () async {
-                      await profileEntryTryLaunch(profileData, name, path);
+                      await _profileEntryTryInstall(profileData, name, path);
                     },
                     child: const MagickaPupText(
                       text: "Apply",
