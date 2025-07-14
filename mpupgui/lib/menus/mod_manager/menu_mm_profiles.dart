@@ -256,7 +256,7 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
       final bool isSameDrive = isSameDriveManySync([pi, pm, pp]);
       final String fhm = isSameDrive ? "hardlink" : "symlink";
 
-      String processName = ModManager.getPathToMagickCowModManager();
+      String processName = pathFix(ModManager.getPathToMagickCowModManager());
       List<String> args = [
         "-pi", pi,
         "-pm", pm,
