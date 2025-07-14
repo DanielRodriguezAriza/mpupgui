@@ -78,6 +78,8 @@ class ThemeManager {
           Color.fromARGB(255, 43, 43, 43),
           Color.fromARGB(255, 54, 54, 54),
           Color.fromARGB(255, 128, 128, 128),
+          Color.fromARGB(255, 20, 165, 50),
+          Color.fromARGB(255, 180, 0, 0),
         ],
         text: [
           Color.fromARGB(255, 255, 255, 255),
