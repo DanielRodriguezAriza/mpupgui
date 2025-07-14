@@ -222,7 +222,7 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
     await _profileEntryTryInstall(profileData, dirName, path);
   }
 
-  Future<void> _profileEntryTryInstall(GameProfileData profileData, String dirName, String path) async {
+  Future<bool> _profileEntryTryInstall(GameProfileData profileData, String dirName, String path) async {
     try {
       showPopUpGeneric(
         context: context,
@@ -268,6 +268,8 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
         // TODO : Modify this so that the exception msg str is used as a
         // loc string or something like that, maybe?
       }
+
+      return true; // Report Success
     } catch(e) {
       // Generic error handling when installing fails
       if(mounted) {
@@ -278,18 +280,19 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
         );
       }
       print(e);
+      return false; // Report Failure
     }
   }
 
-  Future<void> _profileEntryTryExecute(GameProfileData profileData, String dirName, String path) async {
+  Future<bool> _profileEntryTryExecute(GameProfileData profileData, String dirName, String path) async {
     try {
-
       String processName = pathJoinMany([path, "game", "Magicka.exe"]);
       List<String> args = [];
       String workingDirectory = pathJoin(path, "game");
       var process = await Process.start(processName, args, workingDirectory: workingDirectory); // Ensure that the working directory is set to the game folder so that even installs made through symlinks can work.
       process.stdout.drain();
       process.stderr.drain();
+      return true; // Report success
     } catch(e) {
       if(mounted) {
         showPopUpError(
@@ -298,6 +301,7 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
           description: "Magicka has failed to launch!",
         );
       }
+      return false; // Report failure
     }
   }
 
