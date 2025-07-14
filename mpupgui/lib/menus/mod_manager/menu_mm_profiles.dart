@@ -226,6 +226,10 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
     if(installSuccess) {
       bool executeSuccess = await _profileEntryTryExecute(profileData, dirName, path);
     }
+    // NOTE : This code can be changed to use early returns on if(!whateverSuccess) {return;}
+    // in the future in the event that we would want to implement multiple async steps.
+    // That way, the code would not have a gazillion indentations.
+    // For now tho, this is ok, so we'll leave it as it is.
   }
 
   Future<bool> _profileEntryTryInstall(GameProfileData profileData, String dirName, String path) async {
