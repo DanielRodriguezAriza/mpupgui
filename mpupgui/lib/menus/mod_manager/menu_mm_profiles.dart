@@ -344,8 +344,6 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
 
   bool isProfileInstalled(String path) {
     String exePath = pathJoinMany([path, "game", "Magicka.exe"]);
-    File file = File(exePath);
-    // print("the path $exePath");
-    return file.existsSync();
+    return pathExists(exePath);
   }
 }
