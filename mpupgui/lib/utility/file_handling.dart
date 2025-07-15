@@ -215,3 +215,11 @@ String pathFix(String path) {
 }
 
 // endregion
+
+// Get a relative path string from a root and a target path.
+// The root string contains the common root path of both strings.
+// The target string contains the path which we want to convert into a relative path.
+// Example: pathRelative("/root/thing/", "root/thing/joe_mama.png") => "./joe_mama.png"
+String pathRelative(String root, String target) {
+  return dart_path.relative(target, from: root);
+}
