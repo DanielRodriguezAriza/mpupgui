@@ -141,9 +141,11 @@ class ModEntryWidget extends StatelessWidget {
                     onPressed: () async {
                       await OpenFilex.open(path);
                     },
-                    child: const MagickaPupText(
-                      text: "...",
-                      fontSize: 10,
+                    child: const Padding(
+                      padding: EdgeInsets.all(4),
+                      child: Image(
+                        image: AssetImage("assets/images/mpup_icon_folder.png"),
+                      ),
                     ),
                   ),
                 ),
