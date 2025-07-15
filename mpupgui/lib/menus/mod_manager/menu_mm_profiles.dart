@@ -109,7 +109,7 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                 child: SizedBox(
-                  width: 120,
+                  width: 50,
                   height: 50,
                   child: MagickaPupButton(
                     level: isProfileInstalled(path) ? 4 : 5,
@@ -117,10 +117,11 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
                     onPressed: () async {
                       await _profileEntryTryExecute(profileData, name, path);
                     },
-                    child: const MagickaPupText(
-                      text: "Play",
-                      fontSize: 24,
-                      isBold: true,
+                    child: const Padding(
+                      padding: EdgeInsets.all(4),
+                      child: Image(
+                        image: AssetImage("assets/images/mpup_icon_play.png"),
+                      ),
                     ),
                   ),
                 ),
@@ -128,7 +129,7 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                 child: SizedBox(
-                  width: 120,
+                  width: 50,
                   height: 50,
                   child: MagickaPupButton(
                     level: 0,
@@ -136,10 +137,11 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
                     onPressed: () async {
                       await _profileEntryTryInstall(profileData, name, path);
                     },
-                    child: const MagickaPupText(
-                      text: "Apply",
-                      fontSize: 24,
-                      isBold: true,
+                    child: const Padding(
+                      padding: EdgeInsets.all(4),
+                      child: Image(
+                        image: AssetImage("assets/images/mpup_icon_install.png"),
+                      ),
                     ),
                   ),
                 ),
