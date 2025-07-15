@@ -74,6 +74,8 @@ flutter:
     - assets/images/mpup_icon_folder.png
     - assets/images/mpup_icon_gear.png
     - assets/images/mpup_icon_x.png
+    - assets/images/mpup_icon_play.png
+    - assets/images/mpup_icon_install.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
