@@ -2,11 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:mpupgui/data/cache_manager.dart';
+import 'package:mpupgui/utility/file_handling.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
 import 'package:http/http.dart' as dart_http;
+import 'package:open_filex/open_filex.dart';
 
 class HomeMenu extends StatelessWidget {
   const HomeMenu({super.key});
@@ -23,15 +25,37 @@ class HomeMenu extends StatelessWidget {
           level: 2,
           child: Column(
             children: [
-              const MagickaPupContainer(
+              MagickaPupContainer(
                 height: 60,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: MagickaPupText(
-                    text: "Magicka Packer-Unpacker GUI",
-                    fontSize: 28,
-                    isBold: true,
-                  ),
+                child: Stack(
+                  children: [
+                    const Align(
+                      alignment: Alignment.center,
+                      child: MagickaPupText(
+                        text: "Magicka Packer-Unpacker GUI",
+                        fontSize: 28,
+                        isBold: true,
+                      ),
+                    ), // Text with the app name
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: MagickaPupButton(
+                          onPressed: (){
+                            OpenFilex.open(pathCurrentGet());
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.all(2),
+                            child: Image(
+                              image: AssetImage("assets/images/mpup_icon_folder.png"),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ), // Button to open location of the app
+                  ],
                 ),
               ),
               Expanded(
