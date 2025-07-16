@@ -335,6 +335,21 @@ class _SettingsMenuState extends State<SettingsMenu> {
                 height: 1000,
                 width: 20,
                 onPressed: () async {
+                  String root = pathCurrentGet();
+                  String str = pathRelative(root, controller.text);
+                  controller.text = str;
+                  action(controller.text);
+                },
+                child: const MagickaPupText(
+                  text: "...",
+                  fontSize: 10,
+                ),
+              ), // Make Path Relative Button
+              MagickaPupButton(
+                useAutoPadding: false,
+                height: 1000,
+                width: 20,
+                onPressed: () async {
                   String? str = await pick();
                   if(str != null) {
                     controller.text = str;
@@ -345,7 +360,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
                   text: "...",
                   fontSize: 10,
                 ),
-              )
+              ), // Pick Path Button
             ]
         ),
       ),
