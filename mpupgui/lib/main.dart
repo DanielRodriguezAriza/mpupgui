@@ -54,6 +54,7 @@ void initFlutterApp() {
     "./data/mm/profiles",
 
     // Tools
+    "./data/tools",
     "./data/tools/mpup",
     "./data/tools/mcow-mm",
   ];
