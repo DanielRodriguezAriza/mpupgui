@@ -64,10 +64,10 @@ class AppSettingsData {
     theme = AppTheme.values.byName(themeStr);
 
     // Load MagickaPup Path
-    pathToMagickaPup = _loadValue(data, "MagickaPupPath", "./data/MagickaPUP.exe");
+    pathToMagickaPup = _loadValue(data, "MagickaPupPath", "/data/tools/mpup/MagickaPUP.exe");
 
     // Load MagickCow mod manager Path
-    pathToMagickCowModManager = _loadValue(data, "MagickCowModManagerPath", "./data/MagickCowModManager.exe");
+    pathToMagickCowModManager = _loadValue(data, "MagickCowModManagerPath", "/data/tools/mcow-mm/MagickCowModManager.exe");
 
     // Load path to installs
     pathToInstalls = _loadValue(data, "pathToInstalls", "./data/mm/installs");
