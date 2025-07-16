@@ -330,36 +330,38 @@ class _SettingsMenuState extends State<SettingsMenu> {
                   },
                 ),
               ),
-              MagickaPupButton(
-                useAutoPadding: false,
-                height: 1000,
-                width: 20,
-                onPressed: () async {
-                  String root = pathCurrentGet();
-                  print("The current dir is : $root");
-                  String str = pathRelative(root, controller.text);
-                  controller.text = str;
-                  action(controller.text);
-                },
-                child: const MagickaPupText(
-                  text: "...",
-                  fontSize: 10,
-                ),
-              ), // Make Path Relative Button
-              MagickaPupButton(
-                useAutoPadding: false,
-                height: 1000,
-                width: 20,
-                onPressed: () async {
-                  String? str = await pick();
-                  if(str != null) {
+              SizedBox(
+                width: 40,
+                height: 40,
+                child: MagickaPupButton(
+                  useAutoPadding: false,
+                  onPressed: () async {
+                    String root = pathCurrentGet();
+                    // print("The current dir is : $root");
+                    String str = pathRelative(root, controller.text);
                     controller.text = str;
                     action(controller.text);
-                  }
-                },
-                child: const MagickaPupText(
-                  text: "...",
-                  fontSize: 10,
+                  },
+                  child: const Image(
+                    image: AssetImage("assets/images/mpup_icon_path_mk_rel.png"),
+                  ),
+                ),
+              ), // Make Path Relative Button
+              SizedBox(
+                width: 40,
+                height: 40,
+                child: MagickaPupButton(
+                  useAutoPadding: false,
+                  onPressed: () async {
+                    String? str = await pick();
+                    if(str != null) {
+                      controller.text = str;
+                      action(controller.text);
+                    }
+                  },
+                  child: const Image(
+                    image: AssetImage("assets/images/mpup_icon_folder_abs.png"),
+                  ),
                 ),
               ), // Pick Path Button
             ]
