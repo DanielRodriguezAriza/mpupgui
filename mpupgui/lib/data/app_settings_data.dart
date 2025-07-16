@@ -33,17 +33,17 @@ class AppSettingsData {
   static AppSettingsData getDefault() {
     AppSettingsData ans = AppSettingsData();
 
-    ans.language = Language.values.byName("english");
-    ans.theme = AppTheme.values.byName("dark");
+    ans.language = Language.english;
+    ans.theme = AppTheme.dark;
 
-    ans.pathToMagickaPup = "./data/MagickaPUP.exe";
-    ans.pathToMagickCowModManager = "./data/MagickCowModManager.exe";
+    ans.pathToMagickaPup = "data/tools/mpup/MagickaPUP.exe";
+    ans.pathToMagickCowModManager = "data/tools/mcow-mm/MagickCowModManager.exe";
 
-    ans.pathToInstalls = "./data/mm/installs";
-    ans.pathToMods = "./data/mm/mods";
-    ans.pathToProfiles = "./data/mm/profiles";
+    ans.pathToInstalls = "data/mm/installs";
+    ans.pathToMods = "data/mm/mods";
+    ans.pathToProfiles = "data/mm/profiles";
 
-    ans.pathToCache = "./data/cache";
+    ans.pathToCache = "data/cache";
 
     return ans;
   }
@@ -55,31 +55,34 @@ class AppSettingsData {
   }
 
   void readFromDict(var data) {
+    // Generate default values for failed reads
+    var defaultValues = getDefault();
+
     // Load Language
-    String languageStr = _loadValue(data, "Language", "english");
+    String languageStr = _loadValue(data, "Language", defaultValues.language.name);
     language = Language.values.byName(languageStr);
 
     // Load App Theme
-    String themeStr = _loadValue(data, "Theme", "dark");
+    String themeStr = _loadValue(data, "Theme", defaultValues.theme.name);
     theme = AppTheme.values.byName(themeStr);
 
     // Load MagickaPup Path
-    pathToMagickaPup = _loadValue(data, "MagickaPupPath", "/data/tools/mpup/MagickaPUP.exe");
+    pathToMagickaPup = _loadValue(data, "MagickaPupPath", defaultValues.pathToMagickaPup);
 
     // Load MagickCow mod manager Path
-    pathToMagickCowModManager = _loadValue(data, "MagickCowModManagerPath", "/data/tools/mcow-mm/MagickCowModManager.exe");
+    pathToMagickCowModManager = _loadValue(data, "MagickCowModManagerPath", defaultValues.pathToMagickCowModManager);
 
     // Load path to installs
-    pathToInstalls = _loadValue(data, "pathToInstalls", "./data/mm/installs");
+    pathToInstalls = _loadValue(data, "pathToInstalls", defaultValues.pathToInstalls);
 
     // Load path to mods
-    pathToMods = _loadValue(data, "pathToMods", "./data/mm/mods");
+    pathToMods = _loadValue(data, "pathToMods", defaultValues.pathToMods);
 
     // Load path to profiles
-    pathToProfiles = _loadValue(data, "pathToProfiles", "./data/mm/profiles");
+    pathToProfiles = _loadValue(data, "pathToProfiles", defaultValues.pathToProfiles);
 
     // Load path to cache
-    pathToCache = _loadValue(data, "pathToCache", "./data/cache");
+    pathToCache = _loadValue(data, "pathToCache", defaultValues.pathToCache);
   }
 
   void writeToFile(String settingsFile) {
