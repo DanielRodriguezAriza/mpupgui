@@ -336,6 +336,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
                 width: 20,
                 onPressed: () async {
                   String root = pathCurrentGet();
+                  print("The current dir is : $root");
                   String str = pathRelative(root, controller.text);
                   controller.text = str;
                   action(controller.text);
