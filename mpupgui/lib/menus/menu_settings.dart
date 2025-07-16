@@ -310,7 +310,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
     return Padding(
       padding: const EdgeInsets.all(0),
       child: MagickaPupContainer(
-        height: 40,
+        height: 60,
         level: 1,
         child: Row(
             children: [
@@ -330,37 +330,49 @@ class _SettingsMenuState extends State<SettingsMenu> {
                   },
                 ),
               ),
-              SizedBox(
-                width: 40,
-                height: 40,
-                child: MagickaPupButton(
-                  useAutoPadding: false,
-                  onPressed: () async {
-                    String root = pathCurrentGet();
-                    // print("The current dir is : $root");
-                    String str = pathRelative(root, controller.text);
-                    controller.text = str;
-                    action(controller.text);
-                  },
-                  child: const Image(
-                    image: AssetImage("assets/images/mpup_icon_path_mk_rel.png"),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: MagickaPupButton(
+                    useAutoPadding: false,
+                    onPressed: () async {
+                      String root = pathCurrentGet();
+                      // print("The current dir is : $root");
+                      String str = pathRelative(root, controller.text);
+                      controller.text = str;
+                      action(controller.text);
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.all(2),
+                      child: Image(
+                        image: AssetImage("assets/images/mpup_icon_path_mk_rel.png"),
+                      ),
+                    ),
                   ),
                 ),
               ), // Make Path Relative Button
-              SizedBox(
-                width: 40,
-                height: 40,
-                child: MagickaPupButton(
-                  useAutoPadding: false,
-                  onPressed: () async {
-                    String? str = await pick();
-                    if(str != null) {
-                      controller.text = str;
-                      action(controller.text);
-                    }
-                  },
-                  child: const Image(
-                    image: AssetImage("assets/images/mpup_icon_folder_abs.png"),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: MagickaPupButton(
+                    useAutoPadding: false,
+                    onPressed: () async {
+                      String? str = await pick();
+                      if(str != null) {
+                        controller.text = str;
+                        action(controller.text);
+                      }
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.all(2),
+                      child: Image(
+                        image: AssetImage("assets/images/mpup_icon_folder_abs.png"),
+                      ),
+                    ),
                   ),
                 ),
               ), // Pick Path Button
