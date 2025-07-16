@@ -223,3 +223,14 @@ String pathFix(String path) {
 String pathRelative(String root, String target) {
   return dart_path.relative(target, from: root);
 }
+
+String pathCurrentGet() {
+  // Directory.current is broken on some platforms, so we can use
+  // Directory(".") or Directory("") instead... weird, since according to
+  // the docs, Directory(some_relative_path) should be appended to
+  // the string given by Directory.current, but it does not appear to be
+  // the case on some platforms for some reason...
+  Directory dir = Directory("");
+  String path = dir.absolute.path;
+  return path;
+}
