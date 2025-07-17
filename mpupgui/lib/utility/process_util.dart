@@ -4,13 +4,17 @@
 
 import 'dart:io';
 
+// NOTE : This function is extremely unstable, actually it does not work on all windows versions, so better not to use it.
+// TODO : Discard this piece of shit and delete this at some point in the future...
+// if only win32 allowed us to create fucking symlinks as regular users, then none of this would be needed...
+// but it seems like Windows is the most retarded OS ever made...
 Future<Process> processStart(String executable, [List<String> arguments = const [], bool runAsAdmin = false]) async {
   runAsAdmin = Platform.isWindows ? runAsAdmin : false; // Always assume that we don't need to run as admin on any platform other than windows... yeah, dirty hack, but that's because the only thing this app needs like this is fucking symlinks and that does not require admin permissions anywhere else...
   if(runAsAdmin) {
     String exec = "powershell";
-    String args = "";
+    String args = "$executable ";
     for(var s in arguments) {
-      args += "$s ";
+      args += "\"$s\" ";
     }
     return Process.start(
       exec,
