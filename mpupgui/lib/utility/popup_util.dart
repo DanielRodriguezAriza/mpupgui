@@ -260,6 +260,7 @@ void showPopUpGeneric({
   );
 }
 
+// TODO : Rename to showPopUpOk or showPopUpSimple since I'm actually using this on success code as well LOL... Literally, all this does is offer a generic "OK" option, and that's it... nothing about this is "error" specific...
 void showPopUpError({
   required BuildContext context,
   required String title,
