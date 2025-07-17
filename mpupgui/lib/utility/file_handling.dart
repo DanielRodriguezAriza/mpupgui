@@ -210,9 +210,25 @@ String pathSeparatorFix(String path) {
 
 // lol...
 String pathFix(String path) {
-  String pathString = pathSeparatorFix(path);
-  return Directory(pathString).absolute.path;
+  String pathString = path;
+  pathString = pathSeparatorFix(pathString);
+  pathString = Directory(pathString).absolute.path;
+
+  if((Platform.isWindows && pathString.endsWith("\\")) || pathString.endsWith("/")) {
+    // Remove the last "\" or "/" separator char.
+    // This is used to make sure that when we execute subprocesses with paths that end in a separator,
+    // we don't have any issues where the backslash is interpreted as some sort of escape char.
+    // For example, mcow-mm -pi "C:\" -pm "D:\SomeOtherPath" breaks because "C:\" is interpreted as \" being a escape char,
+    // so the actual arg string read by the system is "C:\" -pm", which is not correct, thus breaking the command.
+    // This can be fixed when running in shell by either using C:\, C:, "C:\\" or "C:"
+    // Since paths with spaces require quotes, the most simple and generic solution is to just remove the extra backslash and that's it.
+    // We also remove final forward slashes since they are not necessary, but they don't have this issue.
+    // Obviously we must also ensure that platforms where "\" is a valid char for a path are not fucked with, so there, the user
+    // should be responsible for properly escaping their strings...
+    pathString = pathString.substring(0, pathString.length - 1);
+  }
   // here we can add other function calls when we need to fix other stuff about our paths...
+  return pathString;
 }
 
 // endregion
