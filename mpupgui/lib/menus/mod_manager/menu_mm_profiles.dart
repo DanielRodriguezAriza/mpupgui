@@ -2,13 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:mpupgui/data/game_profile_data.dart';
-import 'package:mpupgui/data/menu_manager.dart';
 import 'package:mpupgui/data/mod_manager.dart';
 import 'package:mpupgui/menus/mod_manager/menu_mm_generic_list_display.dart';
 import 'package:mpupgui/menus/mod_manager/profile/menu_mm_profile_entry.dart';
 import 'package:mpupgui/utility/file_handling.dart';
 import 'package:mpupgui/utility/popup_util.dart';
-import 'package:mpupgui/utility/process_util.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
@@ -285,6 +283,16 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
       process.stderr.drain();
       process.stdout.drain();
 
+      // process.stderr.transform(systemEncoding.decoder).forEach((x){msgError += x;});
+      // process.stdout.transform(utf8.decoder).forEach(print);
+
+      // This fucking shit refuses to capture the entire stderr for some reason under windows. Ofc, how the fuck now, it had to fail on windows, what a fucking surprise! best OS ever!!!
+      // final String msgError = await process.stderr.transform(systemEncoding.decoder).join();
+
+      // This on the other hand does actually fucking work, which means that I'll have to find a workaround... maybe force the underlying process to pipe error messages to stdout instead of stderr, but that's dirty as fuck, what the fuck windows?
+      // final msg = await process.stdout.transform(systemEncoding.decoder).join();
+      // print(msg);
+
       var exitCode = await process.exitCode;
 
       if(mounted) {
@@ -293,7 +301,7 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
 
       if(exitCode != 0) {
         // There was an error installing the profile
-        throw Exception("Failed to install");
+        throw Exception("Failed to install the profile" /*msgError*/);
         // TODO : Modify this so that the exception msg str is used as a
         // loc string or something like that, maybe?
       } else {
