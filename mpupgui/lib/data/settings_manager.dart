@@ -28,6 +28,7 @@ abstract final class SettingsManager {
     ThemeManager.setTheme(settingsData.theme);
     MagickaPupManager.setMagickaPupPath(settingsData.pathToMagickaPup);
     ModManager.setPathToMagickCowModManager(settingsData.pathToMagickCowModManager);
+    ModManager.setPathToMagickCowModManagerProxy(settingsData.pathToExecProxy);
     ModManager.setPathToInstalls(settingsData.pathToInstalls);
     ModManager.setPathToMods(settingsData.pathToMods);
     ModManager.setPathToProfiles(settingsData.pathToProfiles);
@@ -41,6 +42,7 @@ abstract final class SettingsManager {
     settingsData.theme = ThemeManager.getTheme();
     settingsData.pathToMagickaPup = MagickaPupManager.getMagickaPupPath();
     settingsData.pathToMagickCowModManager = ModManager.getPathToMagickCowModManager();
+    settingsData.pathToExecProxy = ModManager.getPathToMagickCowModManagerProxy();
     settingsData.pathToInstalls = ModManager.getPathToInstalls();
     settingsData.pathToMods = ModManager.getPathToMods();
     settingsData.pathToProfiles = ModManager.getPathToProfiles();
