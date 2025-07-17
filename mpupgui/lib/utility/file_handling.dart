@@ -210,7 +210,8 @@ String pathSeparatorFix(String path) {
 
 // lol...
 String pathFix(String path) {
-  return pathSeparatorFix(path);
+  String pathString = pathSeparatorFix(path);
+  return Directory(pathString).absolute.path;
   // here we can add other function calls when we need to fix other stuff about our paths...
 }
 
