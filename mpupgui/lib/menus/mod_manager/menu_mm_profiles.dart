@@ -257,6 +257,7 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
       final String pp = pathFix(ModManager.getPathToProfiles());
 
       final bool isSameDrive = isSameDriveManySync([pi, pm, pp]);
+      final bool needsAdminWin32 = !isSameDrive;
       final String fhm = isSameDrive ? "hardlink" : "symlink";
 
       String processName = pathFix(ModManager.getPathToMagickCowModManager());
@@ -275,7 +276,7 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
       print("    - pm : $pm");
       print("    - pp : $pp");
 
-      var process = await Process.start(processName, args);
+      var process = await processStart(processName, args, needsAdminWin32);
 
       process.stderr.drain();
       process.stdout.drain();

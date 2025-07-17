@@ -5,6 +5,7 @@ import 'package:mpupgui/data/language_manager.dart';
 import 'package:mpupgui/data/mpup_manager.dart';
 import 'package:mpupgui/data/theme_manager.dart';
 import 'package:mpupgui/utility/file_handling.dart';
+import 'package:mpupgui/utility/process_util.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_background.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
@@ -114,11 +115,7 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
       processData.status = MagickaPupProcessState.running;
     });
 
-    var process = await Process.start(
-      executable,
-      arguments,
-      runInShell: true,
-    );
+    var process = await processStart(executable, arguments);
 
     // Drain the pipes to prevent any issues.
     // If they fill up (specially stderr when printing a large stack trace), the subprocess will "freeze" and never notify
