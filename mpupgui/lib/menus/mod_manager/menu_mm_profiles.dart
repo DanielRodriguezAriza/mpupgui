@@ -8,6 +8,7 @@ import 'package:mpupgui/menus/mod_manager/menu_mm_generic_list_display.dart';
 import 'package:mpupgui/menus/mod_manager/profile/menu_mm_profile_entry.dart';
 import 'package:mpupgui/utility/file_handling.dart';
 import 'package:mpupgui/utility/popup_util.dart';
+import 'package:mpupgui/utility/process_util.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
@@ -290,6 +291,14 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
         throw Exception("Failed to install");
         // TODO : Modify this so that the exception msg str is used as a
         // loc string or something like that, maybe?
+      } else {
+        if(mounted) {
+          showPopUpError(
+            context: context,
+            title: "Success",
+            description: "Profile successfully installed!",
+          );
+        }
       }
 
       return true; // Report Success
