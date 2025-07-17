@@ -7,6 +7,7 @@ import 'package:mpupgui/menus/mod_manager/menu_mm_generic_list_display.dart';
 import 'package:mpupgui/menus/mod_manager/profile/menu_mm_profile_entry.dart';
 import 'package:mpupgui/utility/file_handling.dart';
 import 'package:mpupgui/utility/popup_util.dart';
+import 'package:mpupgui/utility/process_util.dart';
 import 'package:mpupgui/widgets/mpup/container/mpup_container.dart';
 import 'package:mpupgui/widgets/mpup/io/mpup_button.dart';
 import 'package:mpupgui/widgets/mpup_text.dart';
@@ -255,7 +256,7 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
       final String pp = pathFix(ModManager.getPathToProfiles());
 
       final bool isSameDrive = isSameDriveManySync([pi, pm, pp]);
-      // final bool needsAdminWin32 = !isSameDrive;
+      final bool needsAdmin = !isSameDrive && Platform.isWindows;
       final String fhm = isSameDrive ? "hardlink" : "symlink";
 
       String processName = pathFix(ModManager.getPathToMagickCowModManager());
@@ -274,10 +275,10 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
       print("    - pm : $pm");
       print("    - pp : $pp");
 
-      var process = await Process.start(
+      var process = await processStart(
         processName,
         args,
-        runInShell: true
+        needsAdmin,
       );
 
       process.stderr.drain();
