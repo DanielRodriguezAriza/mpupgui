@@ -33,6 +33,8 @@ class _SettingsMenuState extends State<SettingsMenu> {
 
   final TextEditingController textControllerMagickaPup = TextEditingController();
   final TextEditingController textControllerMagickCowMM = TextEditingController();
+  final TextEditingController textControllerExecProxy = TextEditingController();
+
   final TextEditingController textControllerInstalls = TextEditingController();
   final TextEditingController textControllerMods = TextEditingController();
   final TextEditingController textControllerProfiles = TextEditingController();
@@ -51,6 +53,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
     SettingsManager.loadSettings();
     textControllerMagickaPup.text = MagickaPupManager.getMagickaPupPath();
     textControllerMagickCowMM.text = ModManager.getPathToMagickCowModManager();
+    textControllerExecProxy.text = ModManager.getPathToMagickCowModManagerProxy();
     textControllerInstalls.text = ModManager.getPathToInstalls();
     textControllerMods.text = ModManager.getPathToMods();
     textControllerProfiles.text = ModManager.getPathToProfiles();
@@ -299,6 +302,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
       children: [
         getPathWidget("Magicka PUP", setPathMagickaPup, _settingsPickFileExecutable, textControllerMagickaPup),
         getPathWidget("MagickCow MM", setPathMagickCowMM, _settingsPickFileExecutable, textControllerMagickCowMM),
+        getPathWidget("Exec Proxy", setPathExecProxy, _settingsPickFileExecutable, textControllerExecProxy),
         getPathWidget("Installs", setPathInstalls, _settingsPickDir, textControllerInstalls),
         getPathWidget("Mods", setPathMods, _settingsPickDir, textControllerMods),
         getPathWidget("Profiles", setPathProfiles, _settingsPickDir, textControllerProfiles),
@@ -399,6 +403,13 @@ class _SettingsMenuState extends State<SettingsMenu> {
   void setPathMagickCowMM(String path) {
     setState(() {
       ModManager.setPathToMagickCowModManager(path);
+      SettingsManager.saveSettings();
+    });
+  }
+
+  void setPathExecProxy(String path) {
+    setState(() {
+      ModManager.setPathToMagickCowModManagerProxy(path);
       SettingsManager.saveSettings();
     });
   }
