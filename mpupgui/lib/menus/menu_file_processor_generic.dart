@@ -115,7 +115,11 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
       processData.status = MagickaPupProcessState.running;
     });
 
-    var process = await processStart(executable, arguments);
+    var process = await Process.start(
+      executable,
+      arguments,
+      runInShell: true,
+    );
 
     // Drain the pipes to prevent any issues.
     // If they fill up (specially stderr when printing a large stack trace), the subprocess will "freeze" and never notify
