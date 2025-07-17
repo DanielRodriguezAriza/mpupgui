@@ -251,9 +251,9 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
         canDismiss: false,
       );
 
-      final String pi = ModManager.getPathToInstalls();
-      final String pm = ModManager.getPathToMods();
-      final String pp = ModManager.getPathToProfiles();
+      final String pi = pathFix(ModManager.getPathToInstalls());
+      final String pm = pathFix(ModManager.getPathToMods());
+      final String pp = pathFix(ModManager.getPathToProfiles());
 
       final bool isSameDrive = isSameDriveManySync([pi, pm, pp]);
       final String fhm = isSameDrive ? "hardlink" : "symlink";
@@ -266,6 +266,13 @@ class _ModManagerMenuProfilesState extends State<ModManagerMenuProfiles> {
         "-fhm", fhm,
         "-a", dirName,
       ];
+
+      // NOTE : Some debug logging stuff, remove this in the future.
+      print("Running mcow-mm with these paths:");
+      print("    - mcow-mm : $processName");
+      print("    - pi : $pi");
+      print("    - pm : $pm");
+      print("    - pp : $pp");
 
       var process = await Process.start(processName, args);
 

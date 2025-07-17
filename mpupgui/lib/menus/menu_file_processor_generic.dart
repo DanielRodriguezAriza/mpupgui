@@ -96,7 +96,7 @@ class _MagickaPupFileProcessorMenuGenericState extends State<MagickaPupFileProce
 
   void runProcess(MagickaPupProcessData processData) async {
 
-    String executable = pathFix(MagickaPupManager.currentMagickaPupPath); // Path separators fixed to prevent issues when executing from relative paths.
+    String executable = pathFix(MagickaPupManager.getMagickaPupPath()); // Path separators fixed to prevent issues when executing from relative paths.
 
     String opStr = widget.executionArgument;
     String inputPath = processData.path;
