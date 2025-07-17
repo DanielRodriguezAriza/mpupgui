@@ -7,13 +7,21 @@ import 'package:mpupgui/utility/file_handling.dart';
 
 class AppSettingsData {
 
+  // App Config
   late Language language;
   late AppTheme theme;
+
+  // Tools
   late String pathToMagickaPup;
   late String pathToMagickCowModManager;
+  late String pathToExecProxy;
+
+  // Mod Manager
   late String pathToInstalls;
   late String pathToMods;
   late String pathToProfiles;
+
+  // Other
   late String pathToCache;
 
   T? _loadValueRaw<T>(var dict, String path) {
@@ -38,6 +46,7 @@ class AppSettingsData {
 
     ans.pathToMagickaPup = "data/tools/mpup/MagickaPUP.exe";
     ans.pathToMagickCowModManager = "data/tools/mcow-mm/MagickCowModManager.exe";
+    ans.pathToExecProxy = "data/tools/execp/ExecProxy.exe";
 
     ans.pathToInstalls = "data/mm/installs";
     ans.pathToMods = "data/mm/mods";
@@ -72,6 +81,9 @@ class AppSettingsData {
     // Load MagickCow mod manager Path
     pathToMagickCowModManager = _loadValue(data, "MagickCowModManagerPath", defaultValues.pathToMagickCowModManager);
 
+    // Load ExecProxy Path
+    pathToExecProxy = _loadValue(data, "ExecProxyPath", defaultValues.pathToExecProxy);
+
     // Load path to installs
     pathToInstalls = _loadValue(data, "pathToInstalls", defaultValues.pathToInstalls);
 
@@ -91,6 +103,7 @@ class AppSettingsData {
       "Theme" : theme.name,
       "MagickaPupPath" : pathToMagickaPup,
       "MagickCowModManagerPath" : pathToMagickCowModManager,
+      "ExecProxyPath" : pathToExecProxy,
       "pathToInstalls" : pathToInstalls,
       "pathToMods" : pathToMods,
       "pathToProfiles" : pathToProfiles,
