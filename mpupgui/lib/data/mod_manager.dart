@@ -9,6 +9,7 @@ abstract final class ModManager {
   static late String pathToMods;
   static late String pathToProfiles;
   static late String pathToMagickCowModManager;
+  static late String pathToMagickCowModManagerProxy;
 
   static void setPathToInstalls(String path) {
     pathToInstalls = path;
@@ -40,6 +41,14 @@ abstract final class ModManager {
 
   static String getPathToMagickCowModManager() {
     return pathToMagickCowModManager;
+  }
+
+  static void setPathToMagickCowModManagerProxy(String path) {
+    pathToMagickCowModManagerProxy = path;
+  }
+
+  static String getPathToMagickCowModManagerProxy() {
+    return pathToMagickCowModManagerProxy;
   }
 
   // endregion
